@@ -1,4 +1,4 @@
-public class TestTest extends junit.framework.TestCase
+public class testTest extends junit.framework.TestCase
 {
 	public void testNothing() {
     }
