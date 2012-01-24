@@ -1,0 +1,51 @@
+Main Functionality
+- Assign a patient to a room
+- When assigning, gender has to be the same
+- Enter patient information, whether they are arriving or leaving
+- Nurse Information
+- View waiting list/modify
+- Waiting list with priority queue
+- Each ward has their own waiting list
+- Encrypt patient information
+- Patient search
+
+Entities
+
+Nurses:
+- can see which patients are in which bed
+- Assigned to ward by the system
+- Specialty (ward)
+- scheduler(?)
+
+Patients:
+- Name
+- Room number/bed number
+- Condition
+- Treatment
+- Waiting List position - priority queue
+- Gender
+
+Admins:
+- We need an admin who can access the system and schedules
+
+Ward:
+- Rooms
+- Patients
+- Nurses
+- Head nurse/admin
+
+Beds:
+- State (occupied or not)
+- Size (child/adult)
+
+Doctors:
+empty... not sure if they wanted it
+
+Types of Wards:
+- emergency
+- maternity
+- pediatrics
+- psychiatric
+- geriatrics
+- oncology
+- detoxification
