@@ -1,3 +1,4 @@
+### Java ###
 *.class
 
 # Package Files #
@@ -5,4 +6,79 @@
 *.war
 *.ear
 
+### IDEA ###
+*.iml
+*.ipr
+*.iws
 .idea/
+
+### Mac ###
+.DS_Store
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+### Eclipse ###
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+### Windows ###
+# Windows image file caches
+Thumbs.db 
+
+# Folder config file
+Desktop.ini
+
+### Sublime ###
+# SublimeText project files
+/*.sublime-project
+
+### Linux ###
+.*
+!.gitignore
+*~
+
+# KDE
+.directory
+
+### Netbeans ###
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+### Textmate ###
+*.tmproj
+*.tmproject
+tmtags
