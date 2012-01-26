@@ -1,0 +1,7 @@
+Critical Success Factors:
+
+1. Stability/Reliability (a hospital management system should never crash)
+2. Simplicity/Usability (It is unlikely that the nurses using the system have much knowledge of computers)
+3. Extensibility (New wards may be added, perhaps doctors will want to use system as well, etc)
+4. Security (Important, private information about patients is stored, no one but the nurses should be able to see it)
+5. Scalability (Hospitals can have a very large and varied set of patients in any given ward)
