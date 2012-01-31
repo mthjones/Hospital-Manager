@@ -1,0 +1,10 @@
+Main Features:
+	- Assigning patients to rooms 			– high priority
+	- Keep track of patient information 	– high priority
+	- Keep track of bed/room availability 	– high priority
+	- Keep track of nurse information 		– medium priority
+	- Have a waiting list for rooms, 
+		priority queue, which can be edited – medium priority
+	- Encrypted patient information 		– medium priority
+	- Patient search 						– medium priority
+	- Nurse scheduler 						– low priority
