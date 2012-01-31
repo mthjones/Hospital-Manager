@@ -1,12 +1,8 @@
 Vision Statement
 ================
+
+HMS Essentials Edition is a custom-made application that must be reliable and usable. It will be used for business and decision purposes for managing the hospital. The system should provide a waiting list of patients that require various treatments. Those patients must be allocated to available beds, and notifications must be sent to patients when beds are assigned to them. Also, nurses must be managed in the system. Each ward has limited number of nurses that depends on ward sizes, type of nursing required and operating schedules. The main need is to get reliable and efficient methods for managing patients and nurses at the hospital. This system must provide useful, usable and cost-effective tools for managing beds, patients and nurses at the hospital. Certain flexibility must be available as well to cover hospital administration that involves patients and nurses.
+
 Our main goals are to complete the project successfully and meet the needs of hospital administration staff.  The problem that they are experiencing is in management of beds, patients and nurses in efficient and reliable manner. In order to gain understanding of the domain, we are gathering, analyzing, discussing, and prioritizing the requirements. 
+
 The success of the project depends on us working as a team and completing certain tasks independently. After the first pass through requirements is complete, we will design solutions and analyze the benefits and risks associated with each solution. Software engineering methods that are commonly used in industry would serve as a reference material for developing an effective solution. Since the team is fairly large and everyone has a significant course load, project management takes place where we delegate responsibilities and tasks to team members in a fair manner. Delegations are made in advance in order to provide each over with the feedback, to meet our quality standards and deadlines. Various tools and technologies are used in the requirements gathering and development process. The tools must be reliable and suit the purpose accelerating the development process and assist with completing tasks successfully.
-
-Information on Target Customers
-===============================
-HMS Essentials Edition is a custom-made application that must be reliable and usable. It will be used for business and decision purposes for managing the hospital. The system should provide a waiting list of patients that require various treatments. Those patients must be allocated to available beds, and notifications must be sent to patients when beds are assigned to them. Also, nurses must be managed in the system. Each ward has limited number of nurses that depends on ward sizes, type of nursing required and operating schedules. This system must provide usable and cost-effective tools for managing beds, patients and nurses at the hospital.
-
-Customers Needs
-===============
-The main need is to get reliable and efficient methods for managing patients and nurses at the hospital. It must be useful, usable and provide certain flexibility to cover hospital administration that involves patients and nurses.
