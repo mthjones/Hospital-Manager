@@ -3,5 +3,6 @@ Hospital Management System
 
 Useful links
 ------------
+* [Teamcity server](http://tomdabom.no-ip.biz:9992/)
 * [Coding style guide](http://source.android.com/source/code-style.html) (from Android)
 * [Git cheat sheet](http://help.github.com/git-cheat-sheets/)
