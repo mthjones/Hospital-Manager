@@ -1,0 +1,16 @@
+Requirements	
+* Track customers		
+* Track routing		
+* Track orders		
+* Assign salesman to customers based on locations
+* Add/edit/delete customers	
+* Rank customers based on the number of placed order and occupation (e.g. student, CEO)
+* Report stats of salesman	
+* Authentication		
+* User Roles (managers and salesman)
+* Place/cancel/change orders	
+* Payments can be made only by credit/debit card or check
+* Prompt salesman to complete questionnaire after placing an order
+* Record orders' date, due amount, difficulty
+* Record payment's information	
+* Record customers' contact information (email, phone numbers, type of client (e.g. commercial or private))
