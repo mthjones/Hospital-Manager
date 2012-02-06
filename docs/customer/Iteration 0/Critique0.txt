@@ -1,0 +1,9 @@
+- Somewhat informal writing.
+- It was not a requirement for it to scale to be larger than calgary.
+- Is performance really a critical success factor? Not sure it is necessary. 
+- Release Planning was very good, it had excellent specifics.
+- I discussed a specific release plan with their group, but it seems they are not following it... is this okay?
+- We never had a requirement for it to run from a smart phone
+- Mentioning of testing on multiple web browsers is good.
+- Reasoning for choosing C# was good.
+- References were well organized and complete
