@@ -1,0 +1,5 @@
+﻿System requirements:
+
+Any desktop OS with Sun® Microsystems Java™
+Network connection
+Server with MySQL (for hosting database)

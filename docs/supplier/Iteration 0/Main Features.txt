@@ -1,10 +1,47 @@
 Main Features:
-	- Assigning patients to rooms 			– high priority
-	- Keep track of patient information 	– high priority
-	- Keep track of bed/room availability 	– high priority
-	- Keep track of nurse information 		– medium priority
-	- Have a waiting list for rooms, 
-		priority queue, which can be edited – medium priority
-	- Encrypted patient information 		– medium priority
-	- Patient search 						– medium priority
-	- Nurse scheduler 						– low priority
+
+Priority 1:
+
+1.1: Assigning patients to rooms:
+	This feature allows nurses or administrators to assign patients to specific rooms. 
+1.2: Tracking Patient Information:
+	This feature allows administrators to enter, edit, and view information about patients.
+1.3: Tracking Bed/Room availability:
+	This feature keeps track of which beds and rooms are currently available, and which are currently occupied.
+1.4: Assigning Nurses to Wards:
+	This feature allows administrators to assign nurses to wards.
+1.5: Encrypting of Patient Information:
+	Patient information will be encrypted for security.
+
+Priority 2:
+
+2.1: Tracking Nurse Information:
+	Doctors and head nurses can enter, edit nurses' information.
+
+Priority 3:
+
+3.1: Placing Patients in a Priority Queue:
+	Patients will be placed in a priority queue to order them by the severity of their illness or injury.
+
+Priority 4:
+
+4.1: Searching for Patients:
+	Nurses and Doctors can search for information about a specific patient.
+
+Priority 5:
+
+5.1: Scheduling Nurses:
+	Administrators can create schedules to assign nurses to shifts.
+
+
+Tentative Release Plan:
+
+Iteration 1:
+	Will include features 1.1-1.3, but first the underlying architecture will be created. 
+
+Iteration 2:
+	Will include features 1.4, 2.1 and 3.1.
+
+Iteration 3:
+	Will include features 1.5, 4.1 and 5.1
+
