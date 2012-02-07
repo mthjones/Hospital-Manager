@@ -1,6 +1,5 @@
 Critique
 ========
-
 Vision Statement
 ----------------
 * There should be a large focus on the customer and order tracking, not just the routing.
@@ -60,3 +59,14 @@ Tentative Release Plan
 Operational Requirements
 ------------------------
 * Did not request to have application run on smartphones.
+
+---
+
+Overall
+=======
+* Great layout and organization
+* The language in the document seems almost intentionally obfuscated; keeping it simple would be preferred
+* Good justifications
+* Seems to be some confusion on what the whole sales and orders idea is
+* We would prefer to some sort of functional demo in the first iteration, even if it doesn't have all of the functionality.
+* Seems to stray a bit from our requests, primarily in the scalability section and the release plan.
