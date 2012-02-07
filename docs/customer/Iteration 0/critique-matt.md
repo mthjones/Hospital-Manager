@@ -1,5 +1,6 @@
 Critique
 ========
+
 Vision Statement
 ----------------
 * There should be a large focus on the customer and order tracking, not just the routing.
