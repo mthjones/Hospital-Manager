@@ -39,7 +39,7 @@ Tentative Release Plan
 
 **Iteration 1**
 
-* What if additional functionality is requested later in development? The GUI will need the change again.
+* What if additional functionality is requested later in development? The GUI will need to change again.
 * Drop down list of customers could become unwieldy with many customers. Perhaps some sort of searching functionality?
 * Salesmen should have access to the "placing an order" form. Should be combined with the salesman form (the "completion of sale" one).
 * Why assign orders to salespeople? Orders will likely be going out via delivery company. (confusing)
@@ -60,4 +60,3 @@ Tentative Release Plan
 Operational Requirements
 ------------------------
 * Did not request to have application run on smartphones.
-* What system will be required to run this? What if we have Macs and Linux machines we want to run the application on?
