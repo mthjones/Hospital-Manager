@@ -7,3 +7,8 @@
 - Mentioning of testing on multiple web browsers is good.
 - Reasoning for choosing C# was good.
 - References were well organized and complete
+- 
+- Report was organized very well. 
+- I dont agree with the idea to make the GUI first - i think the logical component should be worked on first
+- It seems like some of the language was put in to make the document sound more professional, buit it seems to distract more than describe. 
+- That is all i have to say
