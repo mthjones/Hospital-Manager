@@ -14,17 +14,19 @@ Entities
 
 * Name
 * Size
-* Nursing Type
 
 **Nurse**
 
 * Name
-* Type
 * Phone Number
 
 **Room**
 
 * Number
+
+**Nurse Type**
+
+* Name
 
 Relationships
 =============
@@ -32,3 +34,5 @@ Relationships
 * Bed (n)-< Belongs To >-(1) Room
 * Room (n)-< Belongs To >-(1) Ward
 * Nurse (n)-< Assigned To >-(1) Ward
+* Nurse (n)-< Has A >-(1) Nurse Type
+* Ward (n)-< Has A >-(1) Nurse Type
