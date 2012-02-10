@@ -24,6 +24,7 @@ DROP TABLE IF EXISTS nurse;
 CREATE TABLE nurse (
 	name			text				not null,
 	phone_number	text				not null,
+	is_head			boolean				not null,
 	
 	FOREIGN KEY (ward_id) REFERENCES nurse(id),
 	FOREIGN KEY (nurse_type) REFERENCES nurse_type(type)
