@@ -3,8 +3,7 @@ Entities
 **Patient**
 
 * Name
-* Gender
-* Treatment
+* Ge
 
 **Bed**
 
