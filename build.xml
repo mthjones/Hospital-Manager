@@ -1,39 +1,3 @@
 <project>
-
-    <target name="clean">
-        <delete dir="build"/>
-    </target>
-
-    <target name="compile">
-        <mkdir dir="build/classes"/>
-        <javac srcdir="src" destdir="build/classes" debug="true" />
-    </target>
-
-    <target name="jar">
-        <mkdir dir="build/jar"/>
-        <jar destfile="build/jar/Test.jar" basedir="build/classes">
-            <manifest>
-                <attribute name="Main-Class" value="Test"/>
-            </manifest>
-        </jar>
-    </target>
-
-    <target name="run">
-        <java jar="build/jar/Test.jar" fork="true"/>
-    </target>
     
-    <target name="junit" depends="jar">
-        <junit printsummary="yes">
-            <classpath>
-                <path refid="classpath"/>
-            </classpath>
-            
-            <batchtest fork="yes">
-                <fileset dir="src" includes="**/*Test.class"/>
-            </batchtest>
-        </junit>
-        
-        <fail message="test failed" if="junit.failure" />
-    </target>
-
 </project>
