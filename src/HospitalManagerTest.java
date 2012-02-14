@@ -1,4 +1,6 @@
-public class testTest extends junit.framework.TestCase
+package hms;
+
+public class HospitalManagerTest extends junit.framework.TestCase
 {
 	public void testNothing() {
     }
