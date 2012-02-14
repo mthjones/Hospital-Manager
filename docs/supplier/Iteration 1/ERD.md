@@ -8,7 +8,7 @@ Entities
 
 **Bed**
 
-* State
+* 
 	
 **Ward**
 
