@@ -5,6 +5,7 @@
     <property name="jar.dir" value="${build.dir}/jar" />
     <property name="main-class" value="hms.HospitalManager" />
     <property name="lib.dir" value="lib" />
+    <property name="test.dir" value="test" />
     
     <path id="classpath">
         <fileset dir="${lib.dir}" includes="**/*.jar" />
@@ -18,7 +19,8 @@
     
     <target name="compile">
         <mkdir dir="${classes.dir}" />
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" />
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath" includeantruntime="false" />
+        <javac srcdir="${test.dir}" destdir="${classes.dir}" classpathref="classpath" includeantruntime="false" />
         <copy todir="${classes.dir}">
             <fileset dir="${src.dir}" excludes="**/*.java" />
         </copy>
@@ -37,6 +39,7 @@
         <java fork="true" classname="${main-class}">
             <classpath>
                 <path refid="classpath" />
+                <path refid="application" />
             </classpath>
         </java>
     </target>
@@ -49,8 +52,10 @@
             </classpath>
             
             <batchtest fork="yes">
-                <fileset dir="${src.dir}" includes="*Test.java" />
+                <fileset dir="${test.dir}" includes="**/*Test.java" />
             </batchtest>
+            
+            <formatter type="brief" usefile="false" />
         </junit>
     </target>
     
