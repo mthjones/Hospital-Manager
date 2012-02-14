@@ -1,3 +1,5 @@
+package hms;
+
 class HospitalManager
 {
 	public static void main(String[] args) {

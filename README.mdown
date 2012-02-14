@@ -1,6 +1,10 @@
 Hospital Management System
 ==========================
 
+Description
+-----------
+A system to manage a hospital. There will be a waiting list of patients needing different treatment e.g. surgical, medical. The bedstate should be determined and if beds are available, the next appropriate patients on the list notified. Nurses should be allocated to wards depending on ward sizes, what type of nursing is needed, operating schedules etc.
+
 Useful links
 ------------
 * [Teamcity server](http://tomdabom.no-ip.biz:9992/)

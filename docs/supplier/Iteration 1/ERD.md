@@ -3,12 +3,11 @@ Entities
 **Patient**
 
 * Name
-* Gender
-* Treatment
+* Ge
 
 **Bed**
 
-* State
+* 
 	
 **Ward**
 
@@ -19,6 +18,7 @@ Entities
 
 * Name
 * Phone Number
+* Head Nurse?
 
 **Room**
 
@@ -30,9 +30,9 @@ Entities
 
 Relationships
 =============
-* Patient (0..1)-< Occupies >-(0..1) Bed
-* Bed (n)-< Belongs To >-(1) Room
-* Room (n)-< Belongs To >-(1) Ward
-* Nurse (n)-< Assigned To >-(1) Ward
-* Nurse (n)-< Has A >-(1) Nurse Type
-* Ward (n)-< Has A >-(1) Nurse Type
+	Patient (1)-<    Occupies	>-(1) Bed
+	Bed 	(n)-<   Belongs To 	>-(1) Room
+	Room 	(n)-<   Belongs To 	>-(1) Ward
+	Nurse 	(n)-<  Assigned To 	>-(1) Ward
+	Nurse 	(n)-< 	  Has A		>-(1) Nurse Type
+	Ward 	(n)-< 	  Has A		>-(1) Nurse Type
