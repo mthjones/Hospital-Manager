@@ -1,4 +1,3 @@
-package hms;
 
 import HMSViews.LoginView;
 
