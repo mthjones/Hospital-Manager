@@ -1,3 +1,5 @@
+package HMSCommands;
+
 public class ShowPatientDetailsCommand
 {
 	public ShowPatientDetailsCommand()
