@@ -4,8 +4,8 @@ public class CreatePatientCommand
 	{
 	}
 	
-	public run(Patient patient)
-	{
-	}
+//	public run(Patient patient)
+//	{
+//	}
 
 }

@@ -1,11 +1,11 @@
-public EditPatientCommand
+public class EditPatientCommand
 {
 	public EditPatientCommand()
 	{
 	}
 	
-	public run(Patient patient)
-	{
-	}
+//	public run(Patient patient)
+//	{
+//	}
 
 }

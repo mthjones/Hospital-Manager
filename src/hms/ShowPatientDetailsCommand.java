@@ -1,11 +1,11 @@
-public ShowPatientDetailsCommand
+public class ShowPatientDetailsCommand
 {
 	public ShowPatientDetailsCommand()
 	{
 	}
 	
-	public run(int healthcareNumber)
-	{
-	}
+//	public run(int healthcareNumber)
+//	{
+//	}
 
 }
