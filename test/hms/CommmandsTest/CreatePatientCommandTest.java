@@ -39,9 +39,9 @@ public class CreatePatientCommandTest {
 		assertNotNull(cpc);
 	}
 	
-	@Test
+	/*@Test
 	public void testRun() {
 		cpc.run();
-	}
+	}*/
 
 }
