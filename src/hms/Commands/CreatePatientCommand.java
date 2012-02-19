@@ -1,4 +1,4 @@
-package hms.Commands;
+package src.hms.Commands;
 
 public class CreatePatientCommand
 {
@@ -23,8 +23,6 @@ public class CreatePatientCommand
 	 */
 	public boolean run()
 	{	
-		//connect to db
-		
 		//Generate query
 		
 		//Send query to db
@@ -32,6 +30,27 @@ public class CreatePatientCommand
 		//Receive result of query from db
 		
 		return true;
+	}
+	
+	/*
+	 * Generates the query to be sent to the database. 
+	 * Uses the private patient object to get the data to build the query.
+	 * 
+	 * @return The {@link java.lang.String} of the query.
+	 */
+	private String generateQuery()
+	{
+		
+	}
+	
+	private boolean sendQuery()
+	{
+		
+	}
+	
+	private String getResult()
+	{
+		
 	}
 
 }
