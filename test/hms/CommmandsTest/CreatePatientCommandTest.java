@@ -1,4 +1,4 @@
-package CommmandsTest;
+package hms.CommmandsTest;
 
 import static org.junit.Assert.*;
 
@@ -28,7 +28,7 @@ public class CreatePatientCommandTest {
 
 	@Test
 	public void testCreatePatientCommand() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test
