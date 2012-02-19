@@ -1,4 +1,4 @@
-package HMSCommands;
+package hms.HMSCommands;
 
 public class EditPatientCommand
 {
