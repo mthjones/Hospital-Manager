@@ -1,4 +1,4 @@
-package test.hms.CommmandsTest;
+package hms.CommmandsTest;
 
 import static org.junit.Assert.*;
 import hms.Commands.CreatePatientCommand;
