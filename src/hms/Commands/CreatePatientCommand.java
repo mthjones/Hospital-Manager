@@ -38,7 +38,7 @@ public class CreatePatientCommand
 	 * 
 	 * @return The {@link java.lang.String} of the query.
 	 */
-	private String generateQuery()
+	/*private String generateQuery()
 	{
 		
 	}
@@ -51,6 +51,6 @@ public class CreatePatientCommand
 	private String getResult()
 	{
 		
-	}
+	}*/
 
 }
