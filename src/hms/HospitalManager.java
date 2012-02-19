@@ -1,8 +1,14 @@
 package hms;
+import HMSViews.LoginView;
 
 class HospitalManager
 {
 	public static void main(String[] args) {
-		System.out.println("Hello world");
+		try {
+	 		LoginView loginView = new LoginView();
+	 		loginView.open();
+	 	} catch (Exception e) {
+	 		e.printStackTrace();
+	 	}
 	}
 }
