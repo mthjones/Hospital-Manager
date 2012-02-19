@@ -1,7 +1,7 @@
-package hms.CommmandsTest;
+package test.hms.CommmandsTest;
 
 import static org.junit.Assert.*;
-import hms.HMSCommands.CreatePatientCommand;
+import hms.Commands.CreatePatientCommand;
 
 import org.junit.After;
 import org.junit.AfterClass;
