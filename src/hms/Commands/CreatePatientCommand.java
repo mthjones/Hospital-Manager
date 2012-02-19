@@ -1,5 +1,7 @@
 package hms.Commands;
 
+import java.sql.ResultSet;
+
 public class CreatePatientCommand
 {
 	//private Patient patient;
@@ -38,19 +40,20 @@ public class CreatePatientCommand
 	 * 
 	 * @return The {@link java.lang.String} of the query.
 	 */
-	/*private String generateQuery()
+	private String generateQuery()
 	{
 		
+		return "";
 	}
 	
-	private boolean sendQuery()
+	/*
+	 * Sends the query to the db.
+	 * 
+	 * @return The result of the query in a {@link java.sql.ResultSet} object.
+	 */
+	private ResultSet executeQuery()
 	{
-		
+		return null;
 	}
-	
-	private String getResult()
-	{
-		
-	}*/
 
 }
