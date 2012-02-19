@@ -1,10 +1,23 @@
 DROP TABLE IF EXISTS patient;
 CREATE TABLE patient (
 	id				integer				primary key,
-	name			text				not null,
-	gender			char				not null,
-	treatment		text				not null
+	healthcare_id	integer,
+	gender			char,
+	treatment		text				not null,
+	birthdate		date,
+	
+	FOREIGN KEY (contact_info) REFERENCES contact(id),
+	FOREIGN KEY (emergency_contact) REFERENCES contact(id)
 );
+
+DROP TABLE IF EXISTS contact;
+CREATE TABLE contact_information (
+	id 				integer, 			primary key,
+	name			text,
+	phone_number	text,
+	address			text,
+	email			text,
+)
 
 DROP TABLE IF EXISTS bed;
 CREATE TABLE bed (
