@@ -1,3 +1,5 @@
+package hms;
+
 import hms.Views.LoginView;
 
 class HospitalManager
