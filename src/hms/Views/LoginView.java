@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class LoginView {
 
@@ -18,6 +19,7 @@ public class LoginView {
 	private JTextField textFieldUsername;
 	private JTextField textFieldPassword;
 	private LoginManager loginManager;
+	private JLabel lblPassword;
 	
 	/**
 	 * Create the application.
@@ -39,8 +41,6 @@ public class LoginView {
 		
 		JLabel lblNewLabel = new JLabel("Username");
 		
-		JLabel lblPassword = new JLabel("Password");
-		
 		textFieldUsername = new JTextField();
 		textFieldUsername.setColumns(10);
 		
@@ -54,6 +54,8 @@ public class LoginView {
 				loginManager.Login(jFrame);
 			}
 		});
+		
+		lblPassword = new JLabel("Password");
 		GroupLayout groupLayout = new GroupLayout(frmLogin.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -64,14 +66,14 @@ public class LoginView {
 							.addComponent(btnLogin))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(81)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblNewLabel)
-								.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(textFieldPassword, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE)
 								.addComponent(textFieldUsername, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(137, Short.MAX_VALUE))
+					.addContainerGap(117, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
