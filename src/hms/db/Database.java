@@ -3,6 +3,8 @@ package hms.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Properties;
 import java.io.IOException;
 
@@ -43,6 +45,20 @@ public class Database {
 		System.out.println("Releasing database resources...");
 		this.connection.close();
 		this.connection = null;
+	}
+	
+	/**
+	 * Sends the query to the db, and receives the result of the query from the db.
+	 * 
+	 * @param {@link String} that represents the query to be made to the db.
+	 * @return {@link ResultSet} containing the results of the query
+	 * @throws SQLException
+	 */
+	public ResultSet executeQuery(String query) throws SQLException{
+		Statement statement = connection.createStatement();
+		ResultSet results = statement.executeQuery(query);
+		
+		return results;
 	}
 	
 	/**
