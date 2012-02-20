@@ -1,12 +1,12 @@
 package hms.Commands;
 
-import java.sql.ResultSet;
+import java.sql.*;
 
 public class CreatePatientCommand
 {
 	//private Patient patient;
 	
-	/*
+	/**
 	 * Creates new object of CreatePatientCommand
 	 * 
 	 * @param {@link Patient} p : the object that store the information about the patient being created
@@ -17,7 +17,7 @@ public class CreatePatientCommand
 		patient = p;
 	}*/
 	
-	/*
+	/**
 	 * Runs the CreatePatientCommand, adding the patient to the database
 	 * 
 	 * @return The result of the creation.
@@ -34,7 +34,7 @@ public class CreatePatientCommand
 		return true;
 	}
 	
-	/*
+	/**
 	 * Generates the query to be sent to the database. 
 	 * Uses the private patient object to get the data to build the query.
 	 * 
@@ -42,11 +42,10 @@ public class CreatePatientCommand
 	 */
 	private String generateQuery()
 	{
-		
 		return "";
 	}
 	
-	/*
+	/**
 	 * Sends the query to the db.
 	 * 
 	 * @return The result of the query in a {@link java.sql.ResultSet} object.
