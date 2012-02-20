@@ -1,3 +1,5 @@
+//package hms;
+
 import hms.Views.LoginView;
 
 class HospitalManager
@@ -5,7 +7,7 @@ class HospitalManager
 	public static void main(String[] args) {
 		try {
 	 		LoginView loginView = new LoginView();
-			loginView.frame.setVisible(true);
+			loginView.frmLogin.setVisible(true);
 	 	} catch (Exception e) {
 	 		e.printStackTrace();
 	 	}

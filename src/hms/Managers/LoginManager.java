@@ -1,12 +1,14 @@
 package hms.Managers;
 
+import hms.Views.MainPageView;
+
 import javax.swing.JFrame;
 
 public class LoginManager {
-	public void Login(JFrame jFrame)
+	public void Login(JFrame loginFrame)
 	{
-		jFrame.dispose();
-		//MainPageView mainPageView = new MainPageView();
-		//mainPageView.open();
+		loginFrame.dispose();
+		MainPageView mainPageView = new MainPageView();
+		mainPageView.frmMainPage.setVisible(true);
 	}
 }

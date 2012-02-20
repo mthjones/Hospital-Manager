@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 
 public class LoginView {
 
-	public JFrame frame;
+	public JFrame frmLogin;
 	private JTextField textFieldUsername;
 	private JTextField textFieldPassword;
 	private LoginManager loginManager;
@@ -32,9 +32,10 @@ public class LoginView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmLogin = new JFrame();
+		frmLogin.setTitle("Login");
+		frmLogin.setBounds(100, 100, 450, 300);
+		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblNewLabel = new JLabel("Username");
 		
@@ -49,11 +50,11 @@ public class LoginView {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				JFrame jFrame = frame;
+				JFrame jFrame = frmLogin;
 				loginManager.Login(jFrame);
 			}
 		});
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(frmLogin.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
@@ -87,6 +88,6 @@ public class LoginView {
 					.addComponent(btnLogin)
 					.addContainerGap(93, Short.MAX_VALUE))
 		);
-		frame.getContentPane().setLayout(groupLayout);
+		frmLogin.getContentPane().setLayout(groupLayout);
 	}
 }
