@@ -39,7 +39,7 @@ public class Database {
 	/**
 	 * Closes the database connection. This should be called when the application is quit.
 	 */
-	public void closeConnection() {
+	public void closeConnection() throws SQLException {
 		System.out.println("Releasing database resources...");
 		this.connection.close();
 		this.connection = null;
