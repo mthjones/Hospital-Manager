@@ -83,14 +83,23 @@ public class MainPageView {
 		});
 		
 		JLabel lblPatients = new JLabel("Patients");
+		
+		JButton btnRefresh = new JButton("Refresh");
+		
+		JButton btnCreatePatient = new JButton("Create Patient");
+		btnCreatePatient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				patientManager.CreatePatient();
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(frmMainPage.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(tablePatients, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1350, Short.MAX_VALUE)
-						.addComponent(separator, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1350, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(tablePatients, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1350, Short.MAX_VALUE)
+						.addComponent(separator, GroupLayout.DEFAULT_SIZE, 1350, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblNewLabel)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -99,8 +108,13 @@ public class MainPageView {
 							.addComponent(lblAssignedTo, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblWardNumber))
-						.addComponent(btnEditPatient, Alignment.TRAILING)
-						.addComponent(lblPatients, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblPatients, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnCreatePatient)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnEditPatient, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnRefresh, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -114,13 +128,17 @@ public class MainPageView {
 						.addComponent(lblUsername))
 					.addGap(8)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(4)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblPatients)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tablePatients, GroupLayout.PREFERRED_SIZE, 658, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(btnEditPatient)
-					.addContainerGap())
+					.addComponent(tablePatients, GroupLayout.PREFERRED_SIZE, 645, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(btnEditPatient)
+							.addComponent(btnCreatePatient))
+						.addComponent(btnRefresh))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		frmMainPage.getContentPane().setLayout(groupLayout);
 	}

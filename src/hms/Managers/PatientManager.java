@@ -8,4 +8,9 @@ public class PatientManager {
 		PatientView patientView = new PatientView();
 		patientView.frmPatient.setVisible(true);
 	}
+
+	public void CreatePatient() {
+		PatientView patientView = new PatientView();
+		patientView.frmPatient.setVisible(true);
+	}
 }

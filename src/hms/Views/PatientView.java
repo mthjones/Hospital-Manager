@@ -1,6 +1,7 @@
 package hms.Views;
 
-import java.awt.EventQueue;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
@@ -22,6 +23,15 @@ public class PatientView {
 	 */
 	public PatientView() {
 		initialize();
+		
+		centreWindow(frmPatient);
+	}
+	
+	public static void centreWindow(JFrame frame) {
+	    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+	    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+	    frame.setLocation(x, y);
 	}
 
 	/**
@@ -29,9 +39,10 @@ public class PatientView {
 	 */
 	private void initialize() {
 		frmPatient = new JFrame();
+		frmPatient.setAlwaysOnTop(true);
 		frmPatient.setTitle("Patient");
-		frmPatient.setBounds(100, 100, 541, 425);
-		frmPatient.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmPatient.setBounds(100, 100, 696, 425);
+		frmPatient.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JLabel lblName = new JLabel("Name");
 		
@@ -48,20 +59,20 @@ public class PatientView {
 		});
 		GroupLayout groupLayout = new GroupLayout(frmPatient.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(22)
+							.addGap(88)
 							.addComponent(lblTelephoneNumber, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGap(18)
 							.addComponent(textFieldTelephoneNumber, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(82)
 							.addComponent(lblName)))
-					.addContainerGap(235, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(426, Short.MAX_VALUE)
+					.addContainerGap(155, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(408, Short.MAX_VALUE)
 					.addComponent(btnSaveAndClose)
 					.addContainerGap())
 		);

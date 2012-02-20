@@ -9,6 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
@@ -28,6 +31,14 @@ public class LoginView {
 		initialize();
 
 		loginManager = new LoginManager();
+		centreWindow(frmLogin);
+	}
+	
+	public static void centreWindow(JFrame frmLogin) {
+	    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+	    int x = (int) ((dimension.getWidth() - frmLogin.getWidth()) / 2);
+	    int y = (int) ((dimension.getHeight() - frmLogin.getHeight()) / 2);
+	    frmLogin.setLocation(x, y);
 	}
 
 	/**
