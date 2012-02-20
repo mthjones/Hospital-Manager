@@ -1,36 +1,29 @@
 package hms.Views;
 
 import hms.Managers.PatientManager;
-
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Frame;
-import java.awt.Toolkit;
-
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JSeparator;
-import javax.swing.JPanel;
-import javax.swing.JToolBar;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Toolkit;
 
-public class MainPageView {
+public class MainView {
 
-	public JFrame frmMainPage;
+	public JFrame frmMain;
 	private JTable tablePatients;
 	private PatientManager patientManager;
 
 	/**
 	 * Create the application.
 	 */
-	public MainPageView() {
+	public MainView() {
 		initialize();
 		
 		maximizeWindow();
@@ -38,17 +31,18 @@ public class MainPageView {
 	}
 
 	private void maximizeWindow() {
-		frmMainPage.setExtendedState(frmMainPage.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		frmMain.setExtendedState(frmMain.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmMainPage = new JFrame();
-		frmMainPage.setTitle("Main Page");
-		frmMainPage.setBounds(100, 100, 2000, 2000);
-		frmMainPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMain = new JFrame();
+		frmMain.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\work\\Hospital-Manager\\Hospital-Manager\\docs\\icon\\hms_icon.png"));
+		frmMain.setTitle("Main");
+		frmMain.setBounds(100, 100, 2000, 2000);
+		frmMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblNewLabel = new JLabel("Hello");
 		
@@ -78,7 +72,7 @@ public class MainPageView {
 		JButton btnEditPatient = new JButton("Edit Patient");
 		btnEditPatient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				patientManager.EditPatient();
+				patientManager.EditPatient(frmMain);
 			}
 		});
 		
@@ -89,10 +83,10 @@ public class MainPageView {
 		JButton btnCreatePatient = new JButton("Create Patient");
 		btnCreatePatient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				patientManager.CreatePatient();
+				patientManager.CreatePatient(frmMain);
 			}
 		});
-		GroupLayout groupLayout = new GroupLayout(frmMainPage.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(frmMain.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
@@ -140,6 +134,6 @@ public class MainPageView {
 						.addComponent(btnRefresh))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
-		frmMainPage.getContentPane().setLayout(groupLayout);
+		frmMain.getContentPane().setLayout(groupLayout);
 	}
 }

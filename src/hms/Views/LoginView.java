@@ -14,7 +14,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.SwingConstants;
 
 public class LoginView {
 
@@ -23,7 +22,7 @@ public class LoginView {
 	private JTextField textFieldPassword;
 	private LoginManager loginManager;
 	private JLabel lblPassword;
-	
+
 	/**
 	 * Create the application.
 	 */
@@ -33,7 +32,7 @@ public class LoginView {
 		loginManager = new LoginManager();
 		centreWindow(frmLogin);
 	}
-	
+
 	public static void centreWindow(JFrame frmLogin) {
 	    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 	    int x = (int) ((dimension.getWidth() - frmLogin.getWidth()) / 2);
@@ -46,18 +45,19 @@ public class LoginView {
 	 */
 	private void initialize() {
 		frmLogin = new JFrame();
+		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\work\\Hospital-Manager\\Hospital-Manager\\docs\\icon\\hms_icon.png"));
 		frmLogin.setTitle("Login");
 		frmLogin.setBounds(100, 100, 450, 300);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		JLabel lblNewLabel = new JLabel("Username");
-		
+
 		textFieldUsername = new JTextField();
 		textFieldUsername.setColumns(10);
-		
+
 		textFieldPassword = new JTextField();
 		textFieldPassword.setColumns(10);
-		
+
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -65,7 +65,7 @@ public class LoginView {
 				loginManager.Login(jFrame);
 			}
 		});
-		
+
 		lblPassword = new JLabel("Password");
 		GroupLayout groupLayout = new GroupLayout(frmLogin.getContentPane());
 		groupLayout.setHorizontalGroup(
