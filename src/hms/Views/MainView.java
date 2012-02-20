@@ -55,19 +55,18 @@ public class MainView {
 		JSeparator separator = new JSeparator();
 		
 		tablePatients = new JTable();
+		String[] patientsTableHeaders = new String[] {
+				"Health Care Number", "Name", "Gender", "Address", "Telephone Number", "Email"
+			};
 		tablePatients.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Name", "Number"},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
+				{null, null, null, null, null, null},
 			},
-			new String[] {
-				"Name", "Health Number"
-			}
+			patientsTableHeaders
 		));
-		tablePatients.getColumnModel().getColumn(1).setPreferredWidth(96);
+		tablePatients.getColumnModel().getColumn(0).setPreferredWidth(117);
+		tablePatients.getColumnModel().getColumn(4).setPreferredWidth(106);
+		tablePatients.getColumnModel().getColumn(5).setPreferredWidth(122);
 		
 		JButton btnEditPatient = new JButton("Edit Patient");
 		btnEditPatient.addActionListener(new ActionListener() {

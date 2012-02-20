@@ -84,10 +84,20 @@ public class PatientView {
 		textFieldPatientEmail = new JTextField();
 		textFieldPatientEmail.setColumns(10);
 		
-		JRadioButton rdbtnMale = new JRadioButton("Male");
+		final JRadioButton rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setSelected(true);
+		final JRadioButton rdbtnFemale = new JRadioButton("Female");
 		
-		JRadioButton rdbtnFemale = new JRadioButton("Female");
+		rdbtnMale.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnFemale.setSelected(!rdbtnMale.isSelected());
+			}
+		});
+		rdbtnFemale.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnMale.setSelected(!rdbtnFemale.isSelected());
+			}
+		});
 		
 		JLabel lblAddress = new JLabel("Address");
 		
