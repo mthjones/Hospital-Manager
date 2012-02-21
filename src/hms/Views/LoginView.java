@@ -14,14 +14,15 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class LoginView {
 
 	public JFrame frmLogin;
 	private JTextField textFieldUsername;
-	private JTextField textFieldPassword;
 	private LoginManager loginManager;
 	private JLabel lblPassword;
+	private JPasswordField passwordField;
 
 	/**
 	 * Create the application.
@@ -55,9 +56,6 @@ public class LoginView {
 		textFieldUsername = new JTextField();
 		textFieldUsername.setColumns(10);
 
-		textFieldPassword = new JTextField();
-		textFieldPassword.setColumns(10);
-
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -67,6 +65,8 @@ public class LoginView {
 		});
 
 		lblPassword = new JLabel("Password");
+		
+		passwordField = new JPasswordField();
 		GroupLayout groupLayout = new GroupLayout(frmLogin.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -81,10 +81,10 @@ public class LoginView {
 								.addComponent(lblNewLabel)
 								.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(textFieldPassword, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textFieldUsername, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(117, Short.MAX_VALUE))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(passwordField)
+								.addComponent(textFieldUsername, GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))))
+					.addContainerGap(101, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -95,11 +95,11 @@ public class LoginView {
 						.addComponent(lblNewLabel))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textFieldPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPassword))
+						.addComponent(lblPassword)
+						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addComponent(btnLogin)
-					.addContainerGap(93, Short.MAX_VALUE))
+					.addContainerGap(99, Short.MAX_VALUE))
 		);
 		frmLogin.getContentPane().setLayout(groupLayout);
 	}

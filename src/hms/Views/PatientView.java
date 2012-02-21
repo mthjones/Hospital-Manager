@@ -20,9 +20,13 @@ import javax.swing.JScrollBar;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.text.ParseException;
+
 import javax.swing.border.EtchedBorder;
+import javax.swing.text.MaskFormatter;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
+import javax.swing.JFormattedTextField;
 
 public class PatientView {
 
@@ -178,11 +182,23 @@ public class PatientView {
 				frmPatient.dispose();
 			}
 		});
+		
+		JLabel lblBirthdate = new JLabel("Birthdate");
+		MaskFormatter birthdateMaskFormatter = null;
+		try {
+			birthdateMaskFormatter = new MaskFormatter("##.##.####");
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		
+		JFormattedTextField formattedTextFieldBirthdate = new JFormattedTextField(birthdateMaskFormatter);
+		
+		JLabel lblExDdmmyyyy = new JLabel("ex: dd.MM.YYYY");
 		GroupLayout groupLayout = new GroupLayout(frmPatient.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(16, Short.MAX_VALUE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnSaveAndClose)
@@ -208,15 +224,20 @@ public class PatientView {
 											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 												.addComponent(textFieldPatientHealthCareNumber, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
 												.addComponent(textFieldPatientTelephoneNumber)))))
-								.addGap(41)
-								.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+								.addGap(21)
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+									.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblBirthdate, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addComponent(textFieldPatientEmail, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(rdbtnMale)
-										.addGap(18)
-										.addComponent(rdbtnFemale, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)))
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(textFieldPatientEmail, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(rdbtnMale)
+											.addGap(18)
+											.addComponent(rdbtnFemale, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE))
+										.addComponent(formattedTextFieldBirthdate))
+									.addComponent(lblExDdmmyyyy, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE))
 								.addGap(106))
 							.addComponent(panelSpecialCareInformation, GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
 							.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -234,11 +255,14 @@ public class PatientView {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblHealthCareNumber)
-						.addComponent(textFieldPatientHealthCareNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(textFieldPatientHealthCareNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblBirthdate)
+						.addComponent(formattedTextFieldBirthdate, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(textPanePatientAddress, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblAddress))
+						.addComponent(lblAddress)
+						.addComponent(lblExDdmmyyyy))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
