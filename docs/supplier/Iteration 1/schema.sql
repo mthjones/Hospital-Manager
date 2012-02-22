@@ -22,6 +22,12 @@ CREATE TABLE contact_info (
 	email			text
 );
 
+DROP TABLE IF EXISTS user;
+CREATE TABLE user (
+	username		text				primary key,
+	password		text
+);
+
 -- DROP TABLE IF EXISTS bed;
 -- CREATE TABLE bed (
 -- 	id 				integer				primary key,

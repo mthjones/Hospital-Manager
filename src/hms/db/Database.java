@@ -16,7 +16,7 @@ public class Database {
 	 * Sole constructor. Is used by the getInstance() method to create an instance of
 	 * the Database to give out.
 	 */
-	protected Database() throws SQLException, IOException {
+	protected Database() throws SQLException {
 		makeConnection();
 	}
 	
@@ -24,9 +24,14 @@ public class Database {
 	 * Creates a database connection to the mysql database and stores the connection
 	 * object in the object.
 	 */
-	private void makeConnection() throws SQLException, IOException {
+	private void makeConnection() throws SQLException {
 		Properties configFile = new Properties();
-		configFile.load(this.getClass().getClassLoader().getResourceAsStream("db/test.properties"));
+		try {
+			configFile.load(this.getClass().getClassLoader().getResourceAsStream("db/test.properties"));
+		} catch (IOException ioe) {
+			System.err.println("Couldn't open config file");
+			System.exit(0);
+		}
 		
 		Properties connectionProperties = new Properties();
 		connectionProperties.put("user", configFile.getProperty("user"));
@@ -35,7 +40,8 @@ public class Database {
 		this.connection = DriverManager.getConnection("jdbc:" + configFile.getProperty("dbms") + 
 			"://" + configFile.getProperty("url") + 
 			":" + configFile.getProperty("port") + 
-			"/", configFile.getProperty("user"), configFile.getProperty("password"));
+			"/" + configFile.getProperty("db"),
+			configFile.getProperty("user"), configFile.getProperty("password"));
 	}
 	
 	/**
@@ -67,7 +73,7 @@ public class Database {
 	 * returning it.
 	 * @return 	The database object
 	 */
-	public static Database getInstance() throws SQLException, IOException {
+	public static Database getInstance() throws SQLException {
 		if (instance == null) {
 			instance = new Database();
 		}

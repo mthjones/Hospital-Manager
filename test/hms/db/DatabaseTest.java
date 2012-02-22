@@ -10,7 +10,12 @@ import java.io.IOException;
 
 public class DatabaseTest {
 	@Test
-	public void test_onlyOneInstance() throws SQLException, IOException {
+	public void test_onlyOneInstance() throws SQLException {
 		assertSame(Database.getInstance(), Database.getInstance());
 	}
+	
+	// @Test
+	// public void test_executesSQl() throws SQLException {
+		
+	// }
 }
