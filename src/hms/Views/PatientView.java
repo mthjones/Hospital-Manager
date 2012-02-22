@@ -15,19 +15,11 @@ import java.awt.event.ActionEvent;
 import javax.swing.JRadioButton;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
-import java.awt.Scrollbar;
-import javax.swing.JScrollBar;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
 import java.text.ParseException;
 
 import javax.swing.border.EtchedBorder;
 import javax.swing.text.MaskFormatter;
-import javax.swing.ImageIcon;
-import javax.swing.JTextArea;
 import javax.swing.JFormattedTextField;
-import javax.swing.JFormattedTextField$AbstractFormatter;
 import javax.swing.JComboBox;
 
 public class PatientView {
@@ -307,7 +299,7 @@ public class PatientView {
 		
 		JLabel lblBed = new JLabel("Bed");
 		
-		JFormattedTextField formattedTextFieldBeds = new JFormattedTextField((AbstractFormatter) null);
+		JFormattedTextField formattedTextFieldBeds = new JFormattedTextField();
 		formattedTextFieldBeds.setEditable(false);
 		
 		JLabel lblWard = new JLabel("Ward");
