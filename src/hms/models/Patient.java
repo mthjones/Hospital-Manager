@@ -1,8 +1,12 @@
 package hms.models;
 
 import javax.swing.table.AbstractTableModel;
+import java.sql.SQLException;
+import java.sql.ResultSet;
 
-public class Patient extends AbstractTableModel {
+import hms.db.Database;
+
+public class Patient {
 	public Object getValueAt(int row, int col) {
 		return 1;
 	}
@@ -12,6 +16,21 @@ public class Patient extends AbstractTableModel {
 	}
 	
 	public int getRowCount() {
-		return 1;
+		try {
+			ResultSet count = Database.getInstance().executeQuery("SELECT COUNT(*) FROM patient");
+			count.next();
+			return count.getInt(1);
+		} catch (SQLException sqle) {
+			System.err.println(sqle);
+		}
+		return 0;
 	}
+	
+	// public static Patient find(int id) {
+		
+	// }
+	
+	// public static Array<Patient> select_all() {
+		
+	// }
 }

@@ -21,6 +21,6 @@ public class PatientTest {
 	@Test
 	public void test_getRowCountReturnsCorrectValue() {
 		Patient patient = new Patient();
-		assertEquals(patient.getRowCount(), 1);
+		assertEquals(patient.getRowCount(), 0);
 	}
 }
