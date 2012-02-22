@@ -27,6 +27,8 @@ import javax.swing.text.MaskFormatter;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFormattedTextField$AbstractFormatter;
+import javax.swing.JComboBox;
 
 public class PatientView {
 
@@ -63,7 +65,7 @@ public class PatientView {
 		frmPatient.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\work\\Hospital-Manager\\Hospital-Manager\\docs\\icon\\hms_icon.png"));
 		frmPatient.setAlwaysOnTop(true);
 		frmPatient.setTitle("Patient");
-		frmPatient.setBounds(100, 100, 698, 534);
+		frmPatient.setBounds(100, 100, 698, 623);
 		frmPatient.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		JLabel lblName = new JLabel("Name");
@@ -196,16 +198,31 @@ public class PatientView {
 		JFormattedTextField formattedTextFieldBirthdate = new JFormattedTextField(birthdateMaskFormatter);
 		
 		JLabel lblExDdmmyyyy = new JLabel("ex: dd.MM.YYYY");
+		JLabel lblBirthdate1 = new JLabel("Birthdate");
+		MaskFormatter roomNumberMaskFormatter = null;
+		try {
+			roomNumberMaskFormatter = new MaskFormatter("####");
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		
+		JButton buttonSave = new JButton("Save");
 		GroupLayout groupLayout = new GroupLayout(frmPatient.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(buttonSave, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnSaveAndClose)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnClose, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE))
+						.addComponent(panel_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
 						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 							.addGroup(groupLayout.createSequentialGroup()
 								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -229,7 +246,7 @@ public class PatientView {
 								.addGap(21)
 								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 									.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblBirthdate, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
+									.addComponent(lblBirthdate1, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 									.addComponent(lblExDdmmyyyy, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -240,8 +257,8 @@ public class PatientView {
 										.addComponent(rdbtnFemale, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 									.addComponent(formattedTextFieldBirthdate))
 								.addGap(106))
-							.addComponent(panelSpecialCareInformation, GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(panelSpecialCareInformation, GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)))
 					.addGap(24))
 		);
 		groupLayout.setVerticalGroup(
@@ -257,14 +274,14 @@ public class PatientView {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblHealthCareNumber)
 						.addComponent(textFieldPatientHealthCareNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblBirthdate)
+						.addComponent(lblBirthdate1)
 						.addComponent(formattedTextFieldBirthdate, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(textPanePatientAddress, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblAddress)
 						.addComponent(lblExDdmmyyyy))
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addPreferredGap(ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 							.addComponent(textFieldPatientTelephoneNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -275,13 +292,72 @@ public class PatientView {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelSpecialCareInformation, GroupLayout.PREFERRED_SIZE, 174, Short.MAX_VALUE)
+					.addComponent(panelSpecialCareInformation, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnSaveAndClose)
-						.addComponent(btnClose))
-					.addContainerGap())
+						.addComponent(btnClose)
+						.addComponent(buttonSave))
+					.addGap(93))
 		);
+		
+		JLabel lblAssignPatientTo = new JLabel("Assign Patient to Room");
+		
+		JLabel lblBed = new JLabel("Bed");
+		
+		JFormattedTextField formattedTextFieldBeds = new JFormattedTextField((AbstractFormatter) null);
+		formattedTextFieldBeds.setEditable(false);
+		
+		JLabel lblWard = new JLabel("Ward");
+		
+		JComboBox comboBoxWard = new JComboBox();
+		
+		JLabel lblRoom = new JLabel("Room");
+		
+		JComboBox comboBoxRoom = new JComboBox();
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblAssignPatientTo)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addComponent(lblWard, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(comboBoxWard, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(lblRoom, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+							.addGap(10)
+							.addComponent(comboBoxRoom, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(lblBed)
+							.addGap(5)
+							.addComponent(formattedTextFieldBeds, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)))
+					.addGap(32))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addComponent(lblAssignPatientTo)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addComponent(formattedTextFieldBeds, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblBed))
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblRoom))
+						.addComponent(comboBoxRoom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblWard)
+							.addComponent(comboBoxWard, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(51, Short.MAX_VALUE))
+		);
+		panel_1.setLayout(gl_panel_1);
 		
 		JLabel lblMedications = new JLabel("Medications");
 		
