@@ -1,4 +1,4 @@
-//package hms.Managers;
+package hms.Managers;
 public class Encryptor {
 	
 	
@@ -10,7 +10,7 @@ public class Encryptor {
 	*@param word the string to be encoded
 	*@return an encoded version of the word
 	*/
-	static String encode(String word){
+	public static String encode(String word){
 		String RV = word.trim();
 		for(int i = 0; i< word.length(); i++){
 
@@ -34,7 +34,7 @@ public class Encryptor {
 	*@param word an already encoded string
 	*@return an an un-encoded string
 	*/
-	static String decode(String word){
+	public static String decode(String word){
 		char[] RV = word.toCharArray();
 		int j = word.length()/2;
 		for(int i = 0; i< j; i++){
