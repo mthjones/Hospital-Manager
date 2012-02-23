@@ -49,8 +49,10 @@ public class Database {
 	 */
 	public void closeConnection() throws SQLException {
 		System.out.println("Releasing database resources...");
-		this.connection.close();
-		this.connection = null;
+		if (this.connection != null) {
+			this.connection.close();
+			this.connection = null;
+		}
 	}
 	
 	/**
