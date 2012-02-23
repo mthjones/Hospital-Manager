@@ -60,9 +60,26 @@ public class Database {
 	 * @return {@link ResultSet} containing the results of the query
 	 * @throws SQLException
 	 */
-	public ResultSet executeQuery(String query) throws SQLException{
-		Statement statement = connection.createStatement();
+	public ResultSet executeQuery(String query) throws SQLException {
+		Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, 
+			ResultSet.CONCUR_UPDATABLE);
 		ResultSet results = statement.executeQuery(query);
+		
+		return results;
+	}
+	
+	/**
+	 * Sends the update statement to the db and returns the rows affected
+	 * 
+	 * @param {@link String} that represents the query to be made to the db.
+	 * @return {@link int} row count for inserts, updates and deletes or 0 for queries that
+	 *	return nothing
+	 * @throws SQLException
+	 */
+	public int executeUpdate(String query) throws SQLException {
+		Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, 
+			ResultSet.CONCUR_UPDATABLE);
+		int results = statement.executeUpdate(query);
 		
 		return results;
 	}
