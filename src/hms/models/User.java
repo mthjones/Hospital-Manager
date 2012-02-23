@@ -84,24 +84,13 @@ public class User {
 		}
 	}
 	
+	/**
+	 * Creates a new User instance.
+	 * @param username The username of the user
+	 * @param password The unencrypted password of the user
+	 */
 	protected User(String username, String password) {
 		this.username = username;
 		this.password = DigestUtils.md5Hex(password);
-	}
-	
-	public void setPassword(String password) {
-		this.password = DigestUtils.md5Hex(password);
-	}
-	
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
-	public String getUsername() {
-		return this.username;
-	}
-	
-	public String toString() {
-		return "<User: @username=" + this.username + "; @password=" + this.password + ">";
 	}
 }
