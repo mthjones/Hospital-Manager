@@ -57,7 +57,7 @@ public class PatientView {
 		frmPatient.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\work\\Hospital-Manager\\Hospital-Manager\\docs\\icon\\hms_icon.png"));
 		frmPatient.setAlwaysOnTop(true);
 		frmPatient.setTitle("Patient");
-		frmPatient.setBounds(100, 100, 698, 623);
+		frmPatient.setBounds(100, 100, 730, 623);
 		frmPatient.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		JLabel lblName = new JLabel("Name");
@@ -206,51 +206,50 @@ public class PatientView {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+					.addContainerGap(34, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(buttonSave, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnSaveAndClose)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnClose, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE))
-						.addComponent(panel_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-							.addGroup(groupLayout.createSequentialGroup()
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(lblName, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addComponent(textFieldPatientName, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED))
-									.addGroup(groupLayout.createSequentialGroup()
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-												.addComponent(lblAddress)
-												.addComponent(lblHealthCareNumber, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-											.addComponent(lblTelephoneNumber, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-											.addComponent(textPanePatientAddress, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(textFieldPatientHealthCareNumber, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-												.addComponent(textFieldPatientTelephoneNumber)))))
-								.addGap(21)
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-									.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblBirthdate1, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(lblExDdmmyyyy, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(textFieldPatientEmail, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(rdbtnMale)
-										.addGap(18)
-										.addComponent(rdbtnFemale, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-									.addComponent(formattedTextFieldBirthdate))
-								.addGap(106))
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(panelSpecialCareInformation, GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)))
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblName, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(textFieldPatientName, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+											.addComponent(lblAddress)
+											.addComponent(lblHealthCareNumber, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+										.addComponent(lblTelephoneNumber, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(textPanePatientAddress, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+											.addComponent(textFieldPatientHealthCareNumber, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+											.addComponent(textFieldPatientTelephoneNumber)))))
+							.addGap(21)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblBirthdate1, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(lblExDdmmyyyy, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(textFieldPatientEmail, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(rdbtnMale)
+									.addGap(18)
+									.addComponent(rdbtnFemale, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addComponent(formattedTextFieldBirthdate))
+							.addGap(106))
+						.addComponent(panel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(panelSpecialCareInformation, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
+						.addComponent(panel_1, 0, 0, Short.MAX_VALUE))
 					.addGap(24))
 		);
 		groupLayout.setVerticalGroup(
@@ -273,7 +272,7 @@ public class PatientView {
 						.addComponent(textPanePatientAddress, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblAddress)
 						.addComponent(lblExDdmmyyyy))
-					.addPreferredGap(ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 							.addComponent(textFieldPatientTelephoneNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -297,16 +296,16 @@ public class PatientView {
 		
 		JLabel lblAssignPatientTo = new JLabel("Assign Patient to Room");
 		
-		JLabel lblBed = new JLabel("Bed");
+		JLabel lblBed = new JLabel("Beds");
 		
 		JFormattedTextField formattedTextFieldBeds = new JFormattedTextField();
 		formattedTextFieldBeds.setEditable(false);
 		
-		JLabel lblWard = new JLabel("Ward");
+		JLabel lblWard = new JLabel("Wards");
 		
 		JComboBox comboBoxWard = new JComboBox();
 		
-		JLabel lblRoom = new JLabel("Room");
+		JLabel lblRoom = new JLabel("Rooms");
 		
 		JComboBox comboBoxRoom = new JComboBox();
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
@@ -317,37 +316,32 @@ public class PatientView {
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblAssignPatientTo)
 						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(lblWard, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblWard, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(comboBoxWard, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(lblRoom, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-							.addGap(10)
+							.addGap(12)
+							.addComponent(lblRoom, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(comboBoxRoom, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(lblBed)
-							.addGap(5)
-							.addComponent(formattedTextFieldBeds, GroupLayout.PREFERRED_SIZE, 165, GroupLayout.PREFERRED_SIZE)))
-					.addGap(32))
+							.addGap(10)
+							.addComponent(formattedTextFieldBeds, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)))
+					.addGap(18))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addComponent(lblAssignPatientTo)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(formattedTextFieldBeds, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblBed))
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblRoom))
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblWard)
+						.addComponent(comboBoxWard, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblRoom)
 						.addComponent(comboBoxRoom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblWard)
-							.addComponent(comboBoxWard, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(51, Short.MAX_VALUE))
+						.addComponent(lblBed)
+						.addComponent(formattedTextFieldBeds, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(15, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
 		
