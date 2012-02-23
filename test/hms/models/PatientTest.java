@@ -43,5 +43,6 @@ public class PatientTest {
 		Patient patient = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "");
 		patient.create();
 		assertNotNull(Patient.find("123456789"));
+		patient.delete();
 	}
 }
