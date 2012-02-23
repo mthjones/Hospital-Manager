@@ -12,21 +12,36 @@ public class UserTest {
 	@Test 
 	public void test_createUser() throws SQLException {
 		User user = new User("testuser", "testpass");
-		assertTrue(user.save());
+		assertTrue(user.create());
+		user.delete();
+	}
+	
+	@Test
+	public void test_cannotCreateUserWithSameUsername() throws SQLException {
+		User user = new User("testuser", "testpass");
+		user.create();
+		User user2 = new User("testuser", "testpass2");
+		assertFalse(user2.create());
 		user.delete();
 	}
 	
 	@Test
 	public void test_deleteUser() throws SQLException {
 		User user = new User("testuser", "testpass");
-		user.save();
+		user.create();
 		assertTrue(user.delete());
+	}
+	
+	@Test
+	public void test_cannotDeleteNonexistantUser() throws SQLException {
+		User user = new User("testuser", "testpass");
+		assertFalse(user.delete());
 	}
 	
 	@Test
 	public void test_authenticateUser() throws SQLException {
 		User user = new User("testuser2", "testpass");
-		user.save();
+		user.create();
 		assertTrue("right user, right pass", User.authenticate("testuser2", "testpass"));
 		assertFalse("wrong user, right pass", User.authenticate("wronguser", "testpass"));
 		assertFalse("right user, wrong pass", User.authenticate("testuser2", "wrongpass"));

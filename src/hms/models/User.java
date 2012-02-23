@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import hms.db.Database;
-import hms.Managers.Encryptor;
 
 public class User {
 	private String username;
@@ -35,11 +34,21 @@ public class User {
 	}
 	
 	/**
+	 * Creates a new User instance.
+	 * @param username The username of the user
+	 * @param password The unencrypted password of the user
+	 */
+	public User(String username, String password) {
+		this.username = username;
+		this.password = DigestUtils.md5Hex(password);
+	}
+	
+	/**
 	 * Tries to save the user to the database. If the username already exists in the database,
 	 * it returns false. If the user is saved successfully, then it returns true.
 	 * @return true if the user is saved succesfully; false otherwise
 	 */
-	public boolean save() throws SQLException {
+	public boolean create() throws SQLException {
 		ResultSet user = Database.getInstance().executeQuery("SELECT COUNT(*) FROM user WHERE username = '" + this.username + "'");
 		user.next();
 		int count = user.getInt(1);
@@ -48,15 +57,10 @@ public class User {
 			return false;
 		} else {
 			try {
-				ResultSet users = Database.getInstance().executeQuery("SELECT * FROM user");
-				users.moveToInsertRow();
-				users.updateString("username", this.username);
-				users.updateString("password", this.password);
-				users.insertRow();
+				int rows_added = Database.getInstance().executeUpdate("INSERT INTO user VALUES ('" + this.username + "','" + this.password + "')");
 				this.errors.clear();
 				return true;
 			} catch (SQLException sqle) {
-				System.err.println(sqle);
 				this.errors.add("Couldn't add to database");
 				return false;
 			}
@@ -78,19 +82,8 @@ public class User {
 			this.errors.clear();
 			return true;
 		} catch (SQLException sqle) {
-			System.err.println(sqle);
 			this.errors.add("Could not delete user");
 			return false;
 		}
-	}
-	
-	/**
-	 * Creates a new User instance.
-	 * @param username The username of the user
-	 * @param password The unencrypted password of the user
-	 */
-	protected User(String username, String password) {
-		this.username = username;
-		this.password = DigestUtils.md5Hex(password);
 	}
 }
