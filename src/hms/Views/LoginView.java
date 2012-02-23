@@ -15,6 +15,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPasswordField;
+import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class LoginView {
 
@@ -55,36 +57,45 @@ public class LoginView {
 
 		textFieldUsername = new JTextField();
 		textFieldUsername.setColumns(10);
+		
+		final JLabel lblInvalidLogin = new JLabel("Invalid Login");
+		lblInvalidLogin.setVisible(false);
+		lblInvalidLogin.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInvalidLogin.setForeground(Color.RED);
 
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFrame jFrame = frmLogin;
-				loginManager.Login(jFrame);
+				loginManager.Login(jFrame, lblInvalidLogin, textFieldUsername.getText(), passwordField.getPassword());
 			}
 		});
 
 		lblPassword = new JLabel("Password");
 		
 		passwordField = new JPasswordField();
+		
 		GroupLayout groupLayout = new GroupLayout(frmLogin.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(81)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNewLabel)
+						.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(passwordField)
+							.addComponent(textFieldUsername, GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(187)
-							.addComponent(btnLogin))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(81)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNewLabel)
-								.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(passwordField)
-								.addComponent(textFieldUsername, GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))))
-					.addContainerGap(101, Short.MAX_VALUE))
+							.addGap(30)
+							.addComponent(btnLogin)))
+					.addContainerGap(115, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(172, Short.MAX_VALUE)
+					.addComponent(lblInvalidLogin, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
+					.addGap(169))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -99,7 +110,9 @@ public class LoginView {
 						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addComponent(btnLogin)
-					.addContainerGap(99, Short.MAX_VALUE))
+					.addGap(18)
+					.addComponent(lblInvalidLogin)
+					.addContainerGap(53, Short.MAX_VALUE))
 		);
 		frmLogin.getContentPane().setLayout(groupLayout);
 	}
