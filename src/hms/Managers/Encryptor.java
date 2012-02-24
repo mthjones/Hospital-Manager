@@ -1,11 +1,13 @@
-//package hms.Managers;
+package hms.Managers;
 public class Encryptor {
 	
 	
 	public static void main(String[] args){
-		System.out.println("  This is a Test STREIFH^*%*	 	".trim());
-		System.out.println(Encryptor.decode(Encryptor.encode("  This is a Test STREIFH^*%*	 	")));
-		System.out.println("  This is a Test STREIFH^*%*	 	".trim().equals(Encryptor.decode(Encryptor.encode("  This is a Test STREIFH^*%*	 	"))));
+		String str = "  This is a Test STREIFH^*%*	 	";
+		System.out.println(str.trim());
+		System.out.println(Encryptor.decode(Encryptor.encode(str)));
+		System.out.println(str.trim());
+		System.out.println(str.trim().equals(Encryptor.decode(Encryptor.encode(str))));
 	}
 	/*
 	*@param word the string to be encoded
