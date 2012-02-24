@@ -65,7 +65,7 @@ public class PatientView {
 	 */
 	private void initialize() {
 		frmPatient = new JFrame();
-		frmPatient.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\work\\Hospital-Manager\\Hospital-Manager\\docs\\icon\\hms_icon.png"));
+		frmPatient.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("icon.png")));
 		frmPatient.setAlwaysOnTop(true);
 		frmPatient.setTitle("Patient");
 		frmPatient.setBounds(100, 100, 730, 623);

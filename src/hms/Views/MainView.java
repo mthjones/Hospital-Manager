@@ -42,7 +42,7 @@ public class MainView {
 	 */
 	private void initialize() {
 		frmMain = new JFrame();
-		frmMain.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\work\\Hospital-Manager\\Hospital-Manager\\docs\\icon\\hms_icon.png"));
+		frmMain.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("icon.png")));
 		frmMain.setTitle("Main");
 		frmMain.setBounds(100, 100, 2000, 2000);
 		frmMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
