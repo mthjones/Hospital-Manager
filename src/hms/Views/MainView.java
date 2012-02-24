@@ -24,6 +24,7 @@ public class MainView {
 	public JFrame frmMain;
 	private JTable tablePatients;
 	private PatientManager patientManager;
+	private PatientTableModel tableModel;
 
 	/**
 	 * Create the application.
@@ -59,14 +60,23 @@ public class MainView {
 		
 		JSeparator separator = new JSeparator();
 		
-		final PatientTableModel tableModel = new PatientTableModel();
+		tableModel = new PatientTableModel();
 		tablePatients = new JTable(tableModel);
 		JScrollPane jsp = new JScrollPane(tablePatients);
+		
 		
 		JButton btnEditPatient = new JButton("Edit Patient");
 		btnEditPatient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				patientManager.EditPatient(frmMain);
+				if(tablePatients.getSelectedRowCount() == 1){
+					Object[][] content = tableModel.getContent();
+					Object[] selectedRow = content[tablePatients.getSelectedRow()];
+					String[] strs = new String[content[tablePatients.getSelectedRow()].length];
+					for(int i = 0; i< strs.length; i++){
+						strs[i] = content[tablePatients.getSelectedRow()][i].toString();
+					}
+					patientManager.EditPatient(frmMain, strs);
+				}
 			}
 		});
 		

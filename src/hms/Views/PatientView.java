@@ -44,13 +44,100 @@ public class PatientView {
 	private JTextPane textPane_1;//Special Care Information
 	private JTextPane textPaneHistory;
 	private JTextPane textPaneComments;
+	public static boolean isNew = false;
 
 	/**
 	 */
 	public PatientView() {
-		initialize();
+		initialize(false);
 
 		centreWindow(frmPatient);
+	}
+
+	public PatientView(String[] row){
+		initialize(true);
+		centreWindow(frmPatient);
+		if(row.length == 15){
+			if(row[0]!= null)
+				textFieldPatientHealthCareNumber.setText(row[0]);
+			if(row[1]!= null)
+				textFieldPatientName.setText(row[1]);
+			if(row[2]!= null)
+				textFieldPatientTelephoneNumber.setText(row[2]);
+			if(row[3]!= null)
+				textFieldPatientEmail.setText(row[3]);
+			if(row[4]!= null){
+				if(row[4].equals("M")){
+					rdbtnFemale.setSelected(false);
+					rdbtnMale.setSelected(true);
+				}else{
+					rdbtnFemale.setSelected(true);
+					rdbtnMale.setSelected(false);
+				}
+			}
+			//if(row[5]!= null)//TODO if treatment is added
+			if(row[6]!= null)
+				textPanePatientAddress.setText(row[6]);
+			if(row[7]!= null){
+				{
+					String str = "";
+					str += row[7].substring(8,10);
+					str += ".";
+					str += row[7].substring(5,7);
+					str += ".";
+					str += row[7].substring(0,4);
+					formattedTextFieldBirthdate.setText(str);
+				}
+			}
+			if(row[8]!= null)
+				textPaneMedications.setText(row[8]);
+			if(row[9]!= null)
+				textPane_1.setText(row[9]);
+			if(row[10]!= null)
+				textPaneHistory.setText(row[10]);
+			if(row[11]!= null)
+				textPaneComments.setText(row[11]);
+			//TODO add in rest if implemented
+
+		}
+	}
+	
+	public void createPatient(int unused){
+		//TODO test to see if patient is in database
+		
+		
+		
+		Date BirthDate = null;
+		String STR = formattedTextFieldBirthdate.getText();
+		if(STR.length() == 10){
+			String day   = STR.substring(0, 2);
+			String month = STR.substring(3, 5);
+			String year  = STR.substring(6, 10);
+			BirthDate = new Date( Integer.parseInt(year)-1900 , Integer.parseInt(month)-1 , Integer.parseInt(day) );
+		}				
+		Patient temp = new Patient(
+				textFieldPatientHealthCareNumber.getText(),
+				textFieldPatientName.getText(),
+				textFieldPatientTelephoneNumber.getText(), 
+				textFieldPatientEmail.getText(),
+				rdbtnMale.isSelected()? "M":"F",
+						null,//no field for this
+						textPanePatientAddress.getText(),
+						BirthDate,
+						textPaneMedications.getText(),
+						textPane_1.getText(),
+						textPaneHistory.getText(),
+						textPaneComments.getText(),
+						null,//
+						null,//
+						null);//for iteration 2 maybe? TODO
+		//textFieldPatientHealthCareNumber.setText(BirthDate.toString());
+		try{
+			temp.delete();
+			temp.create();
+		}catch(Exception e1){
+			return;
+		}
 	}
 
 	public void createPatient(){
@@ -98,7 +185,8 @@ public class PatientView {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(boolean isNew) {
+		this.isNew = isNew;
 		frmPatient = new JFrame();
 		frmPatient.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("icon.png")));
 		frmPatient.setAlwaysOnTop(true);
@@ -121,7 +209,9 @@ public class PatientView {
 		btnSaveAndClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TODO test to see if patient is in database
-				createPatient();
+				if(PatientView.isNew)
+					createPatient();
+				else createPatient(0);
 				frmPatient.dispose();//TODO
 			}
 		});
@@ -256,7 +346,10 @@ public class PatientView {
 		JButton buttonSave = new JButton("Save");
 		buttonSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				createPatient();
+				if(PatientView.isNew)
+					createPatient();
+				else 
+					createPatient(0);
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(frmPatient.getContentPane());

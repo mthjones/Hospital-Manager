@@ -21,6 +21,11 @@ public class PatientTableModel extends AbstractTableModel {
 	 * Constructs a new PatientTableModel. Sets the columnNames and columnClasses and content
 	 * instance variables. If they are inaccessible, sets them to arrays of empty strings.
 	 */
+	
+	public Object[][] getContent(){
+		return content;
+	}
+	
 	public PatientTableModel() {
 		try {
 			getTableColumnNamesAndClasses();

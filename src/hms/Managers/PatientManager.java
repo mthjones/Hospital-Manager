@@ -5,8 +5,8 @@ import javax.swing.JFrame;
 import hms.Views.PatientView;
 
 public class PatientManager {
-	public void EditPatient(JFrame mainScreenJFrame) {
-		OpenPatientView();
+	public void EditPatient(JFrame mainScreenJFrame, String[] row) {
+		OpenPatientView(row);
 	}
 
 	public void CreatePatient(JFrame mainScreenJFrame) {
@@ -15,6 +15,11 @@ public class PatientManager {
 	
 	private void OpenPatientView() {
 		PatientView patientView = new PatientView();
+		patientView.frmPatient.setVisible(true);
+	}
+	
+	private void OpenPatientView(String[] row) {
+		PatientView patientView = new PatientView(row);
 		patientView.frmPatient.setVisible(true);
 	}
 }
