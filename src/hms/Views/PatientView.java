@@ -53,6 +53,41 @@ public class PatientView {
 		centreWindow(frmPatient);
 	}
 
+	public void createPatient(){
+		//TODO test to see if patient is in database
+		Date BirthDate = null;
+		String STR = formattedTextFieldBirthdate.getText();
+		if(STR.length() == 10){
+			String day   = STR.substring(0, 2);
+			String month = STR.substring(3, 5);
+			String year  = STR.substring(6, 10);
+			BirthDate = new Date( Integer.parseInt(year)-1900 , Integer.parseInt(month)-1 , Integer.parseInt(day) );
+		}				
+		Patient temp = new Patient(
+				textFieldPatientHealthCareNumber.getText(),
+				textFieldPatientName.getText(),
+				textFieldPatientTelephoneNumber.getText(), 
+				textFieldPatientEmail.getText(),
+				rdbtnMale.isSelected()? "M":"F",
+						null,//no field for this
+						textPanePatientAddress.getText(),
+						BirthDate,
+						textPaneMedications.getText(),
+						textPane_1.getText(),
+						textPaneHistory.getText(),
+						textPaneComments.getText(),
+						null,//
+						null,//
+						null);//for iteration 2 maybe? TODO
+		//textFieldPatientHealthCareNumber.setText(BirthDate.toString());
+		try{
+			temp.create();
+		}catch(Exception e1){
+			return;
+		}
+	}
+
+
 	public static void centreWindow(JFrame frame) {
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
@@ -86,35 +121,7 @@ public class PatientView {
 		btnSaveAndClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TODO test to see if patient is in database
-				Date BirthDate = null;
-				if(formattedTextFieldBirthdate.getText().length() == 10){
-					String day   = formattedTextFieldBirthdate.getText().substring(0, 1);
-					String month = formattedTextFieldBirthdate.getText().substring(3, 4);
-					String year  = formattedTextFieldBirthdate.getText().substring(6, 9);
-					BirthDate = new Date( Integer.parseInt(year) , Integer.parseInt(month) , Integer.parseInt(day) );
-				}				
-				Patient temp = new Patient(
-						textFieldPatientHealthCareNumber.getText(),
-						textFieldPatientName.getText(),
-						textFieldPatientTelephoneNumber.getText(), 
-						textFieldPatientEmail.getText(),
-						rdbtnMale.isSelected()? "M":"F",
-								null,//no field for this
-								textPanePatientAddress.getText(),
-								BirthDate,
-								textPaneMedications.getText(),
-								textPane_1.getText(),
-								textPaneHistory.getText(),
-								textPaneComments.getText(),
-								null,//
-								null,//
-								null);//for iteration 2 maybe?TODO
-				textFieldPatientHealthCareNumber.setText(textField_1.getText());
-				try{
-					temp.create();
-				}catch(Exception e1){
-					return;
-				}
+				createPatient();
 				frmPatient.dispose();//TODO
 			}
 		});
@@ -249,36 +256,7 @@ public class PatientView {
 		JButton buttonSave = new JButton("Save");
 		buttonSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO test to see if patient is in database
-				Date BirthDate = null;
-				if(formattedTextFieldBirthdate.getText().length() == 10){
-					String day   = formattedTextFieldBirthdate.getText().substring(0, 1);
-					String month = formattedTextFieldBirthdate.getText().substring(3, 4);
-					String year  = formattedTextFieldBirthdate.getText().substring(6, 9);
-					BirthDate = new Date( Integer.parseInt(year) , Integer.parseInt(month) , Integer.parseInt(day) );
-				}				
-				Patient temp = new Patient(
-						textFieldPatientHealthCareNumber.getText(),
-						textFieldPatientName.getText(),
-						textFieldPatientTelephoneNumber.getText(), 
-						textFieldPatientEmail.getText(),
-						rdbtnMale.isSelected()? "M":"F",
-								null,//no field for this
-								textPanePatientAddress.getText(),
-								BirthDate,
-								textPaneMedications.getText(),
-								textPane_1.getText(),
-								textPaneHistory.getText(),
-								textPaneComments.getText(),
-								null,//
-								null,//
-								null);//for iteration 2 maybe? TODO
-				textFieldPatientHealthCareNumber.setText(textField_1.getText());
-				try{
-					temp.create();
-				}catch(Exception e1){
-					return;
-				}
+				createPatient();
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(frmPatient.getContentPane());
