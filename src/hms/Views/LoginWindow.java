@@ -21,12 +21,12 @@ import hms.models.User;
 import hms.Views.MainView;
 
 public class LoginWindow extends JFrame implements ActionListener {
-	private JLabel usernameLabel = new JLabel("Username");
-	private JLabel passwordLabel = new JLabel("Password");
-	private JTextField usernameField = new JTextField();
-	private JPasswordField passwordField = new JPasswordField();
-	private JLabel invalidLoginText = new JLabel("Invalid Login");
-	private JButton loginButton = new JButton("Login");
+	private JLabel usernameLabel;
+	private JLabel passwordLabel;
+	private JTextField usernameField;
+	private JPasswordField passwordField;
+	private JLabel invalidLoginText;
+	private JButton loginButton;
 	
 	public LoginWindow() {
 		initUI();
@@ -36,6 +36,13 @@ public class LoginWindow extends JFrame implements ActionListener {
 		JPanel panel = new JPanel();
 		// Add some padding to the window
 		panel.setBorder(new EmptyBorder(20, 60, 20, 60));
+		
+		this.usernameLabel = new JLabel("Username");
+		this.passwordLabel = new JLabel("Password");
+		this.usernameField = new JTextField();
+		this.passwordField = new JPasswordField();
+		this.invalidLoginText = new JLabel("Invalid Login");
+		this.loginButton = new JButton("Login");
 		
 		// Layout magic. Do not touch.
 		GroupLayout layout = new GroupLayout(panel);
@@ -49,29 +56,29 @@ public class LoginWindow extends JFrame implements ActionListener {
 					.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(layout.createSequentialGroup()
 							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(usernameLabel)
-								.addComponent(passwordLabel))
+								.addComponent(this.usernameLabel)
+								.addComponent(this.passwordLabel))
 							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(usernameField, 170, 170, 170)
-								.addComponent(passwordField, 170, 170, 170)))
+								.addComponent(this.usernameField, 170, 170, 170)
+								.addComponent(this.passwordField, 170, 170, 170)))
 						.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
-							.addComponent(invalidLoginText)
+							.addComponent(this.invalidLoginText)
 							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(loginButton))))
+							.addComponent(this.loginButton))))
 		);
 		layout.setVerticalGroup(
 			layout.createParallelGroup(Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup()
 					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(usernameLabel)
-						.addComponent(usernameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(this.usernameLabel)
+						.addComponent(this.usernameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(passwordLabel)
-						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(this.passwordLabel)
+						.addComponent(this.passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(loginButton)
-						.addComponent(invalidLoginText)))
+						.addComponent(this.loginButton)
+						.addComponent(this.invalidLoginText)))
 		);
 		
 		panel.setLayout(layout);
