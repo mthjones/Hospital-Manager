@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.util.Date;
+import java.util.Vector;
 
 import hms.db.Database;
 
@@ -61,9 +62,29 @@ public class Patient {
 			patient.first();
 		}
 		return new Patient(patient.getString(1), patient.getString(2), patient.getString(3),
-			patient.getString(4), patient.getString(5), patient.getString(6), patient.getString(7),
-			patient.getDate(8), patient.getString(9), patient.getString(10), patient.getString(11),
-			patient.getString(12), patient.getString(13), patient.getString(14), patient.getString(15));
+				patient.getString(4), patient.getString(5), patient.getString(6), patient.getString(7),
+				patient.getDate(8), patient.getString(9), patient.getString(10), patient.getString(11),
+				patient.getString(12), patient.getString(13), patient.getString(14), patient.getString(15));
+	}
+	
+	/**
+	 * Finds all patients and returns them as in a patient objects. If
+	 * no patients exist, null is returnes
+	 * @return Patients if found, or null if there arent any
+	 */
+	public static Vector<Patient> findAllPatients() throws SQLException{
+		ResultSet patient = Database.getInstance().executeQuery("SELECT * FROM patient");
+		if (patient == null) return null;
+		patient.first();
+		Vector<Patient> paitents = new Vector<Patient>();
+		while(!patient.isLast()){
+			paitents.add(new Patient(patient.getString(1), patient.getString(2), patient.getString(3),
+					patient.getString(4), patient.getString(5), patient.getString(6), patient.getString(7),
+					patient.getDate(8), patient.getString(9), patient.getString(10), patient.getString(11),
+					patient.getString(12), patient.getString(13), patient.getString(14), patient.getString(15)) );
+			if(!patient.next()) return null;
+		}
+		return paitents;
 	}
 	
 	/**

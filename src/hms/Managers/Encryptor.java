@@ -16,8 +16,6 @@ public class Encryptor {
 	public static String encode(String word){
 		String RV = word.trim();
 		for(int i = 0; i< word.trim().length(); i++){
-
-			//System.out.print(".");
 			RV += " ";
 		}
 		char[] value = RV.toCharArray();
