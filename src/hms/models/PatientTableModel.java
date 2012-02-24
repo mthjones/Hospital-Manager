@@ -13,12 +13,12 @@ import java.util.Date;
 import hms.db.Database;
 
 public class PatientTableModel extends AbstractTableModel {
-	private String[] colNames;
-	private String[] colClasses;
+	private String[] columnNames;
+	private String[] columnClasses;
 	private Object[][] content;
 	
 	/**
-	 * Constructs a new PatientTableModel. Sets the colNames and colClasses and content
+	 * Constructs a new PatientTableModel. Sets the columnNames and columnClasses and content
 	 * instance variables. If they are inaccessible, sets them to arrays of empty strings.
 	 */
 	public PatientTableModel() {
@@ -27,7 +27,7 @@ public class PatientTableModel extends AbstractTableModel {
 			getTableContents();
 		} catch (SQLException sqle) {
 			content = new Object[][] {{""}};
-			colNames = new String[] {""};
+			columnNames = new String[] {""};
 		}
 	}
 	
@@ -36,7 +36,7 @@ public class PatientTableModel extends AbstractTableModel {
 	 * @return The number of columns in the table.
 	 */
 	public int getColumnCount() {
-		return colNames.length;
+		return columnNames.length;
 	}
 	
 	/**
@@ -72,7 +72,7 @@ public class PatientTableModel extends AbstractTableModel {
 	 * @return The name of the given column
 	 */
 	public String getColumnName(int col) {
-		return colNames[col];
+		return columnNames[col];
 	}
 	
 	/**
@@ -80,19 +80,19 @@ public class PatientTableModel extends AbstractTableModel {
 	 * stores them in the appropriate instance variables.
 	 */
 	private void getTableColumnNamesAndClasses() throws SQLException {
-		ResultSet rs = Database.getInstance().executeQuery("SELECT * FROM patient");
+		ResultSet patients = Database.getInstance().executeQuery("SELECT * FROM patient");
 		
-		ResultSetMetaData rsMeta = rs.getMetaData();
+		ResultSetMetaData patientMeta = patients.getMetaData();
 		
-		colNames = new String[rsMeta.getColumnCount()];
-		colClasses = new String[rsMeta.getColumnCount()];
+		columnNames = new String[patientMeta.getColumnCount()];
+		columnClasses = new String[patientMeta.getColumnCount()];
 		
-		for (int i = 0; i < rsMeta.getColumnCount(); i++) {
-			colNames[i] = rsMeta.getColumnName(i+1);
-			colClasses[i] = rsMeta.getColumnClassName(i+1);
+		for (int i = 0; i < patientMeta.getColumnCount(); i++) {
+			columnNames[i] = patientMeta.getColumnName(i+1);
+			columnClasses[i] = patientMeta.getColumnClassName(i+1);
 		}
 		
-		rs.close();
+		patients.close();
 	}
 	
 	/**
@@ -100,28 +100,28 @@ public class PatientTableModel extends AbstractTableModel {
 	 * so we do not need to query the database all of the time.
 	 */
 	private void getTableContents() throws SQLException {
-		ResultSet rs = Database.getInstance().executeQuery("SELECT * FROM patient");
+		ResultSet patients = Database.getInstance().executeQuery("SELECT * FROM patient");
 		
 		ArrayList<Object[]> rowList = new ArrayList<Object[]>();
-		while (rs.next()) {
+		while (patients.next()) {
 			ArrayList<Object> cellList = new ArrayList<Object>();
-			for (int i = 0; i < colClasses.length; i++) {
+			for (int i = 0; i < columnClasses.length; i++) {
 				Object cellValue = null;
 				
-				if (colClasses[i].equals(String.class.getName())) {
-					cellValue = rs.getString(colNames[i]);
-				} else if (colClasses[i].equals(Integer.class.getName())) {
-					cellValue = new Integer(rs.getInt(colNames[i]));
-				} else if (colClasses[i].equals(Double.class.getName())) {
-					cellValue = new Double(rs.getDouble(colNames[i]));
-				} else if (colClasses[i].equals(Date.class.getName())) {
-					cellValue = rs.getDate(colNames[i]);
-				} else if (colClasses[i].equals(Float.class.getName())) {
-					cellValue = rs.getFloat(colNames[i]);
-				} else if (colClasses[i].equals(Character.class.getName())) {
-					cellValue = new Character(rs.getString(colNames[i]).charAt(0));
+				if (columnClasses[i].equals(String.class.getName())) {
+					cellValue = patients.getString(columnNames[i]);
+				} else if (columnClasses[i].equals(Integer.class.getName())) {
+					cellValue = new Integer(patients.getInt(columnNames[i]));
+				} else if (columnClasses[i].equals(Double.class.getName())) {
+					cellValue = new Double(patients.getDouble(columnNames[i]));
+				} else if (columnClasses[i].equals(Date.class.getName())) {
+					cellValue = patients.getDate(columnNames[i]);
+				} else if (columnClasses[i].equals(Float.class.getName())) {
+					cellValue = patients.getFloat(columnNames[i]);
+				} else if (columnClasses[i].equals(Character.class.getName())) {
+					cellValue = new Character(patients.getString(columnNames[i]).charAt(0));
 				} else {
-					cellValue = rs.getString(colNames[i]);
+					cellValue = patients.getString(columnNames[i]);
 				}
 				cellList.add(cellValue);
 			}
@@ -129,7 +129,7 @@ public class PatientTableModel extends AbstractTableModel {
 			rowList.add(cells);
 		}
 		
-		rs.close();
+		patients.close();
 		
 		content = new Object[rowList.size()][];
 		for (int i = 0; i < content.length; i++) {
@@ -145,6 +145,7 @@ public class PatientTableModel extends AbstractTableModel {
 		try {
 			getTableContents();
 		} catch (SQLException sqle) {
+			// Do nothing. Keep old contents
 		}
 		super.fireTableDataChanged();
 	}
