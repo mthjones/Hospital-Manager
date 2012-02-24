@@ -7,6 +7,7 @@
     <property name="lib.dir" value="lib" />
     <property name="test.dir" value="test" />
     <property name="conf.dir" value="conf" />
+    <property name="resource.dir" value="res" />
     
     <path id="classpath">
         <fileset dir="${lib.dir}" includes="**/*.jar" />
@@ -27,6 +28,9 @@
         </copy>
         <copy todir="${classes.dir}">
             <fileset dir="${conf.dir}" />
+        </copy>
+        <copy todir="${classes.dir}">
+            <fileset dir="${resource.dir}" />
         </copy>
     </target>
     
