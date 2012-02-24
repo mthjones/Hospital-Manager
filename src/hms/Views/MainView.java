@@ -58,8 +58,9 @@ public class MainView {
 		JLabel lblAssignedTo = new JLabel("Assigned to");
 		
 		JSeparator separator = new JSeparator();
-
-		tablePatients = new JTable(new PatientTableModel());
+		
+		final PatientTableModel tableModel = new PatientTableModel();
+		tablePatients = new JTable(tableModel);
 		JScrollPane jsp = new JScrollPane(tablePatients);
 		
 		JButton btnEditPatient = new JButton("Edit Patient");
@@ -72,6 +73,11 @@ public class MainView {
 		JLabel lblPatients = new JLabel("Patients");
 		
 		JButton btnRefresh = new JButton("Refresh");
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tableModel.fireTableDataChanged();
+			}
+		});
 		
 		JButton btnCreatePatient = new JButton("Create Patient");
 		btnCreatePatient.addActionListener(new ActionListener() {

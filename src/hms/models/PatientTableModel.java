@@ -100,4 +100,12 @@ public class PatientTableModel extends AbstractTableModel {
 			content[i] = rowList.get(i);
 		}
 	}
+	
+	public void fireTableDataChanged() {
+		try {
+			getTableContents();
+		} catch (SQLException sqle) {
+		}
+		super.fireTableDataChanged();
+	}
 }
