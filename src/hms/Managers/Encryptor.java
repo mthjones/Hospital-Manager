@@ -1,10 +1,11 @@
-package hms.Managers;
+//package hms.Managers;
 public class Encryptor {
 	
 	
 	public static void main(String[] args){
-		System.out.println("                 OMG, This is the shit ma man");
-		System.out.println(Encryptor.decode(Encryptor.encode("OMG, This is the shit ma man")));
+		System.out.println("  This is a Test STREIFH^*%*	 	".trim());
+		System.out.println(Encryptor.decode(Encryptor.encode("  This is a Test STREIFH^*%*	 	")));
+		System.out.println("  This is a Test STREIFH^*%*	 	".trim().equals(Encryptor.decode(Encryptor.encode("  This is a Test STREIFH^*%*	 	"))));
 	}
 	/*
 	*@param word the string to be encoded
@@ -12,16 +13,16 @@ public class Encryptor {
 	*/
 	public static String encode(String word){
 		String RV = word.trim();
-		for(int i = 0; i< word.length(); i++){
+		for(int i = 0; i< word.trim().length(); i++){
 
-			System.out.print(".");
+			//System.out.print(".");
 			RV += " ";
 		}
 		char[] value = RV.toCharArray();
-		for(int i = 0; i<word.length(); i++){
+		for(int i = 0; i<word.trim().length(); i++){
 			if(RV.charAt(i)*4+7 < Character.MAX_VALUE){
 				value[i] = (char) (RV.charAt(i)*4+7);
-				value[i+word.length()] = '\t';
+				value[i+word.trim().length()] = '\t';
 			}
 		}
 		
