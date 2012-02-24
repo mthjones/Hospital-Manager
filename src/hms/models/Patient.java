@@ -9,13 +9,14 @@ import java.util.Vector;
 import hms.db.Database;
 
 public class Patient {
-	private String healthcare_number;
-	private String name;
-	private String phone_number;
-	private String email;
+	//TODO create getters and setters
+	public String healthcare_number;
+	public String name;
+	public String phone_number;
+	public String email;
 	private String gender;
 	private String treatment;
-	private String address;
+	public String address;
 	private Date birthdate;
 	private String medications;
 	private String special_care;

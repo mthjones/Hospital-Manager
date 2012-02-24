@@ -9,10 +9,13 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
+import java.util.Vector;
+import hms.models.*;
 
 public class MainView {
 
@@ -58,15 +61,28 @@ public class MainView {
 		String[] patientsTableHeaders = new String[] {
 				"Health Care Number", "Name", "Gender", "Address", "Telephone Number", "Email"
 			};
-		tablePatients.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null},
-			},
-			patientsTableHeaders
-		));
+		//TODO Refractor into a function so we can call it later
+		Vector<Patient> patients = null;
+		try{
+		patients = Patient.findAllPatients();
+		}catch(Exception e){
+			
+		}
+		Object[][] rows = new Object[patients.size()][6];
+		for(int i = 0; i<patients.size(); i++){
+			rows[i] = new Object[]{patients.get(i).healthcare_number, patients.get(i).name, patients.get(i).address, patients.get(i).phone_number, patients.get(i).email };
+		}
+		tablePatients.setModel(new DefaultTableModel((rows) , patientsTableHeaders));
+//		tablePatients.setModel(new DefaultTableModel(
+//			new Object[][] {
+//				{null, null, null, null, null, null},
+//			},
+//			patientsTableHeaders
+//		));
 		tablePatients.getColumnModel().getColumn(0).setPreferredWidth(117);
 		tablePatients.getColumnModel().getColumn(4).setPreferredWidth(106);
 		tablePatients.getColumnModel().getColumn(5).setPreferredWidth(122);
+		TableColumn TC = new TableColumn();
 		
 		JButton btnEditPatient = new JButton("Edit Patient");
 		btnEditPatient.addActionListener(new ActionListener() {
