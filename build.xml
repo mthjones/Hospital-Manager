@@ -35,12 +35,37 @@
     </target>
     
     <target name="jar" depends="compile">
+        <pathconvert property="libs.classpath" pathsep=" ">
+            <mapper>
+                <chainedmapper>
+                    <!-- remove absolute path -->
+                    <flattenmapper />
+                    
+                    <!-- add lib/ prefix -->
+                    <globmapper from="*" to="lib/*" />
+                </chainedmapper>
+            </mapper>
+            <path>
+                <!-- lib.dir contains all jar files, in several subdirectories -->
+                <fileset dir="${lib.dir}">
+                    <include name="**/*.jar" />
+                </fileset>
+            </path>
+        </pathconvert>
+        
         <mkdir dir="${jar.dir}" />
         <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
             <manifest>
                 <attribute name="Main-Class" value="${main-class}" />
+                <attribute name="Class-Path" value="${libs.classpath}" />
             </manifest>
         </jar>
+        
+        <mkdir dir="${jar.dir}/lib" />
+        <copy todir="${jar.dir}/lib" filtering="off">
+            <flattenmapper />
+            <fileset dir="${lib.dir}" includes="**/*.jar" />
+        </copy>
     </target>
     
     <target name="run" depends="jar">
