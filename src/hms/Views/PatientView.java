@@ -49,13 +49,13 @@ public class PatientView {
 	/**
 	 */
 	public PatientView() {
-		initialize(false);
+		initialize(true);
 
 		centreWindow(frmPatient);
 	}
 
 	public PatientView(String[] row){
-		initialize(true);
+		initialize(false);
 		centreWindow(frmPatient);
 		if(row.length == 15){
 			if(row[0]!= null)
