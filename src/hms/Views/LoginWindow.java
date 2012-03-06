@@ -14,6 +14,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 
 import java.sql.SQLException;
 
@@ -32,6 +34,9 @@ public class LoginWindow extends JFrame implements ActionListener {
 		initUI();
 	}
 	
+	/**
+	 * Initializes the UI
+	 */
 	public final void initUI() {
 		JPanel panel = new JPanel();
 		// Add some padding to the window
@@ -83,9 +88,12 @@ public class LoginWindow extends JFrame implements ActionListener {
 		
 		panel.setLayout(layout);
 		this.add(panel);
-		
+				
 		this.loginButton.setActionCommand("login");
 		this.loginButton.addActionListener(this);
+		
+		// Set the default window button to the login button so you can press enter to log in
+		this.getRootPane().setDefaultButton(this.loginButton);
 		
 		this.invalidLoginText.setForeground(Color.RED);
 		this.invalidLoginText.setVisible(false);
@@ -97,6 +105,10 @@ public class LoginWindow extends JFrame implements ActionListener {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
+	/**
+	 * Allows the class to act as an action event handler. Takes an ActionEvent and maps it to the correct action.
+	 * @param event The event that is performed
+	 */
 	public void actionPerformed(ActionEvent event) {
 		if ("login".equals(event.getActionCommand())) {
 			try {
