@@ -1,7 +1,11 @@
 package hms.Views;
 
 import javax.swing.JFrame;
+import hms.models.*;
 import hms.Managers.LoginManager;
+
+import java.awt.Color;
+import java.sql.SQLException;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -37,10 +41,10 @@ public class LoginView {
 	}
 
 	public static void centreWindow(JFrame frmLogin) {
-	    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-	    int x = (int) ((dimension.getWidth() - frmLogin.getWidth()) / 2);
-	    int y = (int) ((dimension.getHeight() - frmLogin.getHeight()) / 2);
-	    frmLogin.setLocation(x, y);
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (int) ((dimension.getWidth() - frmLogin.getWidth()) / 2);
+		int y = (int) ((dimension.getHeight() - frmLogin.getHeight()) / 2);
+		frmLogin.setLocation(x, y);
 	}
 
 	/**
@@ -66,19 +70,51 @@ public class LoginView {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				boolean isValidUser = false;//TODO
+				try{
+					//User.create(textFieldUsername.getText(), passwordField.getText()).save();//uncomment for test with clients
+					isValidUser = User.authenticate(textFieldUsername.getText(), passwordField.getText());
+				}catch(SQLException e){
+					isValidUser = false;
+					lblPassword.setText("Conect");
+					lblPassword.setForeground(Color.red);
+
+				}
+				if(isValidUser){
+					JFrame jFrame = frmLogin;
+					loginManager.Login(jFrame);
+				}else{
+					lblPassword.setText("Incorrect");
+					lblPassword.setForeground(Color.red);
+				}
 				JFrame jFrame = frmLogin;
 				loginManager.Login(jFrame, lblInvalidLogin, textFieldUsername.getText(), passwordField.getPassword());
 			}
 		});
 
 		lblPassword = new JLabel("Password");
-		
+
 		passwordField = new JPasswordField();
 		
 		GroupLayout groupLayout = new GroupLayout(frmLogin.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+										.addGap(187)
+										.addComponent(btnLogin))
+										.addGroup(groupLayout.createSequentialGroup()
+												.addGap(81)
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(lblNewLabel)
+														.addComponent(lblPassword, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE))
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+																.addComponent(passwordField)
+																.addComponent(textFieldUsername, GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))))
+																.addContainerGap(101, Short.MAX_VALUE))
+				);
 					.addGap(81)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblNewLabel)
@@ -98,8 +134,20 @@ public class LoginView {
 					.addGap(169))
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
+						.addGap(82)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textFieldUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNewLabel))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblPassword)
+										.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addGap(18)
+										.addComponent(btnLogin)
+										.addContainerGap(99, Short.MAX_VALUE))
+				);
 					.addGap(82)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(textFieldUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
