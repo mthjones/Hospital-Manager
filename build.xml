@@ -70,6 +70,8 @@
     
     <target name="run" depends="jar">
         <java fork="true" classname="${main-class}">
+            <!-- Makes Macs close all windows before exiting the application so our window events get handled --> 
+            <sysproperty key="apple.eawt.quitStrategy" value="CLOSE_ALL_WINDOWS" />
             <classpath>
                 <path refid="classpath" />
                 <path refid="application" />
