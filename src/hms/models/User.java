@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import hms.db.Database;
+import hms.util.Database;
 
 public class User {
 	private String username;

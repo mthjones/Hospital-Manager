@@ -1,4 +1,4 @@
-package hms.db;
+package hms.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

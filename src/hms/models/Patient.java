@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.Date;
 import java.util.Vector;
 
-import hms.db.Database;
+import hms.util.Database;
 
 public class Patient {
 	//TODO create getters and setters

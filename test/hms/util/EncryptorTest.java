@@ -1,10 +1,10 @@
-package hms.Managers;
+package hms.util;
 
 import static org.junit.Assert.*;
 
 import org.junit.*;
 import static org.junit.Assert.*;
-import hms.Managers.Encryptor;
+import hms.util.Encryptor;
 
 
 public class EncryptorTest {

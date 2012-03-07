@@ -1,4 +1,4 @@
-package hms.Managers;
+package hms.util;
 public class Encryptor {
 	
 	

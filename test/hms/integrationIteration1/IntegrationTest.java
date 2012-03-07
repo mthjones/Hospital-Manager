@@ -2,11 +2,9 @@ package hms.integrationIteration1;
 
 import static org.junit.Assert.*;
 import hms.*;
-import hms.Commands.*;
-import hms.db.*;
-import hms.Managers.*;
+import hms.util.*;
 import hms.models.*;
-import hms.Views.*;
+import hms.views.*;
 
 import org.junit.Test;
 

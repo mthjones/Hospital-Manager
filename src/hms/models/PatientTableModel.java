@@ -13,7 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
-import hms.db.Database;
+import hms.util.Database;
 
 public class PatientTableModel extends AbstractTableModel {
 	private String[] columnNames;

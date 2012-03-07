@@ -1,6 +1,6 @@
-package hms.db;
+package hms.util;
 
-import hms.db.Database;
+import hms.util.Database;
 
 import org.junit.*;
 import static org.junit.Assert.*;

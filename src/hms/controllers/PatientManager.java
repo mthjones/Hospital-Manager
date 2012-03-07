@@ -1,8 +1,8 @@
-package hms.Managers;
+package hms.controllers;
 
 import javax.swing.JFrame;
 
-import hms.Views.PatientView;
+import hms.views.PatientView;
 
 public class PatientManager {
 	public void EditPatient(JFrame mainScreenJFrame, String[] row) {

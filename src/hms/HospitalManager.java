@@ -1,9 +1,8 @@
 package hms;
 
-import hms.Views.LoginWindow;
+import hms.views.LoginWindow;
 import hms.models.User;
-
-import hms.db.Database;
+import hms.util.Database;
 
 import javax.swing.SwingUtilities;
 
