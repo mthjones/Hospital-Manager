@@ -1,26 +1,16 @@
 package hms.Views;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.GroupLayout;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EmptyBorder;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
-
+import java.awt.*;
+import java.awt.event.*;
 import java.sql.SQLException;
 
 import hms.models.User;
 import hms.Views.MainView;
+import hms.db.Database;
 
 public class LoginWindow extends JFrame implements ActionListener {
 	private JLabel usernameLabel;
@@ -102,7 +92,17 @@ public class LoginWindow extends JFrame implements ActionListener {
 		this.setLocationRelativeTo(null);	// Center the window on the screen
 		this.setResizable(false);
 		this.setTitle("Login");
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				try {
+					Database.getInstance().closeConnection();
+				} catch (SQLException sqle) {
+					// If we can't close the connection, we probably didn't have to
+				}
+				System.exit(0);
+			}
+		});
 	}
 	
 	/**

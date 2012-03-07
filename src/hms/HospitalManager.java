@@ -19,7 +19,6 @@ class HospitalManager
 					lw.setVisible(true);
 				}
 			});
-			//Database.getInstance().closeConnection();
 		} catch (Exception e) {
 			
 		}
