@@ -2,6 +2,7 @@ package hms.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Vector;
 
 import hms.util.Database;
@@ -17,6 +18,8 @@ public class Nurse {
 	private String id_number;
 	private String gender;
 	private int salary;
+	
+	public ArrayList<String> errors = new ArrayList<String>();
 	
 	
 	public Nurse(String name, String phone_number, String pager_number, String email_address, String address, String sin, String id_number, String gender, int salary) {
@@ -68,4 +71,45 @@ public class Nurse {
 		}
 		return nurses;
 	}
+	
+	/**
+	 * Tries to save the nurse to the database. Returns true on a successful save or false
+	 * if the save fails for any reason.
+	 * @return true if the save is successful; false otherwise
+	 */
+	public boolean create() throws SQLException {
+		try {
+			int rows_added = Database.getInstance().executeUpdate("INSERT INTO nurse VALUES ('" + 
+				this.name + "','" + this.phone_number + "','" + this.pager_number + "','" + 
+				this.email_address + "','" + this.address + "','" + this.sin + "','" + 
+				this.id_number + "','" + this.gender + "','" + 
+				this.salary + "')");
+			this.errors.clear();
+			return true;
+		} catch (SQLException sqle) {
+			this.errors.add("Couldn't add to database");
+			return false;
+		}
+	}
+	
+	/**
+	 * Tries to delete the nurse from the database. Returns true on a successful delete or
+	 * false if the delete fails for any reason.
+	 * @return true if the delete is successful; false otherwise
+	 */
+	public boolean delete() throws SQLException {
+		try {
+			int nurse = Database.getInstance().executeUpdate("DELETE FROM nurse WHERE id_number = '" + this.id_number + "'");
+			if (nurse == 0) {
+				this.errors.add("Nurse does not exist");
+				return false;
+			}
+			this.errors.clear();
+			return true;
+		} catch (SQLException sqle) {
+			this.errors.add("Could not delete nurse");
+			return false;
+		}
+	}
+}
 }
