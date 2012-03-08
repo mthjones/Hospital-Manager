@@ -1,0 +1,15 @@
+CREATE  TABLE `hms`.`ward` (
+  `wardID` INT NOT NULL AUTO_INCREMENT ,
+  `wardName` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`wardID`) );
+
+
+ALTER TABLE `hms`.`user` 
+  ADD CONSTRAINT `ward_id`
+  FOREIGN KEY (`ward` )
+  REFERENCES `hms`.`ward` (`wardID` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION
+, ADD INDEX `ward_id` (`ward` ASC) ;
+
+

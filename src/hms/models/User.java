@@ -57,7 +57,7 @@ public class User {
 			return false;
 		} else {
 			try {
-				int rows_added = Database.getInstance().executeUpdate("INSERT INTO user VALUES ('" + this.username + "','" + this.password + "')");
+				int rows_added = Database.getInstance().executeUpdate("INSERT INTO user VALUES ('" + this.username + "','" + this.password + "','0')");
 				this.errors.clear();
 				return true;
 			} catch (SQLException sqle) {
