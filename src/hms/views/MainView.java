@@ -41,7 +41,7 @@ public class MainView {
 		initialize();
 		
 		maximizeWindow();
-		patientManager = new PatientManager();
+		patientManager = new PatientManager(tableModel);
 	}
 
 	private void maximizeWindow() {

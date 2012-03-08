@@ -25,6 +25,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
 
 import hms.models.*;
+
 import javax.swing.JCheckBox;
 
 public class PatientView {
@@ -40,22 +41,27 @@ public class PatientView {
 	private JRadioButton rdbtnMale;
 	private JRadioButton rdbtnFemale;
 	private JFormattedTextField formattedTextFieldBirthdate;
+	private JLabel invalidBdayInput;
 	private JTextPane textPaneMedications;
 	private JTextPane textPanePatientAddress;
 	private JTextPane textPane_1;//Special Care Information
 	private JTextPane textPaneHistory;
 	private JTextPane textPaneComments;
+	private PatientTableModel mainViewTableModel;
 	public static boolean isNew = false;
 
 	/**
+	 * @param mainViewTableModel 
 	 */
-	public PatientView() {
+	public PatientView(PatientTableModel mainViewTableModel) {
+		this.mainViewTableModel = mainViewTableModel;
 		initialize(true);
 
 		centreWindow(frmPatient);
 	}
 
-	public PatientView(String[] row){
+	public PatientView(String[] row, PatientTableModel mainViewTableModel){
+		this.mainViewTableModel = mainViewTableModel;
 		initialize(false);
 		centreWindow(frmPatient);
 		if(row.length == 15){
@@ -115,7 +121,9 @@ public class PatientView {
 			String month = STR.substring(3, 5);
 			String year  = STR.substring(6, 10);
 			BirthDate = new Date( Integer.parseInt(year)-1900 , Integer.parseInt(month)-1 , Integer.parseInt(day) );
-		}				
+		} else {
+			invalidBdayInput.setVisible(true);
+		}
 		Patient temp = new Patient(
 				textFieldPatientHealthCareNumber.getText(),
 				textFieldPatientName.getText(),
@@ -150,7 +158,7 @@ public class PatientView {
 			String month = STR.substring(3, 5);
 			String year  = STR.substring(6, 10);
 			BirthDate = new Date( Integer.parseInt(year)-1900 , Integer.parseInt(month)-1 , Integer.parseInt(day) );
-		}				
+		}
 		Patient temp = new Patient(
 				textFieldPatientHealthCareNumber.getText(),
 				textFieldPatientName.getText(),
@@ -210,9 +218,11 @@ public class PatientView {
 		btnSaveAndClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TODO test to see if patient is in database
-				if(PatientView.isNew)
+				if(PatientView.isNew){
 					createPatient();
+				}
 				else createPatient(0);
+				mainViewTableModel.fireTableDataChanged();
 				frmPatient.dispose();//TODO
 			}
 		});
@@ -220,6 +230,9 @@ public class PatientView {
 		textFieldPatientName = new JTextField();
 		textFieldPatientName.setColumns(10);
 
+		invalidBdayInput = new JLabel("invalid");
+		invalidBdayInput.setVisible(false);
+		
 		JLabel lblEmail = new JLabel("Email");
 
 		textFieldPatientEmail = new JTextField();
@@ -351,6 +364,7 @@ public class PatientView {
 					createPatient();
 				else 
 					createPatient(0);
+				mainViewTableModel.fireTableDataChanged();
 			}
 		});
 		

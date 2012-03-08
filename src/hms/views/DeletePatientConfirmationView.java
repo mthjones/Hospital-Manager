@@ -1,6 +1,7 @@
 package hms.views;
 
 import hms.controllers.PatientManager;
+import hms.models.PatientTableModel;
 
 import javax.swing.JFrame;
 
@@ -22,12 +23,16 @@ public class DeletePatientConfirmationView {
 	private JButton btnConfirm;
 	private JButton btnCancel;
 	private String healthcareNumber;
+	private PatientTableModel mainViewTableModel;
 	
 	/**
 	 * Create the view
 	 * @param healthcareNumber the healthcare number of the patient to be deleted
+	 * @param mainViewTableModel 
 	 */
-	public DeletePatientConfirmationView(String healthcareNumber) {
+	public DeletePatientConfirmationView(String healthcareNumber, PatientTableModel mainViewTableModel) {
+		this.mainViewTableModel = mainViewTableModel;
+		
 		initialize();
 		this.healthcareNumber = healthcareNumber;
 		
@@ -60,6 +65,7 @@ public class DeletePatientConfirmationView {
 			public void actionPerformed(ActionEvent arg0) {
 				PatientManager.doDeletePatient(healthcareNumber);
 				frmConfirmDeletePatient.dispose();
+				mainViewTableModel.fireTableDataChanged();
 			}
 		});
 		
