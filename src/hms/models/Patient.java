@@ -28,9 +28,9 @@ public class Patient {
 	public ArrayList<String> errors = new ArrayList<String>();
 	
 	public Patient(String healthcare_number, String name, String phone_number, String email,
-			String gender, String treatment, String address, Date birthdate, String medications, 
-			String special_care, String history, String comments, String emerg_name, 
-			String emerg_phone_number, String emerg_email) {
+                   String gender, String treatment, String address, Date birthdate, String medications, 
+                   String special_care, String history, String comments, String emerg_name, 
+                   String emerg_phone_number, String emerg_email) {
 		this.name = name;
 		this.phone_number = phone_number;
 		this.email = email;
@@ -63,9 +63,9 @@ public class Patient {
 			patient.first();
 		}
 		return new Patient(patient.getString(1), patient.getString(2), patient.getString(3),
-				patient.getString(4), patient.getString(5), patient.getString(6), patient.getString(7),
-				patient.getDate(8), patient.getString(9), patient.getString(10), patient.getString(11),
-				patient.getString(12), patient.getString(13), patient.getString(14), patient.getString(15));
+                           patient.getString(4), patient.getString(5), patient.getString(6), patient.getString(7),
+                           patient.getDate(8), patient.getString(9), patient.getString(10), patient.getString(11),
+                           patient.getString(12), patient.getString(13), patient.getString(14), patient.getString(15));
 	}
 	
 	/**
@@ -80,9 +80,9 @@ public class Patient {
 		Vector<Patient> paitents = new Vector<Patient>();
 		while(!patient.isLast()){
 			paitents.add(new Patient(patient.getString(1), patient.getString(2), patient.getString(3),
-					patient.getString(4), patient.getString(5), patient.getString(6), patient.getString(7),
-					patient.getDate(8), patient.getString(9), patient.getString(10), patient.getString(11),
-					patient.getString(12), patient.getString(13), patient.getString(14), patient.getString(15)) );
+                                     patient.getString(4), patient.getString(5), patient.getString(6), patient.getString(7),
+                                     patient.getDate(8), patient.getString(9), patient.getString(10), patient.getString(11),
+                                     patient.getString(12), patient.getString(13), patient.getString(14), patient.getString(15)) );
 			if(!patient.next()) return null;
 		}
 		return paitents;
@@ -96,11 +96,11 @@ public class Patient {
 	public boolean create() throws SQLException {
 		try {
 			int rows_added = Database.getInstance().executeUpdate("INSERT INTO patient VALUES ('" + 
-				this.healthcare_number + "','" + this.name + "','" + this.phone_number + "','" + 
-				this.email + "','" + this.gender + "','" + this.treatment + "','" + 
-				this.address + "','" + new java.sql.Date(this.birthdate.getTime()) + "','" + this.medications + "','" + 
-				this.special_care + "','" + this.history + "','" + this.comments + "','" + 
-				this.emerg_name + "','" + this.emerg_phone_number + "','" + this.emerg_email + "')");
+                                                                  this.healthcare_number + "','" + this.name + "','" + this.phone_number + "','" + 
+                                                                  this.email + "','" + this.gender + "','" + this.treatment + "','" + 
+                                                                  this.address + "','" + new java.sql.Date(this.birthdate.getTime()) + "','" + this.medications + "','" + 
+                                                                  this.special_care + "','" + this.history + "','" + this.comments + "','" + 
+                                                                  this.emerg_name + "','" + this.emerg_phone_number + "','" + this.emerg_email + "')");
 			this.errors.clear();
 			return true;
 		} catch (SQLException sqle) {
@@ -125,6 +125,23 @@ public class Patient {
 			return true;
 		} catch (SQLException sqle) {
 			this.errors.add("Could not delete patient");
+			return false;
+		}
+	}
+	
+	/**
+	 * Tries to delete a patient with a corresponding healthcare number from the database.
+	 * Static version of delete() for convenience's sake.
+	 * @return true if the delete is successful; false otherwise
+	 */
+	public static boolean deleteFromString(String healthcare_number) {
+		try {
+			int patient = Database.getInstance().executeUpdate("DELETE FROM patient WHERE healthcare_number = '" + healthcare_number + "'");
+			if (patient == 0) {
+				return false;
+			}
+			return true;
+		} catch (SQLException sqle) {
 			return false;
 		}
 	}

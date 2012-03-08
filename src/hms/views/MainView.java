@@ -87,6 +87,17 @@ public class MainView {
 				}
 			}
 		});
+        
+        JButton btnDeletePatient = new JButton("DeletePatient");
+		btnDeletePatient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(tablePatients.getSelectedRowCount() == 1){
+					Object[][] content = tableModel.getContent();
+					String healthcareNumber = content[tablePatients.getSelectedRow()][0].toString();
+					patientManager.deletePatient(frmMain, healthcareNumber);
+				}
+			}
+		});
 		
 		JLabel lblPatients = new JLabel("Patients");
 		
@@ -161,8 +172,8 @@ public class MainView {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnEditPatient, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(deletePatientButton, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(btnDeletePatient, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnRefresh, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
@@ -192,7 +203,7 @@ public class MainView {
 						.addComponent(btnRefresh)
 						.addComponent(btnEditPatient)
 						.addComponent(btnCreatePatient)
-						.addComponent(deletePatientButton))
+						.addComponent(btnDeletePatient))
 					.addContainerGap(14, Short.MAX_VALUE))
 		);
 		
