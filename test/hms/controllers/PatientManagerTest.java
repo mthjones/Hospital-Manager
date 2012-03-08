@@ -6,7 +6,7 @@ import java.util.Date;
 
 import org.junit.*;
 import static org.junit.Assert.*;
-import hms.Managers.PatientManager;
+import hms.controllers.PatientManager;
 import hms.models.Patient;
 import java.sql.SQLException;
 
