@@ -1,6 +1,6 @@
 package hms.views;
 
-import hms.Managers.PatientManager;
+import hms.controllers.PatientManager;
 
 import javax.swing.JFrame;
 
