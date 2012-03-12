@@ -37,7 +37,7 @@ public class MainView {
 	public JFrame frmMain;
 	private JTable tablePatients;
 	private PatientManager patientManager;
-	private PatientTableModel tableModel;
+	private PatientTableModel patientTableModel;
 	private UserController userController;
 	private NurseController nurseController;
 
@@ -48,7 +48,7 @@ public class MainView {
 		initialize();
 		
 		maximizeWindow();
-		patientManager = new PatientManager(tableModel);
+		patientManager = new PatientManager(patientTableModel);
 	}
 
 	private void maximizeWindow() {
@@ -69,7 +69,7 @@ public class MainView {
 		
 		JLabel lblUsername = new JLabel("Username");
 		
-		tableModel = new PatientTableModel();
+		patientTableModel = new PatientTableModel();
 		
 		JButton deletePatientButton = new JButton("Delete Patient");
 		
@@ -102,7 +102,7 @@ public class MainView {
 		
 		JPanel panel = new JPanel();
 		patientsUsersNursesTabbedPane.addTab("Patients", null, panel, null);
-		tablePatients = new JTable(tableModel);
+		tablePatients = new JTable(patientTableModel);
 		JScrollPane jsp = new JScrollPane(tablePatients);
 		
 		JButton btnCreatePatient = new JButton("Create Patient");
@@ -117,7 +117,7 @@ public class MainView {
 		btnEditPatient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(tablePatients.getSelectedRowCount() == 1){
-					Object[][] content = tableModel.getContent();
+					Object[][] content = patientTableModel.getContent();
 					Object[] selectedRow = content[tablePatients.getSelectedRow()];
 					String[] strs = new String[content[tablePatients.getSelectedRow()].length];
 					for(int i = 0; i< strs.length; i++){
@@ -132,7 +132,7 @@ public class MainView {
 		btnDeletePatient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(tablePatients.getSelectedRowCount() == 1){
-					Object[][] content = tableModel.getContent();
+					Object[][] content = patientTableModel.getContent();
 					String healthcareNumber = content[tablePatients.getSelectedRow()][0].toString();
 					patientManager.deletePatient(frmMain, healthcareNumber);
 				}
@@ -142,7 +142,7 @@ public class MainView {
 		JButton btnRefresh = new JButton("Refresh");
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				tableModel.fireTableDataChanged();
+				patientTableModel.fireTableDataChanged();
 			}
 		});
 		
