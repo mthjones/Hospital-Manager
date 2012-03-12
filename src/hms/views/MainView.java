@@ -285,6 +285,11 @@ public class MainView {
 		JButton btnDeleteNurse = new JButton("Delete Nurse");
 
 		JButton buttonRefreshNurses = new JButton("Refresh");
+		buttonRefreshNurses.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nurseTableModel.fireTableDataChanged();
+			}
+		});
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
