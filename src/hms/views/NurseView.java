@@ -3,9 +3,6 @@ package hms.views;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
 import java.awt.CardLayout;
 import java.awt.GridBagLayout;
 import javax.swing.BoxLayout;
