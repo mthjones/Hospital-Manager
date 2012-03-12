@@ -12,6 +12,7 @@ public class UserTest {
 	@Test 
 	public void test_createUser() throws SQLException {
 		User user = new User("testuser", "testpass");
+		user.toString();
 		assertTrue(user.create());
 		user.delete();
 	}

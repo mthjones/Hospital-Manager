@@ -17,10 +17,22 @@ public class PatientManagerTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() {
-		testPatient = new Patient(NUMBER, "test test", "1234567890", "test@test.com",
-				"m", "", "", new Date( Integer.parseInt("1991")-1900 , Integer.parseInt("1")-1 , Integer.parseInt("21") ), "test", 
-				"test", "test", "test", "test", 
-				"1234567890", "test@test");
+		testPatient = new Patient(NUMBER, 
+								  "test test", 
+								  "1234567890", 
+								  "test@test.com",
+								  "m", 
+								  "", 
+								  "", 
+								  new Date( Integer.parseInt("1991")-1900 , Integer.parseInt("1")-1 , Integer.parseInt("21") ), 
+								  "test", 
+								  "test", 
+								  "test", 
+								  "test", 
+								  "test", 
+								  "1234567890", 
+								  "test@test",
+								  true);
 	}
 	
 	@AfterClass

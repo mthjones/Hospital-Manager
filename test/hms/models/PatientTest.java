@@ -11,36 +11,66 @@ import static org.junit.Assert.*;
 public class PatientTest {
 	@Test
 	public void test_createPatient() throws SQLException {
-		Patient patient = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "");
+		Patient patient = new Patient("123456789", 
+									  "John Q Public", 
+									  "123456789", 
+									  "john@example.org", 
+									  "M", 
+									  "Test Treatment", 
+									  "123 Abc Street", 
+									  new Date(), 
+									  "", 
+									  "", 
+									  "", 
+									  "", 
+									  "", 
+									  "", 
+									  "",
+									  true);
 		assertTrue(patient.create());
 		patient.delete();
 	}
 	
 	@Test
 	public void test_cannotCreatePatientWithSameHealthcareNumber() throws SQLException {
-		Patient patient = new Patient("123456789", "John Q Public", "0123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "");
+		Patient patient = new Patient("123456789", 
+									  "John Q Public", 
+									  "0123456789", 
+									  "john@example.org", 
+									  "M", 
+									  "Test Treatment", 
+									  "123 Abc Street", 
+									  new Date(), 
+									  "", 
+									  "", 
+									  "", 
+									  "", 
+									  "", 
+									  "", 
+									  "",
+									  true);
 		assertTrue(patient.create());
-		Patient patient2 = new Patient("123456789", "Mary Sue", "9876543210", "mary@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "");
+		Patient patient2 = new Patient("123456789", "Mary Sue", "9876543210", "mary@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true);
 		assertFalse(patient2.create());
 		patient.delete();
 	}
 	
 	@Test
 	public void test_deletePatient() throws SQLException {
-		Patient patient = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "");
+		Patient patient = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true);
 		patient.create();
 		assertTrue(patient.delete());
 	}
 	
 	@Test
 	public void test_cannotDeleteNonexistantPatient() throws SQLException {
-		Patient patient = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "");
+		Patient patient = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true);
 		assertFalse(patient.delete());
 	}
 	
 	@Test
 	public void test_findPatient() throws SQLException {
-		Patient patient = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "");
+		Patient patient = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true);
 		patient.create();
 		assertNotNull(Patient.find("123456789"));
 		patient.delete();

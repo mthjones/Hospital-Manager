@@ -48,6 +48,7 @@ public class PatientView {
 	private JTextPane textPaneHistory;
 	private JTextPane textPaneComments;
 	private PatientTableModel mainViewTableModel;
+	private JCheckBox inHospitalCheckBox;
 	public static boolean isNew = false;
 
 	/**
@@ -139,7 +140,8 @@ public class PatientView {
 						textPaneComments.getText(),
 						null,//
 						null,//
-						null);//for iteration 2 maybe? TODO
+						null,
+						inHospitalCheckBox.isSelected());//for iteration 2 maybe? TODO
 		//textFieldPatientHealthCareNumber.setText(BirthDate.toString());
 		try{
 			temp.delete();
@@ -165,16 +167,17 @@ public class PatientView {
 				textFieldPatientTelephoneNumber.getText(), 
 				textFieldPatientEmail.getText(),
 				rdbtnMale.isSelected()? "M":"F",
-						null,//no field for this
-						textPanePatientAddress.getText(),
-						BirthDate,
-						textPaneMedications.getText(),
-						textPane_1.getText(),
-						textPaneHistory.getText(),
-						textPaneComments.getText(),
-						null,//
-						null,//
-						null);//for iteration 2 maybe? TODO
+				null,//no field for this
+				textPanePatientAddress.getText(),
+				BirthDate,
+				textPaneMedications.getText(),
+				textPane_1.getText(),
+				textPaneHistory.getText(),
+				textPaneComments.getText(),
+				null,//
+				null,//
+				null,
+				inHospitalCheckBox.isSelected());//for iteration 2 maybe? TODO
 		//textFieldPatientHealthCareNumber.setText(BirthDate.toString());
 		try{
 			temp.create();
@@ -368,7 +371,7 @@ public class PatientView {
 			}
 		});
 		
-		JCheckBox inHospitalCheckBox = new JCheckBox("In Hospital");
+		inHospitalCheckBox = new JCheckBox("In Hospital");
 		inHospitalCheckBox.setSelected(true);
 		GroupLayout groupLayout = new GroupLayout(frmPatient.getContentPane());
 		groupLayout.setHorizontalGroup(

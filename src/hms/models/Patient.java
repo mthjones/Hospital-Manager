@@ -25,12 +25,25 @@ public class Patient {
 	private String emerg_name;
 	private String emerg_phone_number;
 	private String emerg_email;
+	private String in_hospital;
 	public ArrayList<String> errors = new ArrayList<String>();
 	
-	public Patient(String healthcare_number, String name, String phone_number, String email,
-                   String gender, String treatment, String address, Date birthdate, String medications, 
-                   String special_care, String history, String comments, String emerg_name, 
-                   String emerg_phone_number, String emerg_email) {
+	public Patient(String healthcare_number, 
+				   String name, 
+				   String phone_number, 
+				   String email,
+                   String gender, 
+                   String treatment, 
+                   String address, 
+                   Date birthdate, 
+                   String medications, 
+                   String special_care, 
+                   String history, 
+                   String comments, 
+                   String emerg_name, 
+                   String emerg_phone_number, 
+                   String emerg_email,
+                   boolean in_hospital) {
 		this.name = name;
 		this.phone_number = phone_number;
 		this.email = email;
@@ -46,6 +59,7 @@ public class Patient {
 		this.emerg_name = emerg_name;
 		this.emerg_phone_number = emerg_phone_number;
 		this.emerg_email = emerg_email;
+		this.in_hospital = in_hospital ? "Y" : "N";
 	}
 	
 	/**
@@ -65,7 +79,8 @@ public class Patient {
 		return new Patient(patient.getString(1), patient.getString(2), patient.getString(3),
                            patient.getString(4), patient.getString(5), patient.getString(6), patient.getString(7),
                            patient.getDate(8), patient.getString(9), patient.getString(10), patient.getString(11),
-                           patient.getString(12), patient.getString(13), patient.getString(14), patient.getString(15));
+                           patient.getString(12), patient.getString(13), patient.getString(14), patient.getString(15),
+                           patient.getBoolean(16));
 	}
 	
 	/**
@@ -82,7 +97,8 @@ public class Patient {
 			paitents.add(new Patient(patient.getString(1), patient.getString(2), patient.getString(3),
                                      patient.getString(4), patient.getString(5), patient.getString(6), patient.getString(7),
                                      patient.getDate(8), patient.getString(9), patient.getString(10), patient.getString(11),
-                                     patient.getString(12), patient.getString(13), patient.getString(14), patient.getString(15)) );
+                                     patient.getString(12), patient.getString(13), patient.getString(14), patient.getString(15),
+                                     patient.getBoolean(16)) );
 			if(!patient.next()) return null;
 		}
 		return paitents;
@@ -100,7 +116,8 @@ public class Patient {
                                                                   this.email + "','" + this.gender + "','" + this.treatment + "','" + 
                                                                   this.address + "','" + new java.sql.Date(this.birthdate.getTime()) + "','" + this.medications + "','" + 
                                                                   this.special_care + "','" + this.history + "','" + this.comments + "','" + 
-                                                                  this.emerg_name + "','" + this.emerg_phone_number + "','" + this.emerg_email + "')");
+                                                                  this.emerg_name + "','" + this.emerg_phone_number + "','" + this.emerg_email + "','"+
+                                                                  this.in_hospital+"')");
 			this.errors.clear();
 			return true;
 		} catch (SQLException sqle) {
