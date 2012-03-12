@@ -15,14 +15,14 @@ public class Nurse {
 	private String email_address;
 	private String address;
 	private String sin;
-	private int id_number;
+	private String id_number;
 	private String gender;
 	private int salary;
 	
 	public ArrayList<String> errors = new ArrayList<String>();
 	
 	
-	public Nurse(String name, String phone_number, String pager_number, String email_address, String address, String sin, int id_number, String gender, int salary) {
+	public Nurse(String name, String phone_number, String pager_number, String email_address, String address, String sin, String id_number, String gender, int salary) {
 		this.name = name;
 		this.phone_number = phone_number;
 		this.pager_number = pager_number;
@@ -49,7 +49,7 @@ public class Nurse {
 			nurse.first();
 		}
 		return new Nurse(nurse.getString(1), nurse.getString(2), nurse.getString(3), nurse.getString(4), 
-				nurse.getString(5), nurse.getString(6), Integer.parseInt(nurse.getString(7)), nurse.getString(8), 
+				nurse.getString(5), nurse.getString(6), nurse.getString(7), nurse.getString(8), 
 				Integer.parseInt(nurse.getString(9)));
 	}
 	
@@ -65,7 +65,7 @@ public class Nurse {
 		Vector<Nurse> nurses = new Vector<Nurse>();
 		while(!nurse.isLast()){
 			nurses.add(new Nurse(nurse.getString(1), nurse.getString(2), nurse.getString(3), nurse.getString(4), 
-					nurse.getString(5), nurse.getString(6), Integer.parseInt(nurse.getString(7)), nurse.getString(8), 
+					nurse.getString(5), nurse.getString(6), nurse.getString(7), nurse.getString(8), 
 					Integer.parseInt(nurse.getString(9))) );
 			if(!nurse.next()) return null;
 		}

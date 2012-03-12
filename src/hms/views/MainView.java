@@ -1,9 +1,6 @@
 package hms.views;
 
-import hms.controllers.NurseController;
 import hms.controllers.PatientManager;
-import hms.controllers.UserController;
-
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -37,9 +34,7 @@ public class MainView {
 	public JFrame frmMain;
 	private JTable tablePatients;
 	private PatientManager patientManager;
-	private PatientTableModel patientTableModel;
-	private UserController userController;
-	private NurseController nurseController;
+	private PatientTableModel tableModel;
 
 	/**
 	 * Create the application.
@@ -48,7 +43,7 @@ public class MainView {
 		initialize();
 		
 		maximizeWindow();
-		patientManager = new PatientManager(patientTableModel);
+		patientManager = new PatientManager(tableModel);
 	}
 
 	private void maximizeWindow() {
@@ -69,55 +64,20 @@ public class MainView {
 		
 		JLabel lblUsername = new JLabel("Username");
 		
-		patientTableModel = new PatientTableModel();
+		JLabel lblWardNumber = new JLabel("Ward #");
 		
-		JButton deletePatientButton = new JButton("Delete Patient");
+		JLabel lblAssignedTo = new JLabel("Assigned to");
 		
-		JTabbedPane patientsUsersNursesTabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		JSeparator separator = new JSeparator();
 		
-		GroupLayout groupLayout = new GroupLayout(frmMain.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblNewLabel)
-							.addGap(18)
-							.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE))
-						.addComponent(patientsUsersNursesTabbedPane, GroupLayout.PREFERRED_SIZE, 1337, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(15, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblUsername, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(patientsUsersNursesTabbedPane, GroupLayout.PREFERRED_SIZE, 708, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-		);
-		
-		JPanel panel = new JPanel();
-		patientsUsersNursesTabbedPane.addTab("Patients", null, panel, null);
-		tablePatients = new JTable(patientTableModel);
-		JScrollPane jsp = new JScrollPane(tablePatients);
-		
-		JButton btnCreatePatient = new JButton("Create Patient");
-		btnCreatePatient.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				patientManager.CreatePatient(frmMain);
-			}
-		});
+		tableModel = new PatientTableModel();
 		
 		
-		JButton btnEditPatient = new JButton("Edit Patient");
-		btnEditPatient.addActionListener(new ActionListener() {
+		JButton btnEdit = new JButton("Edit");
+		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(tablePatients.getSelectedRowCount() == 1){
-					Object[][] content = patientTableModel.getContent();
+					Object[][] content = tableModel.getContent();
 					Object[] selectedRow = content[tablePatients.getSelectedRow()];
 					String[] strs = new String[content[tablePatients.getSelectedRow()].length];
 					for(int i = 0; i< strs.length; i++){
@@ -127,12 +87,12 @@ public class MainView {
 				}
 			}
 		});
-		
-		JButton btnDeletePatient = new JButton("Delete Patient");
-		btnDeletePatient.addActionListener(new ActionListener() {
+        
+        JButton btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(tablePatients.getSelectedRowCount() == 1){
-					Object[][] content = patientTableModel.getContent();
+					Object[][] content = tableModel.getContent();
 					String healthcareNumber = content[tablePatients.getSelectedRow()][0].toString();
 					patientManager.deletePatient(frmMain, healthcareNumber);
 				}
@@ -142,177 +102,103 @@ public class MainView {
 		JButton btnRefresh = new JButton("Refresh");
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				patientTableModel.fireTableDataChanged();
+				tableModel.fireTableDataChanged();
 			}
 		});
+		
+		JButton btnCreate = new JButton("Create");
+		btnCreate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				patientManager.CreatePatient(frmMain);
+			}
+		});
+		
+		JButton deletePatientButton = new JButton("Delete Patient");
 		
 		final JRadioButton viewAllRadioButton = new JRadioButton("View All");
 		
 		final JRadioButton inHospitalRadioButton = new JRadioButton("In Hospital");
-		
-		viewAllRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				inHospitalRadioButton.setSelected(!viewAllRadioButton.isSelected());
-			}
-		});
+		viewAllRadioButton.setSelected(true);
+
 		inHospitalRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				viewAllRadioButton.setSelected(!inHospitalRadioButton.isSelected());
 			}
 		});
-		
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-					.addContainerGap(902, Short.MAX_VALUE)
-					.addComponent(btnCreatePatient, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(btnEditPatient, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(btnDeletePatient, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(btnRefresh, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-					.addGap(22))
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-					.addContainerGap(1155, Short.MAX_VALUE)
-					.addComponent(inHospitalRadioButton, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(viewAllRadioButton)
-					.addGap(29))
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(jsp, GroupLayout.PREFERRED_SIZE, 1314, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(16, Short.MAX_VALUE))
-		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(viewAllRadioButton)
-						.addComponent(inHospitalRadioButton))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(jsp, GroupLayout.PREFERRED_SIZE, 608, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnCreatePatient)
-						.addComponent(btnEditPatient)
-						.addComponent(btnDeletePatient)
-						.addComponent(btnRefresh))
-					.addGap(8))
-		);
-		panel.setLayout(gl_panel);
-		
-		JPanel panel_1 = new JPanel();
-		patientsUsersNursesTabbedPane.addTab("Users", null, panel_1, null);
-		
-		JScrollPane usersScrollPane = new JScrollPane((Component) null);
-		
-		JButton buttonRefreshUsers = new JButton("Refresh");
-		
-		JButton btnDeleteUser = new JButton("Delete User");
-		
-		JButton btnEditUser = new JButton("Edit User");
-		btnEditUser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				userController.EditUser(frmMain);
+
+		viewAllRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				inHospitalRadioButton.setSelected(!viewAllRadioButton.isSelected());
 			}
 		});
 		
-		JButton btnCreateUser = new JButton("Create User");
-		btnCreateUser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				userController.CreateUser(frmMain);
-			}
-		});
-		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap(879, Short.MAX_VALUE)
-					.addComponent(btnCreateUser, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(btnEditUser, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(btnDeleteUser, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(buttonRefreshUsers, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-					.addGap(27))
-				.addGroup(Alignment.LEADING, gl_panel_1.createSequentialGroup()
+		JTabbedPane patientsUsersNursesTabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		
+		GroupLayout groupLayout = new GroupLayout(frmMain.getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(usersScrollPane, GroupLayout.PREFERRED_SIZE, 1303, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(37, Short.MAX_VALUE))
-		);
-		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
-					.addContainerGap(14, Short.MAX_VALUE)
-					.addComponent(usersScrollPane, GroupLayout.PREFERRED_SIZE, 626, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnCreateUser)
-						.addComponent(btnEditUser)
-						.addComponent(btnDeleteUser)
-						.addComponent(buttonRefreshUsers))
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnCreate, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnEdit, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnRefresh, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE))
+						.addComponent(patientsUsersNursesTabbedPane, GroupLayout.PREFERRED_SIZE, 1345, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(inHospitalRadioButton, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(viewAllRadioButton, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+							.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+								.addComponent(lblNewLabel)
+								.addGap(18)
+								.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblAssignedTo, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(lblWardNumber))
+							.addComponent(separator, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 1337, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
-		panel_1.setLayout(gl_panel_1);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblWardNumber)
+						.addComponent(lblAssignedTo)
+						.addComponent(lblNewLabel)
+						.addComponent(lblUsername))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(viewAllRadioButton)
+						.addComponent(inHospitalRadioButton))
+					.addGap(1)
+					.addComponent(patientsUsersNursesTabbedPane, GroupLayout.PREFERRED_SIZE, 629, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnRefresh)
+						.addComponent(btnDelete)
+						.addComponent(btnEdit)
+						.addComponent(btnCreate))
+					.addContainerGap(26, Short.MAX_VALUE))
+		);
+		tablePatients = new JTable(tableModel);
+		JScrollPane jsp = new JScrollPane(tablePatients);
+		patientsUsersNursesTabbedPane.addTab("Patients", null, jsp, null);
 		
-		JPanel panel_2 = new JPanel();
-		patientsUsersNursesTabbedPane.addTab("Nurses", null, panel_2, null);
+		JScrollPane usersScrollPane = new JScrollPane((Component) null);
+		patientsUsersNursesTabbedPane.addTab("Users", null, usersScrollPane, null);
 		
 		JScrollPane nursesScrollPane = new JScrollPane((Component) null);
-		
-		JButton btnCreateNurse = new JButton("Create Nurse");
-		btnCreateNurse.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				nurseController.CreateNurse(frmMain);
-			}
-		});
-		
-		JButton btnEditNurse = new JButton("Edit Nurse");
-		btnEditNurse.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				nurseController.EditNurse(frmMain);
-			}
-		});
-		
-		JButton btnDeleteNurse = new JButton("Delete Nurse");
-		
-		JButton buttonRefreshNurses = new JButton("Refresh");
-		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
-		gl_panel_2.setHorizontalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(nursesScrollPane, GroupLayout.PREFERRED_SIZE, 1304, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(28, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
-					.addContainerGap(879, Short.MAX_VALUE)
-					.addComponent(btnCreateNurse, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(btnEditNurse, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(btnDeleteNurse, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(buttonRefreshNurses, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-					.addGap(27))
-		);
-		gl_panel_2.setVerticalGroup(
-			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(nursesScrollPane, GroupLayout.PREFERRED_SIZE, 625, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnCreateNurse)
-						.addComponent(btnEditNurse)
-						.addComponent(btnDeleteNurse)
-						.addComponent(buttonRefreshNurses))
-					.addGap(21))
-		);
-		panel_2.setLayout(gl_panel_2);
+		patientsUsersNursesTabbedPane.addTab("Nurses", null, nursesScrollPane, null);
 		frmMain.getContentPane().setLayout(groupLayout);
 	}
 }

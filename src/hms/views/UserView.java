@@ -17,7 +17,7 @@ import javax.swing.JComboBox;
 
 public class UserView {
 
-	public JFrame frmUser;
+	private JFrame frmUser;
 	private JTextField textField;
 	private JPasswordField passwordField;	
 
