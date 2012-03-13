@@ -18,17 +18,17 @@ public class NurseController {
 		OpenNurseView(row);
 	}
     
-	public void CreateNurse(JFrame mainScreenJFrame) {
+	public void CreateNurse() {
 		OpenNurseView();
 	}
 	
 	private void OpenNurseView() {
-		NurseView nurseView = new NurseView();
+		NurseView nurseView = new NurseView(mainViewTableModel);
 		nurseView.frame.setVisible(true);
 	}
 	
 	private void OpenNurseView(String[] row) {
-		NurseView nurseView = new NurseView(row);
+		NurseView nurseView = new NurseView(mainViewTableModel, row);
 		nurseView.frame.setVisible(true);
 	}
 }

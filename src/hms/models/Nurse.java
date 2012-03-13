@@ -111,4 +111,40 @@ public class Nurse {
 			return false;
 		}
 	}
+	
+	/**
+	 * Generates an ID number that is not being used by any other nurses. Starts at 1 and increments until an unused one is found.
+	 * 
+	 * @return String IDNumber
+	 */
+	public static int generateIDNumber(){
+		int id = 1;
+		
+		try {
+			ResultSet nurses = Database.getInstance().executeQuery("SELECT id_number FROM nurse");
+			if(nurses == null){}
+			else {
+				int i = 0;
+				while(true){
+					boolean incremented = false;
+					nurses.first();
+					while(!nurses.isAfterLast()) {
+						if(id == nurses.getInt("id_number")) {
+							incremented = true;
+							id++;
+							break;
+						}
+						nurses.next();
+					}
+					if(incremented == false) {
+						//did not find an existing nurse with that id number
+						break;
+					}
+				}
+			}
+		} catch(SQLException e) {
+			//error occurred. Ignore for now.
+		}
+		return id;
+	}
 }

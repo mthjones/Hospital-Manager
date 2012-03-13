@@ -273,7 +273,7 @@ public class MainView {
 		JButton btnCreateNurse = new JButton("Create Nurse");
 		btnCreateNurse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				nurseController.CreateNurse(frmMain);
+				nurseController.CreateNurse();
 			}
 		});
 

@@ -9,6 +9,7 @@ import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -18,6 +19,9 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpringLayout;
 import javax.swing.JRadioButton;
+
+import hms.models.NurseTableModel;
+import hms.models.Nurse;
 
 public class NurseView {
 
@@ -31,16 +35,20 @@ public class NurseView {
 	private JTextField textField;
 	private JRadioButton rdbtnMale;
 	private JRadioButton rdbtnFemale;
-
+	public static boolean isNew = false;
+	private NurseTableModel mainViewTableModel;
+	
 	/**
 	 * Create the application.
 	 */
-	public NurseView() {
-		initialize(false);
+	public NurseView(NurseTableModel mainViewTableModel) {
+		this.mainViewTableModel = mainViewTableModel;
+		initialize(true);
 	}
 	
-	public NurseView(String[] row) {
-		initialize(true);
+	public NurseView(NurseTableModel mainViewTableModel, String[] row) {
+		this.mainViewTableModel = mainViewTableModel;
+		initialize(false);
 		
 		if(row.length == 9) {
 			//Name
@@ -88,12 +96,24 @@ public class NurseView {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(boolean edit) {
+	private void initialize(boolean isNew) {
+		
+		this.isNew = isNew;
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 321);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton button = new JButton("Save");
+		button.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(NurseView.isNew)
+						createNurse();
+					else 
+						createNurse(0);
+					mainViewTableModel.fireTableDataChanged();
+				}
+		});
 		
 		JButton button_1 = new JButton("Save and Close");
 		
@@ -231,5 +251,28 @@ public class NurseView {
 		springLayout.putConstraint(SpringLayout.SOUTH, label, 0, SpringLayout.SOUTH, lblSalary);
 		springLayout.putConstraint(SpringLayout.EAST, label, -6, SpringLayout.WEST, textField);
 		frame.getContentPane().add(label);
+	}
+	
+	private void createNurse() {
+		//TODO test to see if nurse is in database
+		Nurse temp = new Nurse(
+				txtName.getText(),
+				txtPhoneNumber.getText(),
+				txtPagerNumber.getText(), 
+				txtEmail.getText(),
+				txtHomeAddress.getText(),
+				txtSocialInsuranceNumber.getText(),
+				Nurse.generateIDNumber(),
+				rdbtnMale.isSelected()? "M":"F",
+				Integer.parseInt(textField.getText()));
+		try{
+			temp.create();
+		}catch(Exception e1){
+			return;
+		}
+	}
+	
+	private void createNurse(int i) {
+		
 	}
 }
