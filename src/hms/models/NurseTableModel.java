@@ -29,8 +29,8 @@ public class NurseTableModel extends AbstractTableModel{
 			getTableColumnNamesAndClasses();
 			getTableContents();
 		} catch (SQLException sqle) {
-			content = new Object[][] {{"andrew", "1"}, {"mark", "2"}};
-			columnNames = new String[] {"name", "number"};
+			content = new Object[][] {{"", ""}};
+			columnNames = new String[] {"", ""};
 		}
 	}
 
