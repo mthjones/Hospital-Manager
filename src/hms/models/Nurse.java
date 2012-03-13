@@ -58,7 +58,7 @@ public class Nurse {
 	 * no nurses exist, null is returned
 	 * @return Nurse if found, or null if there arent any
 	 */
-	public static Vector<Nurse> findAllPatients() throws SQLException{
+	public static Vector<Nurse> findAllNurses() throws SQLException{
 		ResultSet nurse = Database.getInstance().executeQuery("SELECT * FROM nurse");
 		if (nurse == null) return null;
 		nurse.first();
@@ -108,6 +108,24 @@ public class Nurse {
 			return true;
 		} catch (SQLException sqle) {
 			this.errors.add("Could not delete nurse");
+			return false;
+		}
+	}
+	
+	/**
+	 * Tries to delete the nurse specified from idNumber from the database. Returns true on a 
+	 * successful delete or false if the delete fails.
+	 * @param idNumber
+	 * @return true if successful, false otherwise.
+	 */
+	public static boolean deleteFromInteger(int idNumber) {
+		try {
+			int nurse = Database.getInstance().executeUpdate("DELETE FROM nurse WHERE id_number = '" + idNumber + "'");
+			if (nurse == 0) {
+				return false;
+			}
+			return true;
+		} catch (SQLException sqle) {
 			return false;
 		}
 	}

@@ -288,11 +288,25 @@ public class MainView {
 					strs[i] = content[tableNurses.getSelectedRow()][i].toString();
 				}
 				
-				nurseController.EditNurse(frmMain, strs);
+				nurseController.EditNurse(strs);
 			}
 		});
 
 		JButton btnDeleteNurse = new JButton("Delete Nurse");
+		btnDeleteNurse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Object[][] content = nurseTableModel.getContent();
+				Object[] selectedRow = content[tableNurses.getSelectedRow()];
+				String[] strs = new String[content[tableNurses.getSelectedRow()].length];
+				for(int i = 0; i< strs.length; i++){
+					strs[i] = content[tableNurses.getSelectedRow()][i].toString();
+				}
+				
+				int idNumber = Integer.parseInt(strs[6]);
+				
+				nurseController.DeleteNurse(idNumber, nurseTableModel);
+			}
+		});
 
 		JButton buttonRefreshNurses = new JButton("Refresh");
 		buttonRefreshNurses.addActionListener(new ActionListener() {
