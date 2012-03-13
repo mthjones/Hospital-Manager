@@ -43,24 +43,31 @@ public class NurseView {
 		initialize(true);
 		
 		if(row.length == 9) {
+			//Name
 			if(row[0] != null) {
 				txtName.setText(row[0]);
 			}
+			//phone number
 			if(row[1] != null) {
 				txtPhoneNumber.setText(row[1]);
 			}
+			//pager number
 			if(row[2] != null) {
 				txtPagerNumber.setText(row[2]);
 			}
+			//email address
 			if(row[3] != null) {
 				txtEmail.setText(row[3]);
 			}
+			//home address
 			if(row[4] != null) {
 				txtHomeAddress.setText(row[4]);
 			}
+			//social insurance number
 			if(row[5] != null) {
 				txtSocialInsuranceNumber.setText(row[5]);
 			}
+			//gender
 			if(row[7] != null) {
 				if(row[7].equals("m") || row[7].equals("M")) {
 					rdbtnMale.setSelected(true);
@@ -71,6 +78,7 @@ public class NurseView {
 					rdbtnFemale.setSelected(true);
 				}
 			}
+			//salary
 			if(row[8] != null) {
 				textField.setText(row[8]);
 			}
