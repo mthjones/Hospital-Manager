@@ -51,6 +51,8 @@ public class MainView {
 
 		maximizeWindow();
 		patientManager = new PatientManager(patientTableModel);
+		
+		nurseController = new NurseController(nurseTableModel);
 	}
 
 	private void maximizeWindow() {
@@ -278,7 +280,15 @@ public class MainView {
 		JButton btnEditNurse = new JButton("Edit Nurse");
 		btnEditNurse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				nurseController.EditNurse(frmMain);
+				
+				Object[][] content = nurseTableModel.getContent();
+				Object[] selectedRow = content[tableNurses.getSelectedRow()];
+				String[] strs = new String[content[tableNurses.getSelectedRow()].length];
+				for(int i = 0; i< strs.length; i++){
+					strs[i] = content[tableNurses.getSelectedRow()][i].toString();
+				}
+				
+				nurseController.EditNurse(frmMain, strs);
 			}
 		});
 

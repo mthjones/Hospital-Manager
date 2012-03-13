@@ -29,18 +29,58 @@ public class NurseView {
 	private JTextField txtEmail;
 	private JTextField txtHomeAddress;
 	private JTextField textField;
+	private JRadioButton rdbtnMale;
+	private JRadioButton rdbtnFemale;
 
 	/**
 	 * Create the application.
 	 */
 	public NurseView() {
-		initialize();
+		initialize(false);
+	}
+	
+	public NurseView(String[] row) {
+		initialize(true);
+		
+		if(row.length == 9) {
+			if(row[0] != null) {
+				txtName.setText(row[0]);
+			}
+			if(row[1] != null) {
+				txtPhoneNumber.setText(row[1]);
+			}
+			if(row[2] != null) {
+				txtPagerNumber.setText(row[2]);
+			}
+			if(row[3] != null) {
+				txtEmail.setText(row[3]);
+			}
+			if(row[4] != null) {
+				txtHomeAddress.setText(row[4]);
+			}
+			if(row[5] != null) {
+				txtSocialInsuranceNumber.setText(row[5]);
+			}
+			if(row[7] != null) {
+				if(row[7].equals("m") || row[7].equals("M")) {
+					rdbtnMale.setSelected(true);
+					rdbtnFemale.setSelected(false);
+				}
+				else if(row[7].equals("f") || row[7].equals("F")) {
+					rdbtnMale.setSelected(false);
+					rdbtnFemale.setSelected(true);
+				}
+			}
+			if(row[8] != null) {
+				textField.setText(row[8]);
+			}
+		}
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(boolean edit) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 321);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -90,13 +130,13 @@ public class NurseView {
 		frame.getContentPane().add(txtSocialInsuranceNumber);
 		frame.getContentPane().add(txtName);
 		
-		final JRadioButton rdbtnMale = new JRadioButton("Male");
+		rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setSelected(true);
 		springLayout.putConstraint(SpringLayout.NORTH, rdbtnMale, 6, SpringLayout.SOUTH, txtSocialInsuranceNumber);
 		springLayout.putConstraint(SpringLayout.WEST, rdbtnMale, 0, SpringLayout.WEST, txtSocialInsuranceNumber);
 		frame.getContentPane().add(rdbtnMale);
 		
-		final JRadioButton rdbtnFemale = new JRadioButton("Female");
+		rdbtnFemale = new JRadioButton("Female");
 		springLayout.putConstraint(SpringLayout.NORTH, rdbtnFemale, 6, SpringLayout.SOUTH, txtSocialInsuranceNumber);
 		springLayout.putConstraint(SpringLayout.WEST, rdbtnFemale, 25, SpringLayout.EAST, rdbtnMale);
 		springLayout.putConstraint(SpringLayout.EAST, rdbtnFemale, 0, SpringLayout.EAST, button_1);
