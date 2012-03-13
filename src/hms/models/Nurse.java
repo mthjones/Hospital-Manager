@@ -40,7 +40,7 @@ public class Nurse {
 	 * @param id_number The id number for the patient to be found
 	 * @return Nurse object if found, or null if it isn't
 	 */
-	public static Nurse find(String id_number) throws SQLException {
+	public static Nurse find(int id_number) throws SQLException {
 		ResultSet nurse = Database.getInstance().executeQuery("SELECT * FROM nurse WHERE id_number = '" + id_number + "'");
 		nurse.last();
 		if(nurse.getRow() == 0) {
