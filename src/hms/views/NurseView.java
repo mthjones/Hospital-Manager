@@ -120,8 +120,23 @@ public class NurseView {
 		});
 		
 		JButton button_1 = new JButton("Save and Close");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(NurseView.isNew)
+					createNurse();
+				else 
+					createNurse(idNumber);
+				mainViewTableModel.fireTableDataChanged();
+				frame.dispose();
+			}
+		});
 		
 		JButton button_2 = new JButton("Close");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+			}
+		});
 		
 		JLabel lblName = new JLabel("Name");
 		
