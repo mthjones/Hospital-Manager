@@ -33,6 +33,7 @@ public class NurseView {
 	private JTextField txtEmail;
 	private JTextField txtHomeAddress;
 	private JTextField textField;
+	private int idNumber;
 	private JRadioButton rdbtnMale;
 	private JRadioButton rdbtnFemale;
 	public static boolean isNew = false;
@@ -75,6 +76,9 @@ public class NurseView {
 			if(row[5] != null) {
 				txtSocialInsuranceNumber.setText(row[5]);
 			}
+			if(row[6] != null) {
+				idNumber = Integer.parseInt(row[6]);
+			}
 			//gender
 			if(row[7] != null) {
 				if(row[7].equals("m") || row[7].equals("M")) {
@@ -110,7 +114,7 @@ public class NurseView {
 					if(NurseView.isNew)
 						createNurse();
 					else 
-						createNurse(0);
+						createNurse(idNumber);
 					mainViewTableModel.fireTableDataChanged();
 				}
 		});
@@ -272,7 +276,22 @@ public class NurseView {
 		}
 	}
 	
-	private void createNurse(int i) {
-		
+	private void createNurse(int id_number) {
+		Nurse temp = new Nurse(
+				txtName.getText(),
+				txtPhoneNumber.getText(),
+				txtPagerNumber.getText(), 
+				txtEmail.getText(),
+				txtHomeAddress.getText(),
+				txtSocialInsuranceNumber.getText(),
+				id_number,
+				rdbtnMale.isSelected()? "M":"F",
+				Integer.parseInt(textField.getText()));
+		try{
+			temp.delete();
+			temp.create();
+		}catch(Exception e1){
+			return;
+		}
 	}
 }
