@@ -71,6 +71,7 @@ public class NurseTest {
 			Nurse nurse = new Nurse("Jane Doe", "123-456-7890", "555-5555", "test@test.com", "123, 4th avenue", "123-456-7890", 2222, "f", 100000);
 			nurse.create();
 			assertNotNull(Nurse.find(2222));
+			nurse.delete();
 		} catch(SQLException e) {
 			fail("SQLException occurred.");
 		}
