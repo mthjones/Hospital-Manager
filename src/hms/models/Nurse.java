@@ -40,7 +40,7 @@ public class Nurse {
 	 * @param id_number The id number for the patient to be found
 	 * @return Nurse object if found, or null if it isn't
 	 */
-	public static Nurse find(String id_number) throws SQLException {
+	public static Nurse find(int id_number) throws SQLException {
 		ResultSet nurse = Database.getInstance().executeQuery("SELECT * FROM nurse WHERE id_number = '" + id_number + "'");
 		nurse.last();
 		if(nurse.getRow() == 0) {
@@ -58,7 +58,7 @@ public class Nurse {
 	 * no nurses exist, null is returned
 	 * @return Nurse if found, or null if there arent any
 	 */
-	public static Vector<Nurse> findAllPatients() throws SQLException{
+	public static Vector<Nurse> findAllNurses() throws SQLException{
 		ResultSet nurse = Database.getInstance().executeQuery("SELECT * FROM nurse");
 		if (nurse == null) return null;
 		nurse.first();
@@ -110,5 +110,59 @@ public class Nurse {
 			this.errors.add("Could not delete nurse");
 			return false;
 		}
+	}
+	
+	/**
+	 * Tries to delete the nurse specified from idNumber from the database. Returns true on a 
+	 * successful delete or false if the delete fails.
+	 * @param idNumber
+	 * @return true if successful, false otherwise.
+	 */
+	public static boolean deleteFromInteger(int idNumber) {
+		try {
+			int nurse = Database.getInstance().executeUpdate("DELETE FROM nurse WHERE id_number = '" + idNumber + "'");
+			if (nurse == 0) {
+				return false;
+			}
+			return true;
+		} catch (SQLException sqle) {
+			return false;
+		}
+	}
+	
+	/**
+	 * Generates an ID number that is not being used by any other nurses. Starts at 1 and increments until an unused one is found.
+	 * 
+	 * @return String IDNumber
+	 */
+	public static int generateIDNumber(){
+		int id = 1;
+		
+		try {
+			ResultSet nurses = Database.getInstance().executeQuery("SELECT id_number FROM nurse");
+			if(nurses == null){}
+			else {
+				int i = 0;
+				while(true){
+					boolean incremented = false;
+					nurses.first();
+					while(!nurses.isAfterLast()) {
+						if(id == nurses.getInt("id_number")) {
+							incremented = true;
+							id++;
+							break;
+						}
+						nurses.next();
+					}
+					if(incremented == false) {
+						//did not find an existing nurse with that id number
+						break;
+					}
+				}
+			}
+		} catch(SQLException e) {
+			//error occurred. Ignore for now.
+		}
+		return id;
 	}
 }

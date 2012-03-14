@@ -9,6 +9,7 @@ import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -18,6 +19,9 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpringLayout;
 import javax.swing.JRadioButton;
+
+import hms.models.NurseTableModel;
+import hms.models.Nurse;
 
 public class NurseView {
 
@@ -29,27 +33,110 @@ public class NurseView {
 	private JTextField txtEmail;
 	private JTextField txtHomeAddress;
 	private JTextField textField;
-
+	private int idNumber;
+	private JRadioButton rdbtnMale;
+	private JRadioButton rdbtnFemale;
+	public static boolean isNew = false;
+	private NurseTableModel mainViewTableModel;
+	
 	/**
 	 * Create the application.
 	 */
-	public NurseView() {
-		initialize();
+	public NurseView(NurseTableModel mainViewTableModel) {
+		this.mainViewTableModel = mainViewTableModel;
+		initialize(true);
+	}
+	
+	public NurseView(NurseTableModel mainViewTableModel, String[] row) {
+		this.mainViewTableModel = mainViewTableModel;
+		initialize(false);
+		
+		if(row.length == 9) {
+			//Name
+			if(row[0] != null) {
+				txtName.setText(row[0]);
+			}
+			//phone number
+			if(row[1] != null) {
+				txtPhoneNumber.setText(row[1]);
+			}
+			//pager number
+			if(row[2] != null) {
+				txtPagerNumber.setText(row[2]);
+			}
+			//email address
+			if(row[3] != null) {
+				txtEmail.setText(row[3]);
+			}
+			//home address
+			if(row[4] != null) {
+				txtHomeAddress.setText(row[4]);
+			}
+			//social insurance number
+			if(row[5] != null) {
+				txtSocialInsuranceNumber.setText(row[5]);
+			}
+			if(row[6] != null) {
+				idNumber = Integer.parseInt(row[6]);
+			}
+			//gender
+			if(row[7] != null) {
+				if(row[7].equals("m") || row[7].equals("M")) {
+					rdbtnMale.setSelected(true);
+					rdbtnFemale.setSelected(false);
+				}
+				else if(row[7].equals("f") || row[7].equals("F")) {
+					rdbtnMale.setSelected(false);
+					rdbtnFemale.setSelected(true);
+				}
+			}
+			//salary
+			if(row[8] != null) {
+				textField.setText(row[8]);
+			}
+		}
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(boolean isNew) {
+		
+		this.isNew = isNew;
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 321);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton button = new JButton("Save");
+		button.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(NurseView.isNew)
+						createNurse();
+					else 
+						createNurse(idNumber);
+					mainViewTableModel.fireTableDataChanged();
+				}
+		});
 		
 		JButton button_1 = new JButton("Save and Close");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(NurseView.isNew)
+					createNurse();
+				else 
+					createNurse(idNumber);
+				mainViewTableModel.fireTableDataChanged();
+				frame.dispose();
+			}
+		});
 		
 		JButton button_2 = new JButton("Close");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+			}
+		});
 		
 		JLabel lblName = new JLabel("Name");
 		
@@ -90,13 +177,13 @@ public class NurseView {
 		frame.getContentPane().add(txtSocialInsuranceNumber);
 		frame.getContentPane().add(txtName);
 		
-		final JRadioButton rdbtnMale = new JRadioButton("Male");
+		rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setSelected(true);
 		springLayout.putConstraint(SpringLayout.NORTH, rdbtnMale, 6, SpringLayout.SOUTH, txtSocialInsuranceNumber);
 		springLayout.putConstraint(SpringLayout.WEST, rdbtnMale, 0, SpringLayout.WEST, txtSocialInsuranceNumber);
 		frame.getContentPane().add(rdbtnMale);
 		
-		final JRadioButton rdbtnFemale = new JRadioButton("Female");
+		rdbtnFemale = new JRadioButton("Female");
 		springLayout.putConstraint(SpringLayout.NORTH, rdbtnFemale, 6, SpringLayout.SOUTH, txtSocialInsuranceNumber);
 		springLayout.putConstraint(SpringLayout.WEST, rdbtnFemale, 25, SpringLayout.EAST, rdbtnMale);
 		springLayout.putConstraint(SpringLayout.EAST, rdbtnFemale, 0, SpringLayout.EAST, button_1);
@@ -183,5 +270,43 @@ public class NurseView {
 		springLayout.putConstraint(SpringLayout.SOUTH, label, 0, SpringLayout.SOUTH, lblSalary);
 		springLayout.putConstraint(SpringLayout.EAST, label, -6, SpringLayout.WEST, textField);
 		frame.getContentPane().add(label);
+	}
+	
+	private void createNurse() {
+		//TODO test to see if nurse is in database
+		Nurse temp = new Nurse(
+				txtName.getText(),
+				txtPhoneNumber.getText(),
+				txtPagerNumber.getText(), 
+				txtEmail.getText(),
+				txtHomeAddress.getText(),
+				txtSocialInsuranceNumber.getText(),
+				Nurse.generateIDNumber(),
+				rdbtnMale.isSelected()? "M":"F",
+				Integer.parseInt(textField.getText()));
+		try{
+			temp.create();
+		}catch(Exception e1){
+			return;
+		}
+	}
+	
+	private void createNurse(int id_number) {
+		Nurse temp = new Nurse(
+				txtName.getText(),
+				txtPhoneNumber.getText(),
+				txtPagerNumber.getText(), 
+				txtEmail.getText(),
+				txtHomeAddress.getText(),
+				txtSocialInsuranceNumber.getText(),
+				id_number,
+				rdbtnMale.isSelected()? "M":"F",
+				Integer.parseInt(textField.getText()));
+		try{
+			temp.delete();
+			temp.create();
+		}catch(Exception e1){
+			return;
+		}
 	}
 }
