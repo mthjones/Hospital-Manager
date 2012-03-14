@@ -32,7 +32,10 @@ public class PatientManagerTest {
 								  "test", 
 								  "1234567890", 
 								  "test@test",
-								  true);
+								  true,
+								  1,
+								  1,
+								  1);
 	}
 	
 	@AfterClass

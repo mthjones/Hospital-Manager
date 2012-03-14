@@ -12,6 +12,10 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import hms.controllers.PatientManager;
+
 import javax.swing.JRadioButton;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
@@ -25,6 +29,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
 
 import hms.models.*;
+import hms.controllers.PatientManager;
 
 import javax.swing.JCheckBox;
 
@@ -37,7 +42,7 @@ public class PatientView {
 	private JTextField textFieldPatientHealthCareNumber;
 	private JTextField textField;//Emergency Contact Telephone Number
 	private JTextField textField_2;//Emergency Contact Name
-	private JTextField textField_1;//Emergenct Contact email
+	private JTextField textField_1;//Emergency Contact email
 	private JRadioButton rdbtnMale;
 	private JRadioButton rdbtnFemale;
 	private JFormattedTextField formattedTextFieldBirthdate;
@@ -49,6 +54,9 @@ public class PatientView {
 	private JTextPane textPaneComments;
 	private PatientTableModel mainViewTableModel;
 	private JCheckBox inHospitalCheckBox;
+	private JComboBox comboBoxRoom;
+	private JComboBox comboBoxWard;
+	private JComboBox comboBoxBed;
 	public static boolean isNew = false;
 
 	/**
@@ -65,7 +73,7 @@ public class PatientView {
 		this.mainViewTableModel = mainViewTableModel;
 		initialize(false);
 		centreWindow(frmPatient);
-		if(row.length == 15){
+		if(row.length == 19){
 			if(row[0]!= null)
 				textFieldPatientHealthCareNumber.setText(row[0]);
 			if(row[1]!= null)
@@ -106,7 +114,17 @@ public class PatientView {
 			if(row[11]!= null)
 				textPaneComments.setText(row[11]);
 			//TODO add in rest if implemented
-
+			
+			if(row[16] != null){
+				
+				Integer i = new Integer(row[16]);
+				String ward = PatientManager.getPatientSingleWardName(i.intValue());
+				comboBoxWard.setSelectedItem(ward);
+			}
+			if(row[17] != null)
+				comboBoxRoom.setSelectedItem(row[17]);
+			if(row[18] != null)
+				comboBoxBed.setSelectedItem(row[18]);
 		}
 	}
 	
@@ -141,7 +159,10 @@ public class PatientView {
 						null,//
 						null,//
 						null,
-						inHospitalCheckBox.isSelected());//for iteration 2 maybe? TODO
+						inHospitalCheckBox.isSelected(),
+						comboBoxWard.getSelectedIndex(),
+						(Integer)comboBoxRoom.getSelectedItem(),
+						(Integer)comboBoxBed.getSelectedItem());//for iteration 2 maybe? TODO
 		//textFieldPatientHealthCareNumber.setText(BirthDate.toString());
 		try{
 			temp.delete();
@@ -177,7 +198,10 @@ public class PatientView {
 				null,//
 				null,//
 				null,
-				inHospitalCheckBox.isSelected());//for iteration 2 maybe? TODO
+				inHospitalCheckBox.isSelected(),
+				comboBoxWard.getSelectedIndex(),
+				(Integer)comboBoxRoom.getSelectedItem(),
+				(Integer)comboBoxBed.getSelectedItem());//for iteration 2 maybe? TODO
 		//textFieldPatientHealthCareNumber.setText(BirthDate.toString());
 		try{
 			temp.create();
@@ -472,19 +496,68 @@ public class PatientView {
 		);
 
 		JLabel lblAssignPatientTo = new JLabel("Assign Patient to Room");
-
+		
+		
+		//Setting up wards, rooms, and bed combo boxes
+		
 		JLabel lblBed = new JLabel("Beds");
 
-		JFormattedTextField formattedTextFieldBeds = new JFormattedTextField();
-		formattedTextFieldBeds.setEditable(false);
-
+		comboBoxBed = new JComboBox();
+		
 		JLabel lblWard = new JLabel("Wards");
+		
 
-		JComboBox comboBoxWard = new JComboBox();
+		String[] WardList = PatientManager.getPatientWardNames();
+		comboBoxWard = new JComboBox(WardList);
+		
 
 		JLabel lblRoom = new JLabel("Rooms");
 
-		JComboBox comboBoxRoom = new JComboBox();
+		comboBoxRoom = new JComboBox();
+		
+		//These next two listeners change room and bed to match the ones in the selected ward\
+		//TODO: Havent implemented anything to do with availability of beds yet
+		comboBoxWard.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				int ward_id = comboBoxWard.getSelectedIndex();
+				Integer[] rooms = PatientManager.getPatientRooms(ward_id);
+				try
+				{
+				comboBoxRoom.removeAllItems();
+				comboBoxBed.removeAllItems();
+				}
+				catch(NullPointerException f)
+				{}
+				for(int i = 0; i < rooms.length; i++)
+					comboBoxRoom.addItem(rooms[i]);
+				
+			}
+		});
+		
+		comboBoxRoom.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if(comboBoxRoom.getSelectedItem() != null)
+				{
+					int room_id = (Integer)comboBoxRoom.getSelectedItem();
+					Integer[] beds = PatientManager.getPatientBeds(room_id);
+					try
+					{
+						comboBoxBed.removeAllItems();
+					}
+					catch(Exception g)
+					{}
+					for(int i = 0; i < beds.length; i++){
+						comboBoxBed.addItem(beds[i]);
+					}
+				}
+			}
+		});
+			
+		
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 				gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -503,7 +576,7 @@ public class PatientView {
 										.addGap(18)
 										.addComponent(lblBed)
 										.addGap(10)
-										.addComponent(formattedTextFieldBeds, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)))
+										.addComponent(comboBoxBed, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)))
 										.addGap(18))
 				);
 		gl_panel_1.setVerticalGroup(
@@ -517,7 +590,7 @@ public class PatientView {
 								.addComponent(lblRoom)
 								.addComponent(comboBoxRoom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblBed)
-								.addComponent(formattedTextFieldBeds, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(comboBoxBed, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 								.addContainerGap(15, Short.MAX_VALUE))
 				);
 		panel_1.setLayout(gl_panel_1);

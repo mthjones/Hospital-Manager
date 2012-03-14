@@ -128,7 +128,8 @@ public class PatientTableModel extends AbstractTableModel {
 					cellValue = patients.getFloat(columnNames[i]);
 				} else if (columnClasses[i].equals(Character.class.getName())) {
 					cellValue = new Character(patients.getString(columnNames[i]).charAt(0));
-				} else {
+				} 
+				else {
 					cellValue = patients.getString(columnNames[i]);
 				}
 				cellList.add(cellValue);

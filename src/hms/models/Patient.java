@@ -26,6 +26,9 @@ public class Patient {
 	private String emerg_phone_number;
 	private String emerg_email;
 	private String in_hospital;
+	private int ward_id;
+	private int room_id;
+	private int bed_id;
 	public ArrayList<String> errors = new ArrayList<String>();
 	
 	public Patient(String healthcare_number, 
@@ -43,7 +46,10 @@ public class Patient {
                    String emerg_name, 
                    String emerg_phone_number, 
                    String emerg_email,
-                   boolean in_hospital) {
+                   boolean in_hospital,
+                   int ward,
+                   int room,
+                   int bed) {
 		this.name = name;
 		this.phone_number = phone_number;
 		this.email = email;
@@ -60,6 +66,9 @@ public class Patient {
 		this.emerg_phone_number = emerg_phone_number;
 		this.emerg_email = emerg_email;
 		this.in_hospital = in_hospital ? "Y" : "N";
+		this.ward_id = ward;
+		this.room_id = room;
+		this.bed_id = bed;
 	}
 	
 	/**
@@ -80,7 +89,7 @@ public class Patient {
                            patient.getString(4), patient.getString(5), patient.getString(6), patient.getString(7),
                            patient.getDate(8), patient.getString(9), patient.getString(10), patient.getString(11),
                            patient.getString(12), patient.getString(13), patient.getString(14), patient.getString(15),
-                           patient.getBoolean(16));
+                           patient.getBoolean(16), patient.getInt(17), patient.getInt(18), patient.getInt(19));
 	}
 	
 	/**
@@ -98,7 +107,7 @@ public class Patient {
                                      patient.getString(4), patient.getString(5), patient.getString(6), patient.getString(7),
                                      patient.getDate(8), patient.getString(9), patient.getString(10), patient.getString(11),
                                      patient.getString(12), patient.getString(13), patient.getString(14), patient.getString(15),
-                                     patient.getBoolean(16)) );
+                                     patient.getBoolean(16), patient.getInt(17), patient.getInt(18), patient.getInt(19)) );
 			if(!patient.next()) return null;
 		}
 		return paitents;
@@ -117,7 +126,7 @@ public class Patient {
                                                                   this.address + "','" + new java.sql.Date(this.birthdate.getTime()) + "','" + this.medications + "','" + 
                                                                   this.special_care + "','" + this.history + "','" + this.comments + "','" + 
                                                                   this.emerg_name + "','" + this.emerg_phone_number + "','" + this.emerg_email + "','"+
-                                                                  this.in_hospital+"')");
+                                                                  this.in_hospital + "','" + this.ward_id + "','" + this.room_id + "','" + this.bed_id + "')");
 			this.errors.clear();
 			return true;
 		} catch (SQLException sqle) {

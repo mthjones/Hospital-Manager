@@ -26,7 +26,10 @@ public class PatientTest {
 									  "", 
 									  "", 
 									  "",
-									  true);
+									  true,
+									  1,
+									  1,
+									  1);
 		assertTrue(patient.create());
 		patient.delete();
 	}
@@ -48,29 +51,32 @@ public class PatientTest {
 									  "", 
 									  "", 
 									  "",
-									  true);
+									  true,
+									  1,
+									  1,
+									  1);
 		assertTrue(patient.create());
-		Patient patient2 = new Patient("123456789", "Mary Sue", "9876543210", "mary@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true);
+		Patient patient2 = new Patient("123456789", "Mary Sue", "9876543210", "mary@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true,1,1,1);
 		assertFalse(patient2.create());
 		patient.delete();
 	}
 	
 	@Test
 	public void test_deletePatient() throws SQLException {
-		Patient patient = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true);
+		Patient patient = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true,1,1,1);
 		patient.create();
 		assertTrue(patient.delete());
 	}
 	
 	@Test
 	public void test_cannotDeleteNonexistantPatient() throws SQLException {
-		Patient patient = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true);
+		Patient patient = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true,1,1,1);
 		assertFalse(patient.delete());
 	}
 	
 	@Test
 	public void test_findPatient() throws SQLException {
-		Patient patient = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true);
+		Patient patient = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true,1,1,1);
 		patient.create();
 		assertNotNull(Patient.find("123456789"));
 		patient.delete();
