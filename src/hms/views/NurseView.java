@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpringLayout;
 import javax.swing.JRadioButton;
+import javax.swing.JComboBox;
 
 import hms.models.NurseTableModel;
 import hms.models.Nurse;
@@ -105,7 +106,7 @@ public class NurseView {
 		this.isNew = isNew;
 		
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 321);
+		frame.setBounds(100, 100, 511, 375);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton button = new JButton("Save");
@@ -148,6 +149,14 @@ public class NurseView {
 		txtSocialInsuranceNumber = new JTextField();
 		txtSocialInsuranceNumber.setColumns(10);
 		SpringLayout springLayout = new SpringLayout();
+		springLayout.putConstraint(SpringLayout.WEST, button_2, 364, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, button_2, -21, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, button_2, -24, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, button_1, -21, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, button_1, -137, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, button, 137, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, button, -21, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, button, -250, SpringLayout.EAST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.NORTH, txtName, 11, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, txtName, 165, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, txtName, 426, SpringLayout.WEST, frame.getContentPane());
@@ -160,14 +169,6 @@ public class NurseView {
 		springLayout.putConstraint(SpringLayout.NORTH, lblName, 11, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, lblName, 11, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, lblName, 52, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.NORTH, button_2, 242, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, button_2, 319, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, button_2, 426, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.NORTH, button_1, 242, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, button_1, 206, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.NORTH, button, 242, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, button, 92, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, button, 200, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().setLayout(springLayout);
 		frame.getContentPane().add(button);
 		frame.getContentPane().add(button_1);
@@ -186,7 +187,7 @@ public class NurseView {
 		rdbtnFemale = new JRadioButton("Female");
 		springLayout.putConstraint(SpringLayout.NORTH, rdbtnFemale, 6, SpringLayout.SOUTH, txtSocialInsuranceNumber);
 		springLayout.putConstraint(SpringLayout.WEST, rdbtnFemale, 25, SpringLayout.EAST, rdbtnMale);
-		springLayout.putConstraint(SpringLayout.EAST, rdbtnFemale, 0, SpringLayout.EAST, button_1);
+		springLayout.putConstraint(SpringLayout.EAST, rdbtnFemale, -182, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(rdbtnFemale);
 		
 		rdbtnMale.addActionListener(new ActionListener() {
@@ -213,7 +214,7 @@ public class NurseView {
 		frame.getContentPane().add(txtPhoneNumber);
 		
 		JLabel lblPagerNumber = new JLabel("Pager Number");
-		springLayout.putConstraint(SpringLayout.EAST, lblPhoneNumber, 0, SpringLayout.EAST, lblPagerNumber);
+		springLayout.putConstraint(SpringLayout.EAST, lblPhoneNumber, 22, SpringLayout.EAST, lblPagerNumber);
 		springLayout.putConstraint(SpringLayout.WEST, lblPagerNumber, 11, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, lblPagerNumber, 102, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().add(lblPagerNumber);
@@ -248,8 +249,8 @@ public class NurseView {
 		
 		JLabel lblHomeAdress = new JLabel("Home Address");
 		springLayout.putConstraint(SpringLayout.NORTH, lblHomeAdress, 3, SpringLayout.NORTH, txtHomeAddress);
-		springLayout.putConstraint(SpringLayout.WEST, lblHomeAdress, 0, SpringLayout.WEST, lblName);
-		springLayout.putConstraint(SpringLayout.EAST, lblHomeAdress, 0, SpringLayout.EAST, lblPhoneNumber);
+		springLayout.putConstraint(SpringLayout.WEST, lblHomeAdress, 11, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblHomeAdress, -63, SpringLayout.WEST, txtHomeAddress);
 		frame.getContentPane().add(lblHomeAdress);
 		
 		JLabel lblSalary = new JLabel("Salary");
@@ -270,6 +271,18 @@ public class NurseView {
 		springLayout.putConstraint(SpringLayout.SOUTH, label, 0, SpringLayout.SOUTH, lblSalary);
 		springLayout.putConstraint(SpringLayout.EAST, label, -6, SpringLayout.WEST, textField);
 		frame.getContentPane().add(label);
+		
+		JLabel label_1 = new JLabel("Ward");
+		springLayout.putConstraint(SpringLayout.WEST, label_1, 0, SpringLayout.WEST, lblName);
+		springLayout.putConstraint(SpringLayout.EAST, label_1, 0, SpringLayout.EAST, lblSalary);
+		frame.getContentPane().add(label_1);
+		
+		JComboBox comboBox = new JComboBox();
+		springLayout.putConstraint(SpringLayout.NORTH, label_1, 3, SpringLayout.NORTH, comboBox);
+		springLayout.putConstraint(SpringLayout.NORTH, comboBox, 6, SpringLayout.SOUTH, textField);
+		springLayout.putConstraint(SpringLayout.WEST, comboBox, 0, SpringLayout.WEST, txtSocialInsuranceNumber);
+		springLayout.putConstraint(SpringLayout.EAST, comboBox, 0, SpringLayout.EAST, button_1);
+		frame.getContentPane().add(comboBox);
 	}
 	
 	private void createNurse() {

@@ -210,8 +210,8 @@ public class MainView {
 		);
 		panel.setLayout(gl_panel);
 
-		JPanel panel_1 = new JPanel();
-		patientsUsersNursesTabbedPane.addTab("Users", null, panel_1, null);
+		JPanel usersPanel = new JPanel();
+		patientsUsersNursesTabbedPane.addTab("Users", null, usersPanel, null);
 
 		JScrollPane usersScrollPane = new JScrollPane((Component) null);
 
@@ -232,10 +232,11 @@ public class MainView {
 				userController.CreateUser(frmMain);
 			}
 		});
-		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_1.createSequentialGroup()
+		
+		GroupLayout gl_usersPanel = new GroupLayout(usersPanel);
+		gl_usersPanel.setHorizontalGroup(
+			gl_usersPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_usersPanel.createSequentialGroup()
 					.addContainerGap(879, Short.MAX_VALUE)
 					.addComponent(btnCreateUser, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
 					.addGap(6)
@@ -245,25 +246,25 @@ public class MainView {
 					.addGap(6)
 					.addComponent(buttonRefreshUsers, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
 					.addGap(27))
-				.addGroup(Alignment.LEADING, gl_panel_1.createSequentialGroup()
+				.addGroup(Alignment.LEADING, gl_usersPanel.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(usersScrollPane, GroupLayout.PREFERRED_SIZE, 1303, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(37, Short.MAX_VALUE))
 		);
-		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+		gl_usersPanel.setVerticalGroup(
+			gl_usersPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_usersPanel.createSequentialGroup()
 					.addContainerGap(14, Short.MAX_VALUE)
 					.addComponent(usersScrollPane, GroupLayout.PREFERRED_SIZE, 626, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_usersPanel.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnCreateUser)
 						.addComponent(btnEditUser)
 						.addComponent(btnDeleteUser)
 						.addComponent(buttonRefreshUsers))
 					.addContainerGap())
 		);
-		panel_1.setLayout(gl_panel_1);
+		usersPanel.setLayout(gl_usersPanel);
 
 		JPanel panel_2 = new JPanel();
 		patientsUsersNursesTabbedPane.addTab("Nurses", null, panel_2, null);
