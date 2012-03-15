@@ -121,12 +121,25 @@ public class Patient {
 	public boolean create() throws SQLException {
 		try {
 			int rows_added = Database.getInstance().executeUpdate("INSERT INTO patient VALUES ('" + 
-                                                                  this.healthcare_number + "','" + this.name + "','" + this.phone_number + "','" + 
-                                                                  this.email + "','" + this.gender + "','" + this.treatment + "','" + 
-                                                                  this.address + "','" + new java.sql.Date(this.birthdate.getTime()) + "','" + this.medications + "','" + 
-                                                                  this.special_care + "','" + this.history + "','" + this.comments + "','" + 
-                                                                  this.emerg_name + "','" + this.emerg_phone_number + "','" + this.emerg_email + "','"+
-                                                                  this.in_hospital + "','" + this.ward_id + "','" + this.room_id + "','" + this.bed_id + "')");
+                                                                  this.healthcare_number + "','" + 
+                                                                  this.name + "','" + 
+                                                                  this.phone_number + "','" + 
+                                                                  this.email + "','" + 
+                                                                  this.gender + "','" + 
+                                                                  this.treatment + "','" + 
+                                                                  this.address + "','" + 
+                                                                  new java.sql.Date(this.birthdate.getTime()) + "','" + 
+                                                                  this.medications + "','" + 
+                                                                  this.special_care + "','" + 
+                                                                  this.history + "','" + 
+                                                                  this.comments + "','" + 
+                                                                  this.emerg_name + "','" + 
+                                                                  this.emerg_phone_number + "','" + 
+                                                                  this.emerg_email + "','"+
+                                                                  this.in_hospital + "','" + 
+                                                                  this.ward_id + "','" + 
+                                                                  this.room_id + "','" + 
+                                                                  this.bed_id + "')");
 			this.errors.clear();
 			return true;
 		} catch (SQLException sqle) {

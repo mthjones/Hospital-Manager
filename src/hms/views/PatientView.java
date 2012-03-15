@@ -2,7 +2,7 @@ package hms.views;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -113,10 +113,11 @@ public class PatientView {
 				textPaneHistory.setText(row[10]);
 			if(row[11]!= null)
 				textPaneComments.setText(row[11]);
-			//TODO add in rest if implemented
 			
+
+			if(row[15]!= null)
+				inHospitalCheckBox.setSelected(row[15].equals("Y"));
 			if(row[16] != null){
-				
 				Integer i = new Integer(row[16]);
 				String ward = PatientManager.getPatientSingleWardName(i.intValue());
 				comboBoxWard.setSelectedItem(ward);
@@ -128,23 +129,13 @@ public class PatientView {
 		}
 	}
 	
-	public void createPatient(int unused){
+	public void createPatient(boolean isNew){
 		//TODO test to see if patient is in database
-		
-		
-		
-		Date BirthDate = null;
-		String STR = formattedTextFieldBirthdate.getText();
-		if(STR.length() == 10){
-			String day   = STR.substring(0, 2);
-			String month = STR.substring(3, 5);
-			String year  = STR.substring(6, 10);
-			BirthDate = new Date( Integer.parseInt(year)-1900 , Integer.parseInt(month)-1 , Integer.parseInt(day) );
-		} else {
-			invalidBdayInput.setVisible(true);
-		}
+		String healthCareNumber = textFieldPatientHealthCareNumber.getText();
+		Date BirthDate = getBirthDate();
+
 		Patient temp = new Patient(
-				textFieldPatientHealthCareNumber.getText(),
+				healthCareNumber,
 				textFieldPatientName.getText(),
 				textFieldPatientTelephoneNumber.getText(), 
 				textFieldPatientEmail.getText(),
@@ -164,52 +155,29 @@ public class PatientView {
 						(Integer)comboBoxRoom.getSelectedItem(),
 						(Integer)comboBoxBed.getSelectedItem());//for iteration 2 maybe? TODO
 		//textFieldPatientHealthCareNumber.setText(BirthDate.toString());
-		try{
-			temp.delete();
+		try {
+			if (!isNew) temp.delete();
 			temp.create();
-		}catch(Exception e1){
-			return;
+		}
+		catch (Exception e)
+		{
 		}
 	}
-
-	public void createPatient(){
-		//TODO test to see if patient is in database
+	
+	private Date getBirthDate()
+	{
 		Date BirthDate = null;
-		String STR = formattedTextFieldBirthdate.getText();
-		if(STR.length() == 10){
-			String day   = STR.substring(0, 2);
-			String month = STR.substring(3, 5);
-			String year  = STR.substring(6, 10);
+		String birthdateString = formattedTextFieldBirthdate.getText();
+		if(birthdateString.length() == 10){
+			String day   = birthdateString.substring(0, 2);
+			String month = birthdateString.substring(3, 5);
+			String year  = birthdateString.substring(6, 10);
 			BirthDate = new Date( Integer.parseInt(year)-1900 , Integer.parseInt(month)-1 , Integer.parseInt(day) );
+		} else {
+			invalidBdayInput.setVisible(true);
 		}
-		Patient temp = new Patient(
-				textFieldPatientHealthCareNumber.getText(),
-				textFieldPatientName.getText(),
-				textFieldPatientTelephoneNumber.getText(), 
-				textFieldPatientEmail.getText(),
-				rdbtnMale.isSelected()? "M":"F",
-				null,//no field for this
-				textPanePatientAddress.getText(),
-				BirthDate,
-				textPaneMedications.getText(),
-				textPane_1.getText(),
-				textPaneHistory.getText(),
-				textPaneComments.getText(),
-				null,//
-				null,//
-				null,
-				inHospitalCheckBox.isSelected(),
-				comboBoxWard.getSelectedIndex(),
-				(Integer)comboBoxRoom.getSelectedItem(),
-				(Integer)comboBoxBed.getSelectedItem());//for iteration 2 maybe? TODO
-		//textFieldPatientHealthCareNumber.setText(BirthDate.toString());
-		try{
-			temp.create();
-		}catch(Exception e1){
-			return;
-		}
+		return BirthDate;
 	}
-
 
 	public static void centreWindow(JFrame frame) {
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -245,10 +213,7 @@ public class PatientView {
 		btnSaveAndClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TODO test to see if patient is in database
-				if(PatientView.isNew){
-					createPatient();
-				}
-				else createPatient(0);
+				createPatient(PatientView.isNew);
 				mainViewTableModel.fireTableDataChanged();
 				frmPatient.dispose();//TODO
 			}
@@ -387,10 +352,7 @@ public class PatientView {
 		JButton buttonSave = new JButton("Save");
 		buttonSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(PatientView.isNew)
-					createPatient();
-				else 
-					createPatient(0);
+				createPatient(PatientView.isNew);
 				mainViewTableModel.fireTableDataChanged();
 			}
 		});
