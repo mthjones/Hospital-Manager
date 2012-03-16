@@ -11,8 +11,7 @@ public class Priority implements Comparable
 	private Integer priority;
 	
 	/**
-	 * Constructs a new Priority based on the given priority value, which should be one of the static class values
-	 * defined in the Priority class.
+	 * Constructs a new Priority based on the given priority value
 	 * @param priority The priority value for the object
 	 */
 	private Priority(int priority) {
