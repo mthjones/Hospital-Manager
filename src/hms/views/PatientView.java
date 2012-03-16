@@ -131,7 +131,6 @@ public class PatientView {
 			if(row[18] != null)
 				comboBoxBed.setSelectedItem(row[18]);
 			if(row[19] != null) {
-				System.out.println(row[19]);
 				priorityDropdown.setSelectedItem(Priority.fromInteger(Integer.parseInt(row[19])));
 			}
 		}
