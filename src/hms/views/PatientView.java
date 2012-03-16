@@ -118,6 +118,15 @@ public class PatientView {
 			if(row[11]!= null)
 				textPaneComments.setText(row[11]);
 			
+			if (row[12] != null) {
+				textField_2.setText(row[12]);
+			}
+			if (row[13] != null) {
+				textField.setText(row[13]);
+			}
+			if (row[14] != null) {
+				textField_1.setText(row[14]);
+			}
 
 			if(row[15]!= null)
 				inHospitalCheckBox.setSelected(row[15].equals("Y"));
@@ -147,21 +156,21 @@ public class PatientView {
 				textFieldPatientTelephoneNumber.getText(), 
 				textFieldPatientEmail.getText(),
 				rdbtnMale.isSelected()? "M":"F",
-						null,//no field for this
-						textPanePatientAddress.getText(),
-						BirthDate,
-						textPaneMedications.getText(),
-						textPane_1.getText(),
-						textPaneHistory.getText(),
-						textPaneComments.getText(),
-						null,//
-						null,//
-						null,
-						inHospitalCheckBox.isSelected(),
-						comboBoxWard.getSelectedIndex(),
-						(Integer)comboBoxRoom.getSelectedItem(),
-						(Integer)comboBoxBed.getSelectedItem(),
-						(Priority)priorityDropdown.getSelectedItem());//for iteration 2 maybe? TODO
+				null,//no field for this
+				textPanePatientAddress.getText(),
+				BirthDate,
+				textPaneMedications.getText(),
+				textPane_1.getText(),
+				textPaneHistory.getText(),
+				textPaneComments.getText(),
+				textField_2.getText(),
+				textField.getText(),
+				textField_1.getText(),
+				inHospitalCheckBox.isSelected(),
+				comboBoxWard.getSelectedIndex(),
+				(Integer)comboBoxRoom.getSelectedItem(),
+				(Integer)comboBoxBed.getSelectedItem(),
+				(Priority)priorityDropdown.getSelectedItem());//for iteration 2 maybe? TODO
 		//textFieldPatientHealthCareNumber.setText(BirthDate.toString());
 		try {
 			if (!isNew) temp.delete();
