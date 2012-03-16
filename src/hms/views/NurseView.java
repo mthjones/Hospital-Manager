@@ -54,7 +54,7 @@ public class NurseView {
 	public NurseView(NurseTableModel mainViewTableModel, String[] row) {
 		this.mainViewTableModel = mainViewTableModel;
 		initialize(false);
-
+		
 		if(row.length == 9) {
 			//Name
 			if(row[0] != null) {
@@ -97,6 +97,17 @@ public class NurseView {
 			//salary
 			if(row[8] != null) {
 				textField.setText(row[8]);
+			}
+			
+			if(row[9] != null){
+				int wardNumber = Integer.parseInt(row[9]), i = 0;
+				for(i = 0; i< comboBox.getItemCount(); i++){
+					if(((Ward)comboBox.getItemAt(i)).getWardNumber() == wardNumber){
+						break;
+					}
+				}
+				if( i != comboBox.getItemCount())
+					comboBox.setSelectedIndex(i);
 			}
 		}
 	}
