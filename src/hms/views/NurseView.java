@@ -55,7 +55,7 @@ public class NurseView {
 		this.mainViewTableModel = mainViewTableModel;
 		initialize(false);
 		
-		if(row.length == 9) {
+		if(row.length == 10) {
 			//Name
 			if(row[0] != null) {
 				txtName.setText(row[0]);
@@ -98,15 +98,17 @@ public class NurseView {
 			if(row[8] != null) {
 				textField.setText(row[8]);
 			}
-			
+			//wards
 			if(row[9] != null){
 				int wardNumber = Integer.parseInt(row[9]), i = 0;
 				for(i = 0; i< comboBox.getItemCount(); i++){
+					try{
 					if(((Ward)comboBox.getItemAt(i)).getWardNumber() == wardNumber){
 						break;
 					}
+					}catch(Throwable e){};
 				}
-				if( i != comboBox.getItemCount())
+				if( i < comboBox.getItemCount())
 					comboBox.setSelectedIndex(i);
 			}
 		}
@@ -293,10 +295,11 @@ public class NurseView {
 
 		comboBox = new JComboBox();
 		Ward[] wards = Ward.getWards();
-		if(wards != null)
+		if(wards != null){
 			for(int i = 0; i<wards.length; i++){
 				comboBox.addItem(wards[i]);
 			}
+		}
 		springLayout.putConstraint(SpringLayout.NORTH, label_1, 3, SpringLayout.NORTH, comboBox);
 		springLayout.putConstraint(SpringLayout.NORTH, comboBox, 6, SpringLayout.SOUTH, textField);
 		springLayout.putConstraint(SpringLayout.WEST, comboBox, 0, SpringLayout.WEST, txtSocialInsuranceNumber);

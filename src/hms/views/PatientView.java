@@ -75,7 +75,9 @@ public class PatientView {
 
 	public PatientView(String[] row, PatientTableModel mainViewTableModel){
 		this.mainViewTableModel = mainViewTableModel;
+		try{
 		initialize(false);
+		}catch(Throwable e){}
 		centreWindow(frmPatient);
 		if(row.length == 20){
 			if(row[0]!= null)
