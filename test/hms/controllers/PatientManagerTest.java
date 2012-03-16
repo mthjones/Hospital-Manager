@@ -7,6 +7,7 @@ import java.util.Date;
 import org.junit.*;
 import static org.junit.Assert.*;
 import hms.controllers.PatientManager;
+import hms.util.Priority;
 import hms.models.Patient;
 import java.sql.SQLException;
 
@@ -35,7 +36,8 @@ public class PatientManagerTest {
 								  true,
 								  1,
 								  1,
-								  1);
+								  1, 
+								  Priority.HIGH);
 	}
 	
 	@AfterClass
