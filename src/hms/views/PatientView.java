@@ -77,7 +77,7 @@ public class PatientView {
 		this.mainViewTableModel = mainViewTableModel;
 		initialize(false);
 		centreWindow(frmPatient);
-		if(row.length == 19){
+		if(row.length == 20){
 			if(row[0]!= null)
 				textFieldPatientHealthCareNumber.setText(row[0]);
 			if(row[1]!= null)
@@ -131,7 +131,8 @@ public class PatientView {
 			if(row[18] != null)
 				comboBoxBed.setSelectedItem(row[18]);
 			if(row[19] != null) {
-				//priorityDropdown.setSelectedItem(Priority.fromInteger(Integer.parseInt(row[19])));
+				System.out.println(row[19]);
+				priorityDropdown.setSelectedItem(Priority.fromInteger(Integer.parseInt(row[19])));
 			}
 		}
 	}
