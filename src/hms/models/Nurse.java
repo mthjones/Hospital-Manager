@@ -18,11 +18,12 @@ public class Nurse {
 	private int id_number;
 	private String gender;
 	private int salary;
+	private int wardNumber;
 	
 	public ArrayList<String> errors = new ArrayList<String>();
 	
 	
-	public Nurse(String name, String phone_number, String pager_number, String email_address, String address, String sin, int id_number, String gender, int salary) {
+	public Nurse(String name, String phone_number, String pager_number, String email_address, String address, String sin, int id_number, String gender, int salary, int ward) {
 		this.name = name;
 		this.phone_number = phone_number;
 		this.pager_number = pager_number;
@@ -32,6 +33,7 @@ public class Nurse {
 		this.id_number = id_number;
 		this.gender = gender;
 		this.salary = salary;
+		this.wardNumber = ward;
 	}
 	
 	/**
@@ -50,7 +52,7 @@ public class Nurse {
 		}
 		return new Nurse(nurse.getString(1), nurse.getString(2), nurse.getString(3), nurse.getString(4), 
 				nurse.getString(5), nurse.getString(6), Integer.parseInt(nurse.getString(7)), nurse.getString(8), 
-				Integer.parseInt(nurse.getString(9)));
+				Integer.parseInt(nurse.getString(9)), Integer.parseInt(nurse.getString(10)));
 	}
 	
 	/**
@@ -66,7 +68,7 @@ public class Nurse {
 		while(!nurse.isLast()){
 			nurses.add(new Nurse(nurse.getString(1), nurse.getString(2), nurse.getString(3), nurse.getString(4), 
 					nurse.getString(5), nurse.getString(6), Integer.parseInt(nurse.getString(7)), nurse.getString(8), 
-					Integer.parseInt(nurse.getString(9))) );
+					Integer.parseInt(nurse.getString(9)), Integer.parseInt(nurse.getString(10)) ));
 			if(!nurse.next()) return null;
 		}
 		return nurses;
@@ -83,7 +85,7 @@ public class Nurse {
 				this.name + "','" + this.phone_number + "','" + this.pager_number + "','" + 
 				this.email_address + "','" + this.address + "','" + this.sin + "','" + 
 				this.id_number + "','" + this.gender + "','" + 
-				this.salary + "')");
+				this.salary + "','" + this.wardNumber + "')");
 			this.errors.clear();
 			return true;
 		} catch (SQLException sqle) {

@@ -2,6 +2,8 @@ package hms.views;
 
 import java.awt.EventQueue;
 
+import hms.models.Ward;
+
 import javax.swing.JFrame;
 import java.awt.CardLayout;
 import java.awt.GridBagLayout;
@@ -25,7 +27,7 @@ import hms.models.NurseTableModel;
 import hms.models.Nurse;
 
 public class NurseView {
-
+	
 	public JFrame frame;
 	private JTextField txtName;
 	private JTextField txtSocialInsuranceNumber;
@@ -39,6 +41,7 @@ public class NurseView {
 	private JRadioButton rdbtnFemale;
 	public static boolean isNew = false;
 	private NurseTableModel mainViewTableModel;
+	private JComboBox comboBox;
 	
 	/**
 	 * Create the application.
@@ -277,7 +280,12 @@ public class NurseView {
 		springLayout.putConstraint(SpringLayout.EAST, label_1, 0, SpringLayout.EAST, lblSalary);
 		frame.getContentPane().add(label_1);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
+		Ward[] wards = Ward.getWards();
+		if(wards != null)
+		for(int i = 0; i<wards.length; i++){
+			comboBox.addItem(wards[i]);
+		}
 		springLayout.putConstraint(SpringLayout.NORTH, label_1, 3, SpringLayout.NORTH, comboBox);
 		springLayout.putConstraint(SpringLayout.NORTH, comboBox, 6, SpringLayout.SOUTH, textField);
 		springLayout.putConstraint(SpringLayout.WEST, comboBox, 0, SpringLayout.WEST, txtSocialInsuranceNumber);
@@ -296,7 +304,8 @@ public class NurseView {
 				txtSocialInsuranceNumber.getText(),
 				Nurse.generateIDNumber(),
 				rdbtnMale.isSelected()? "M":"F",
-				Integer.parseInt(textField.getText()));
+				Integer.parseInt(textField.getText()),
+				((Ward)comboBox.getSelectedItem()).getWardNumber());
 		try{
 			temp.create();
 		}catch(Exception e1){
@@ -314,7 +323,8 @@ public class NurseView {
 				txtSocialInsuranceNumber.getText(),
 				id_number,
 				rdbtnMale.isSelected()? "M":"F",
-				Integer.parseInt(textField.getText()));
+				Integer.parseInt(textField.getText()),
+				((Ward)comboBox.getSelectedItem()).getWardNumber());
 		try{
 			temp.delete();
 			temp.create();
