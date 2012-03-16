@@ -107,7 +107,7 @@ public class NurseView {
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 511, 375);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JButton button = new JButton("Save");
 		button.addActionListener(new ActionListener() {
