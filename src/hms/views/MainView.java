@@ -109,6 +109,7 @@ public class MainView {
 		JPanel panel = new JPanel();
 		patientsUsersNursesTabbedPane.addTab("Patients", null, panel, null);
 		tablePatients = new JTable(patientTableModel);
+		tablePatients.setAutoCreateRowSorter(true);
 		JScrollPane jsp = new JScrollPane(tablePatients);
 
 		JButton btnCreatePatient = new JButton("Create Patient");
