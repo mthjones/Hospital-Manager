@@ -5,6 +5,7 @@ import java.awt.Toolkit;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
+import javax.swing.JOptionPane;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -252,15 +253,19 @@ public class PatientView {
 			public void actionPerformed(ActionEvent e) {
 				//TODO test to see if patient is in database
 				
-				//change room availability here
-				if(comboBoxBed.getSelectedItem() != null)
-				{
-					Integer chosenBed = new Integer((Integer)comboBoxBed.getSelectedItem());
-					PatientManager.changeBedAvailability(chosenBed.intValue());
+				if(validated()) {
+
+					//change room availability here
+					if(comboBoxBed.getSelectedItem() != null)
+					{
+						Integer chosenBed = new Integer((Integer)comboBoxBed.getSelectedItem());
+						PatientManager.changeBedAvailability(chosenBed.intValue());
+					}
+					System.out.println("validated");
+					createPatient(PatientView.isNew);
+					mainViewTableModel.fireTableDataChanged();
+					frmPatient.dispose();//TODO
 				}
-				createPatient(PatientView.isNew);
-				mainViewTableModel.fireTableDataChanged();
-				frmPatient.dispose();//TODO
 			}
 		});
 
@@ -402,15 +407,17 @@ public class PatientView {
 		JButton buttonSave = new JButton("Save");
 		buttonSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(comboBoxBed.getSelectedItem() != null)
-				{
-					//Possible other way to do this: create var of "bed to be saved" change avail once close is pressed
-					Integer chosenBed = new Integer((Integer)comboBoxBed.getSelectedItem());
-					bedToBeSaved = chosenBed.intValue();
+				if(validated()) {
+					if(comboBoxBed.getSelectedItem() != null)
+					{
+						//Possible other way to do this: create var of "bed to be saved" change avail once close is pressed
+						Integer chosenBed = new Integer((Integer)comboBoxBed.getSelectedItem());
+						bedToBeSaved = chosenBed.intValue();
+					}
+
+					createPatient(PatientView.isNew);
+					mainViewTableModel.fireTableDataChanged();
 				}
-				
-				createPatient(PatientView.isNew);
-				mainViewTableModel.fireTableDataChanged();
 			}
 		});
 		
@@ -701,5 +708,30 @@ public class PatientView {
 				);
 		panelSpecialCareInformation.setLayout(gl_panelSpecialCareInformation);
 		frmPatient.getContentPane().setLayout(groupLayout);
+	}
+	
+	/**
+	 * Validates the information entered in the form. Creates a pop-up dialog if there are any errors.
+	 * 
+	 * @return true if information is good, false otherwise.
+	 */
+	private boolean validated() {
+		if(textFieldPatientName.getText().equals("")){
+			JOptionPane.showMessageDialog(frmPatient, "Invalid name entered.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		if(textFieldPatientHealthCareNumber.getText().equals("")){
+			JOptionPane.showMessageDialog(frmPatient, "Invalid health care number entered.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		if(!formattedTextFieldBirthdate.isEditValid()) {
+			JOptionPane.showMessageDialog(frmPatient, "Invalid birth date entered.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		if(comboBoxBed.getSelectedItem() == null) {
+			JOptionPane.showMessageDialog(frmPatient, "Please select a bed for the patient.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		return true;
 	}
 }
