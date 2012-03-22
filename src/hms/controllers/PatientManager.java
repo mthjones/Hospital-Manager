@@ -50,6 +50,12 @@ public class PatientManager {
 		return Ward.getSingleWardName(ward_id);
 	}
 	
+	//Changes availability of chosen bed to its opposite
+	public static void changeBedAvailability(int bed_id)
+	{
+		Bed.changeBedAvailability(bed_id);
+	}
+	
 	public void deletePatient(JFrame frmMain, String healthcareNumber) {
 		DeletePatientConfirmationView confirmationView = new DeletePatientConfirmationView(healthcareNumber, mainViewTableModel);
 		confirmationView.frmConfirmDeletePatient.setVisible(true);

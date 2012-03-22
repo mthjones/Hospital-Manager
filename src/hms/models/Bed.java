@@ -22,7 +22,7 @@ public class Bed {
 		Integer[] Beds = null;
 		try
 		{
-			ResultSet bedNames = Database.getInstance().executeQuery("SELECT bedID FROM bed WHERE room = " + room_id);
+			ResultSet bedNames = Database.getInstance().executeQuery("SELECT bedID FROM bed WHERE room = " + room_id + " AND occupied = 'N'");
 			if (bedNames == null) return null;
 			bedNames.last();
 			int numRows = bedNames.getRow();
@@ -36,6 +36,26 @@ public class Bed {
 		}
 		catch(SQLException e){} // Do nothing
 		return Beds;
+	}
+	
+	public static void changeBedAvailability(int bed_id)
+	{
+		try
+		{
+			String availability;
+			ResultSet bedNames = Database.getInstance().executeQuery("SELECT * FROM bed WHERE bedID = " + bed_id);
+			
+			bedNames.first();
+			availability = bedNames.getString("occupied");
+			if(availability.equals("N"))
+				availability = "Y";
+			else if(availability.equals("Y"))
+				availability = "N";
+			
+			Database.getInstance().executeUpdate("UPDATE bed SET occupied = '" + availability + "' WHERE bedID = " + bed_id);
+			
+		}
+		catch(SQLException e){} // Do nothing
 	}
 
 }

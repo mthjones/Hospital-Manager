@@ -59,7 +59,9 @@ public class PatientView {
 	private JComboBox comboBoxWard;
 	private JComboBox comboBoxBed;
 	private JComboBox priorityDropdown;
+	private int bedToBeSaved;
 	public static boolean isNew = false;
+	
 
 	/**
 	 * @wbp.parser.constructor
@@ -75,6 +77,13 @@ public class PatientView {
 
 	public PatientView(String[] row, PatientTableModel mainViewTableModel){
 		this.mainViewTableModel = mainViewTableModel;
+		if(row[18] != null)
+		{
+			//Changing availability of bed so it is visible in the dropdown box
+			Integer chosenBed = new Integer(row[18]);
+			PatientManager.changeBedAvailability(chosenBed.intValue());
+		}
+		
 		try{
 		initialize(false);
 		}catch(Throwable e){}
@@ -137,10 +146,14 @@ public class PatientView {
 				String ward = PatientManager.getPatientSingleWardName(i.intValue());
 				comboBoxWard.setSelectedItem(ward);
 			}
-			if(row[17] != null)
+			if(row[17] != null){
 				comboBoxRoom.setSelectedItem(row[17]);
-			if(row[18] != null)
+			}
+			if(row[18] != null){
 				comboBoxBed.setSelectedItem(row[18]);
+				Integer chosenBed = new Integer((Integer)comboBoxBed.getSelectedItem());
+				bedToBeSaved = chosenBed.intValue();
+			}
 			if(row[19] != null) {
 				priorityDropdown.setSelectedItem(Priority.fromInteger(Integer.parseInt(row[19])));
 			}
@@ -209,6 +222,12 @@ public class PatientView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(boolean isNew) {
+		//bedToBeSaved is used to save the bed that was selected when "Save" is pressed. When "close" is pressed later, it will change the availability of the saved bed
+		//if patient is not new, uses the previous bed selected as the saved bed
+		if(isNew == true)
+		{
+			bedToBeSaved = -1;
+		}
 		this.isNew = isNew;
 		frmPatient = new JFrame();
 		frmPatient.setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("icon.png")));
@@ -232,6 +251,13 @@ public class PatientView {
 		btnSaveAndClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TODO test to see if patient is in database
+				
+				//change room availability here
+				if(comboBoxBed.getSelectedItem() != null)
+				{
+					Integer chosenBed = new Integer((Integer)comboBoxBed.getSelectedItem());
+					PatientManager.changeBedAvailability(chosenBed.intValue());
+				}
 				createPatient(PatientView.isNew);
 				mainViewTableModel.fireTableDataChanged();
 				frmPatient.dispose();//TODO
@@ -342,6 +368,11 @@ public class PatientView {
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				//If someone had pressed save previously, save the bed they had selected
+				if(bedToBeSaved != -1)
+				{
+					PatientManager.changeBedAvailability(bedToBeSaved);
+				}
 				frmPatient.dispose();
 			}
 		});
@@ -371,6 +402,13 @@ public class PatientView {
 		JButton buttonSave = new JButton("Save");
 		buttonSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(comboBoxBed.getSelectedItem() != null)
+				{
+					//Possible other way to do this: create var of "bed to be saved" change avail once close is pressed
+					Integer chosenBed = new Integer((Integer)comboBoxBed.getSelectedItem());
+					bedToBeSaved = chosenBed.intValue();
+				}
+				
 				createPatient(PatientView.isNew);
 				mainViewTableModel.fireTableDataChanged();
 			}
@@ -542,8 +580,11 @@ public class PatientView {
 			{
 				if(comboBoxRoom.getSelectedItem() != null)
 				{
+					
 					int room_id = (Integer)comboBoxRoom.getSelectedItem();
 					Integer[] beds = PatientManager.getPatientBeds(room_id);
+					
+
 					try
 					{
 						comboBoxBed.removeAllItems();
@@ -552,6 +593,7 @@ public class PatientView {
 					{}
 					for(int i = 0; i < beds.length; i++){
 						comboBoxBed.addItem(beds[i]);
+
 					}
 				}
 			}
