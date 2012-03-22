@@ -1,0 +1,9 @@
+* Red asterisk on invalid inputs
+* Throwing exceptions on no input
+* Error windows
+* Sorting doesn't change which is selected
+* Keyboard shortcuts
+* Need to check for bed availability
+* Need to be able to change bed availability
+* Validation on input
+* Encryption for patient information
