@@ -261,7 +261,6 @@ public class PatientView {
 						Integer chosenBed = new Integer((Integer)comboBoxBed.getSelectedItem());
 						PatientManager.changeBedAvailability(chosenBed.intValue());
 					}
-					System.out.println("validated");
 					createPatient(PatientView.isNew);
 					mainViewTableModel.fireTableDataChanged();
 					frmPatient.dispose();//TODO
