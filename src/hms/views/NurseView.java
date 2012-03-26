@@ -6,6 +6,7 @@ import hms.models.Ward;
 
 import javax.swing.JFrame;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.GridBagLayout;
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
@@ -42,7 +43,12 @@ public class NurseView {
 	public static boolean isNew = false;
 	private NurseTableModel mainViewTableModel;
 	private JComboBox comboBox;
-
+	private JLabel lblName;
+	private JLabel lblSocialInsuranceNumber;
+	private JLabel lblPhoneNumber;
+	private JLabel lblSalary;
+	private JLabel lblInvalidInput;
+	
 	/**
 	 * Create the application.
 	 */
@@ -118,6 +124,10 @@ public class NurseView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(boolean isNew) {
+		
+		lblInvalidInput = new JLabel("Invalid input, please try again.");
+		lblInvalidInput.setVisible(false);
+		lblInvalidInput.setForeground(Color.red);
 
 		this.isNew = isNew;
 
@@ -128,23 +138,27 @@ public class NurseView {
 		JButton button = new JButton("Save");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(NurseView.isNew)
-					createNurse();
-				else 
-					createNurse(idNumber);
-				mainViewTableModel.fireTableDataChanged();
+				if(validated()) {
+					if(NurseView.isNew)
+						createNurse();
+					else 
+						createNurse(idNumber);
+					mainViewTableModel.fireTableDataChanged();
+				}
 			}
 		});
 
 		JButton button_1 = new JButton("Save and Close");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(NurseView.isNew)
-					createNurse();
-				else 
-					createNurse(idNumber);
-				mainViewTableModel.fireTableDataChanged();
-				frame.dispose();
+				if(validated()) {
+					if(NurseView.isNew)
+						createNurse();
+					else 
+						createNurse(idNumber);
+					mainViewTableModel.fireTableDataChanged();
+					frame.dispose();
+				}
 			}
 		});
 
@@ -155,16 +169,19 @@ public class NurseView {
 			}
 		});
 
-		JLabel lblName = new JLabel("Name");
+		lblName = new JLabel("* Name");
 
 		txtName = new JTextField();
 		txtName.setColumns(10);
 
-		JLabel lblSocialInsuranceNumber = new JLabel("Social Insurance Number");
+		lblSocialInsuranceNumber = new JLabel("* Social Insurance Number");
 
 		txtSocialInsuranceNumber = new JTextField();
 		txtSocialInsuranceNumber.setColumns(10);
 		SpringLayout springLayout = new SpringLayout();
+		springLayout.putConstraint(SpringLayout.WEST, lblInvalidInput, 0, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, lblInvalidInput, 0, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblInvalidInput, 0, SpringLayout.EAST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, button_2, 364, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, button_2, -21, SpringLayout.SOUTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, button_2, -24, SpringLayout.EAST, frame.getContentPane());
@@ -186,6 +203,7 @@ public class NurseView {
 		springLayout.putConstraint(SpringLayout.WEST, lblName, 11, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, lblName, 52, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().setLayout(springLayout);
+		frame.getContentPane().add(lblInvalidInput);
 		frame.getContentPane().add(button);
 		frame.getContentPane().add(button_1);
 		frame.getContentPane().add(button_2);
@@ -217,7 +235,7 @@ public class NurseView {
 			}
 		});
 
-		JLabel lblPhoneNumber = new JLabel("Phone Number");
+		lblPhoneNumber = new JLabel("* Phone Number");
 		springLayout.putConstraint(SpringLayout.NORTH, lblPhoneNumber, 41, SpringLayout.SOUTH, lblSocialInsuranceNumber);
 		springLayout.putConstraint(SpringLayout.WEST, lblPhoneNumber, 0, SpringLayout.WEST, lblName);
 		frame.getContentPane().add(lblPhoneNumber);
@@ -269,7 +287,7 @@ public class NurseView {
 		springLayout.putConstraint(SpringLayout.EAST, lblHomeAdress, -63, SpringLayout.WEST, txtHomeAddress);
 		frame.getContentPane().add(lblHomeAdress);
 
-		JLabel lblSalary = new JLabel("Salary");
+		lblSalary = new JLabel("* Salary");
 		springLayout.putConstraint(SpringLayout.WEST, lblSalary, 10, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, lblSalary, 75, SpringLayout.WEST, lblName);
 		frame.getContentPane().add(lblSalary);
@@ -345,5 +363,54 @@ public class NurseView {
 		}catch(Exception e1){
 			return;
 		}
+	}
+	
+	private boolean validated() {
+		boolean validated = true;
+		
+		lblInvalidInput.setVisible(false);
+		
+		lblName.setForeground(Color.black);
+		lblSocialInsuranceNumber.setForeground(Color.black);
+		lblPhoneNumber.setForeground(Color.black);
+		
+		//Check Name
+		if(txtName.getText().equals("")){
+			lblName.setForeground(Color.red);
+			validated = false;
+			lblInvalidInput.setVisible(true);
+		}
+		
+		//Check SocialInsuranceNumber
+		try {
+			Integer.parseInt(txtSocialInsuranceNumber.getText());
+		} catch(NumberFormatException e) {
+			lblSocialInsuranceNumber.setForeground(Color.red);
+			validated = false;
+			lblInvalidInput.setVisible(true);
+		}
+		
+		//Check phone number
+		if(txtPhoneNumber.getText().equals("")) {
+			lblPhoneNumber.setForeground(Color.red);
+			validated = false;
+			lblInvalidInput.setVisible(true);
+		}
+		
+		//Check Salary
+		try {
+			Integer.parseInt(textField.getText());
+		} catch(NumberFormatException e) {
+			lblSalary.setForeground(Color.red);
+			validated = false;
+			lblInvalidInput.setVisible(true);
+		}
+		
+//		private JLabel lblSocialInsuranceNumber;
+//		private JLabel lblPhoneNumber;
+//		private JLabel lblSalary;
+//		private JLabel lblInvalidInput;
+		
+		return validated;
 	}
 }
