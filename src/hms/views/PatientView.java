@@ -62,7 +62,11 @@ public class PatientView {
 	private JComboBox priorityDropdown;
 	private int bedToBeSaved;
 	public static boolean isNew = false;
-	
+	private JLabel lblName;
+	private JLabel lblHealthCareNumber;
+	private JLabel lblBirthdate1;
+	private JLabel lblBed;
+	private JLabel lblInvalidInput; //text at the top of the window that tells you if input is wrong
 
 	/**
 	 * @wbp.parser.constructor
@@ -223,6 +227,11 @@ public class PatientView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(boolean isNew) {
+		
+		lblInvalidInput = new JLabel("Invalid input, please try again.");
+		lblInvalidInput.setVisible(false);
+		lblInvalidInput.setForeground(Color.red);
+		
 		//bedToBeSaved is used to save the bed that was selected when "Save" is pressed. When "close" is pressed later, it will change the availability of the saved bed
 		//if patient is not new, uses the previous bed selected as the saved bed
 		if(isNew == true)
@@ -237,7 +246,7 @@ public class PatientView {
 		frmPatient.setBounds(100, 100, 730, 623);
 		frmPatient.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		JLabel lblName = new JLabel("Name");
+		/*JLabel*/ lblName = new JLabel("* Name");
 
 		JLabel lblTelephoneNumber = new JLabel("Telephone Number");
 
@@ -296,7 +305,7 @@ public class PatientView {
 
 		JLabel lblAddress = new JLabel("Address");
 
-		JLabel lblHealthCareNumber = new JLabel("Health Care Number");
+		lblHealthCareNumber = new JLabel("* Health Care Number");
 
 		textFieldPatientHealthCareNumber = new JTextField();
 		textFieldPatientHealthCareNumber.setColumns(10);
@@ -381,7 +390,7 @@ public class PatientView {
 			}
 		});
 
-		JLabel lblBirthdate = new JLabel("Birthdate");
+		JLabel lblBirthdate = new JLabel("* Birthdate");
 		MaskFormatter birthdateMaskFormatter = null;
 		try {
 			birthdateMaskFormatter = new MaskFormatter("##.##.####");
@@ -392,7 +401,7 @@ public class PatientView {
 		formattedTextFieldBirthdate = new JFormattedTextField(birthdateMaskFormatter);
 
 		JLabel lblExDdmmyyyy = new JLabel("ex: dd.MM.YYYY");
-		JLabel lblBirthdate1 = new JLabel("Birthdate");
+		lblBirthdate1 = new JLabel("* Birthdate");
 		MaskFormatter roomNumberMaskFormatter = null;
 		try {
 			roomNumberMaskFormatter = new MaskFormatter("####");
@@ -437,6 +446,8 @@ public class PatientView {
 					.addContainerGap(50, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblInvalidInput, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(buttonSave, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnSaveAndClose)
@@ -446,7 +457,7 @@ public class PatientView {
 							.addGroup(groupLayout.createSequentialGroup()
 								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 									.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(lblName, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblName, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
 										.addPreferredGap(ComponentPlacement.UNRELATED)
 										.addComponent(textFieldPatientName, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
 										.addPreferredGap(ComponentPlacement.RELATED))
@@ -465,7 +476,7 @@ public class PatientView {
 								.addGap(16)
 								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 									.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblBirthdate1, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lblBirthdate1, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
 									.addComponent(lblPriority))
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -535,7 +546,8 @@ public class PatientView {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnSaveAndClose)
 						.addComponent(btnClose)
-						.addComponent(buttonSave))
+						.addComponent(buttonSave)
+						.addComponent(lblInvalidInput))
 					.addGap(93))
 		);
 
@@ -544,7 +556,7 @@ public class PatientView {
 		
 		//Setting up wards, rooms, and bed combo boxes
 		
-		JLabel lblBed = new JLabel("Beds");
+		lblBed = new JLabel("* Beds");
 
 		comboBoxBed = new JComboBox();
 		
@@ -711,26 +723,52 @@ public class PatientView {
 	
 	/**
 	 * Validates the information entered in the form. Creates a pop-up dialog if there are any errors.
+	 * Also shows text saying the input is invalid.
 	 * 
 	 * @return true if information is good, false otherwise.
 	 */
 	private boolean validated() {
+		boolean validated = true;
+		
+		lblInvalidInput.setVisible(false);
+		
 		if(textFieldPatientName.getText().equals("")){
-			JOptionPane.showMessageDialog(frmPatient, "Invalid name entered.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-			return false;
+			lblName.setForeground(Color.red);
+			//JOptionPane.showMessageDialog(frmPatient, "Invalid name entered.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+			validated = false;
+			lblInvalidInput.setVisible(true);
 		}
+		else {
+			lblName.setForeground(Color.black);
+		}
+		
 		if(textFieldPatientHealthCareNumber.getText().equals("")){
-			JOptionPane.showMessageDialog(frmPatient, "Invalid health care number entered.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-			return false;
+			lblHealthCareNumber.setForeground(Color.red);
+			validated = false;
+			lblInvalidInput.setVisible(true);
 		}
+		else {
+			lblHealthCareNumber.setForeground(Color.black);
+		}
+		
 		if(!formattedTextFieldBirthdate.isEditValid()) {
-			JOptionPane.showMessageDialog(frmPatient, "Invalid birth date entered.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-			return false;
+			lblBirthdate1.setForeground(Color.red);
+			validated = false;
+			lblInvalidInput.setVisible(true);
 		}
+		else {
+			lblBirthdate1.setForeground(Color.black);
+		}
+		
 		if(comboBoxBed.getSelectedItem() == null) {
-			JOptionPane.showMessageDialog(frmPatient, "Please select a bed for the patient.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-			return false;
+			lblBed.setForeground(Color.red);
+			validated = false;
+			lblInvalidInput.setVisible(true);
 		}
-		return true;
+		else {
+			lblBed.setForeground(Color.black);
+		}
+		
+		return validated;
 	}
 }
