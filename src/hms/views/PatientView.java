@@ -147,8 +147,7 @@ public class PatientView {
 			if(row[15]!= null)
 				inHospitalCheckBox.setSelected(row[15].equals("Y"));
 			if(row[16] != null){
-				Integer i = new Integer(row[16]);
-				String ward = PatientManager.getPatientSingleWardName(i.intValue());
+				String ward = row[16];
 				comboBoxWard.setSelectedItem(ward);
 			}
 			if(row[17] != null){

@@ -3,6 +3,7 @@
  */
 package hms.models;
 
+
 import javax.swing.table.AbstractTableModel;
 
 import java.sql.ResultSet;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import hms.util.Database;
+import hms.models.Ward;
 
 public class PatientTableModel extends AbstractTableModel {
 	private String[] columnNames;
@@ -119,7 +121,17 @@ public class PatientTableModel extends AbstractTableModel {
 				if (columnClasses[i].equals(String.class.getName())) {
 					cellValue = patients.getString(columnNames[i]);
 				} else if (columnClasses[i].equals(Integer.class.getName())) {
-					cellValue = new Integer(patients.getInt(columnNames[i]));
+					//This if statement is pretty shoddy...update if time allows
+					//i = 16 is first ward i + 3 + 16 is next and so on...
+					if(((i % 16) == 3 || i == 16) && (i % 19) != 0)
+					{
+						//Assigns ward names instead of numbers for wards
+						cellValue = Ward.getSingleWardName(patients.getInt(columnNames[i]));
+					}
+					else
+					{
+						cellValue = new Integer(patients.getInt(columnNames[i]));
+					}
 				} else if (columnClasses[i].equals(Double.class.getName())) {
 					cellValue = new Double(patients.getDouble(columnNames[i]));
 				} else if (columnClasses[i].equals(Date.class.getName())) {
