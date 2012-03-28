@@ -106,16 +106,21 @@ public class NurseView {
 			}
 			//wards
 			if(row[9] != null){
-				int wardNumber = Integer.parseInt(row[9]), i = 0;
-				for(i = 0; i< comboBox.getItemCount(); i++){
-					try{
-					if(((Ward)comboBox.getItemAt(i)).getWardNumber() == wardNumber){
-						break;
+				
+				if(row[9] != null){
+					String wardName = row[9];
+					int i = 0;
+					for(i = 0; i< comboBox.getItemCount(); i++){
+						try{
+							if(((Ward)comboBox.getItemAt(i)).getSingleWardName(i).equals(wardName)){
+								break;
+							}
+						}
+						catch(Throwable e){};
 					}
-					}catch(Throwable e){};
+					if( i < comboBox.getItemCount())
+						comboBox.setSelectedIndex(i);
 				}
-				if( i < comboBox.getItemCount())
-					comboBox.setSelectedIndex(i);
 			}
 		}
 	}
