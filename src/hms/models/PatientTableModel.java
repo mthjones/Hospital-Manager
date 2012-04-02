@@ -158,6 +158,55 @@ public class PatientTableModel extends AbstractTableModel {
 		}
 	}
 	
+	private void getTableContents(String name) throws SQLException {
+		ResultSet patients = Database.getInstance().executeQuery("SELECT * FROM patient WHERE name = '" + name + "'");
+		
+		ArrayList<Object[]> rowList = new ArrayList<Object[]>();
+		while (patients.next()) {
+			ArrayList<Object> cellList = new ArrayList<Object>();
+			for (int i = 0; i < columnClasses.length; i++) {
+				Object cellValue = null;
+				
+				if (columnClasses[i].equals(String.class.getName())) {
+					cellValue = patients.getString(columnNames[i]);
+				} else if (columnClasses[i].equals(Integer.class.getName())) {
+					//This if statement is pretty shoddy...update if time allows
+					//i = 16 is first ward i + 3 + 16 is next and so on...
+					if(((i % 16) == 3 || i == 16) && (i % 19) != 0)
+					{
+						//Assigns ward names instead of numbers for wards
+						cellValue = Ward.getSingleWardName(patients.getInt(columnNames[i]));
+					}
+					else
+					{
+						cellValue = new Integer(patients.getInt(columnNames[i]));
+					}
+				} else if (columnClasses[i].equals(Double.class.getName())) {
+					cellValue = new Double(patients.getDouble(columnNames[i]));
+				} else if (columnClasses[i].equals(Date.class.getName())) {
+					cellValue = patients.getDate(columnNames[i]);
+				} else if (columnClasses[i].equals(Float.class.getName())) {
+					cellValue = patients.getFloat(columnNames[i]);
+				} else if (columnClasses[i].equals(Character.class.getName())) {
+					cellValue = new Character(patients.getString(columnNames[i]).charAt(0));
+				} 
+				else {
+					cellValue = patients.getString(columnNames[i]);
+				}
+				cellList.add(cellValue);
+			}
+			Object[] cells = cellList.toArray();
+			rowList.add(cells);
+		}
+		
+		patients.close();
+		
+		content = new Object[rowList.size()][];
+		for (int i = 0; i < content.length; i++) {
+			content[i] = rowList.get(i);
+		}
+	}
+	
 	/**
 	 * Called when the table data has been changed. Re-fetches the table contents from
 	 * the database and then calls the superclass' implementation.
@@ -165,6 +214,15 @@ public class PatientTableModel extends AbstractTableModel {
 	public void fireTableDataChanged() {
 		try {
 			getTableContents();
+		} catch (SQLException sqle) {
+			// Do nothing. Keep old contents
+		}
+		super.fireTableDataChanged();
+	}
+	
+	public void fireTableDataChanged(String name) {
+		try {
+			getTableContents(name);
 		} catch (SQLException sqle) {
 			// Do nothing. Keep old contents
 		}

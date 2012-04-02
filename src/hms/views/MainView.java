@@ -9,6 +9,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
@@ -52,6 +53,9 @@ public class MainView {
 	private JLabel address;
 	private JLabel room;
 	private JLabel bed;
+	private String searchTerm;
+	private JButton btnSearch;
+	private JTextField txtSearchBar;
 
 	/**
 	 * Create the application.
@@ -179,6 +183,21 @@ public class MainView {
 				patientTableModel.fireTableDataChanged();
 			}
 		});
+		
+		txtSearchBar = new JTextField("search");
+		btnSearch = new JButton("search");
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				searchTerm = txtSearchBar.getText();
+				if (btnSearch.getText().equals("clear")) {
+					patientTableModel.fireTableDataChanged();
+					btnSearch.setText("search");
+				} else {
+					patientTableModel.fireTableDataChanged(searchTerm);
+					btnSearch.setText("clear");
+				}
+			}
+		});
 
 		final JRadioButton viewAllRadioButton = new JRadioButton("View All");
 
@@ -226,6 +245,10 @@ public class MainView {
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(txtSearchBar, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
 							.addComponent(btnCreatePatient, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
 							.addGap(6)
 							.addComponent(btnEditPatient, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
@@ -234,6 +257,7 @@ public class MainView {
 							.addGap(6)
 							.addComponent(btnRefresh, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
 							.addGap(22))
+							
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(inHospitalRadioButton, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
@@ -274,6 +298,8 @@ public class MainView {
 						.addComponent(inHospitalRadioButton))
 					.addPreferredGap(ComponentPlacement.RELATED, 619, Short.MAX_VALUE)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addComponent(txtSearchBar)
+						.addComponent(btnSearch)
 						.addComponent(btnCreatePatient)
 						.addComponent(btnEditPatient)
 						.addComponent(btnDeletePatient)

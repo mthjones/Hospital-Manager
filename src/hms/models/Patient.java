@@ -32,6 +32,7 @@ public class Patient {
 	public int bed_id;
 	private Priority priority;
 	public ArrayList<String> errors = new ArrayList<String>();
+	public static final String RESERVED_TEST_NAME = "Forbidden Name";
 	
 	public Patient()
 	{}
@@ -100,6 +101,30 @@ public class Patient {
                            Priority.fromInteger(patient.getInt(20)));
 	}
 	
+	public static Patient[] findByName(String name) throws SQLException {
+		ResultSet patientSet = Database.getInstance().executeQuery("SELECT * FROM patient WHERE name = '" + name + "'");
+		patientSet.last();
+		int numPatients = 0;
+		if(patientSet.getRow() == 0) {
+			return null;
+		} else {
+			numPatients = patientSet.getRow();
+			patientSet.first();
+		}
+		Patient [] patients = new Patient[numPatients];
+		
+		for(int i = 0; i < numPatients; i++) {
+			patients[i] = new Patient(patientSet.getString(1), patientSet.getString(2), patientSet.getString(3),
+					patientSet.getString(4), patientSet.getString(5), patientSet.getString(6), patientSet.getString(7),
+					patientSet.getDate(8), patientSet.getString(9), patientSet.getString(10), patientSet.getString(11),
+					patientSet.getString(12), patientSet.getString(13), patientSet.getString(14), patientSet.getString(15),
+					patientSet.getBoolean(16), patientSet.getInt(17), patientSet.getInt(18), patientSet.getInt(19), 
+                    Priority.fromInteger(patientSet.getInt(20)));
+			patientSet.next();
+		}
+		return patients;
+	}
+	
 	// /**
 	//  * Finds all patients and returns them as in a patient objects. If
 	//  * no patients exist, null is returnes
@@ -127,6 +152,9 @@ public class Patient {
 	 * @return true if the save is successful; false otherwise
 	 */
 	public boolean create() throws SQLException {
+		if(this.name.equals(RESERVED_TEST_NAME)) {
+			return false; // a patient is not allowed to have this name, because it is reserved for testing purposes
+		}
 		try {
 			int rows_added = Database.getInstance().executeUpdate("INSERT INTO patient VALUES ('" + 
                                                                   this.healthcare_number + "','" + 

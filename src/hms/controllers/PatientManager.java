@@ -24,6 +24,10 @@ public class PatientManager {
 		Patient patient = new Patient();
 		return patient.find(Integer.toString(healthCareNumber));
 	}
+	
+	public Patient [] searchForPatient(String firstName, String lastName) throws SQLException {
+		return Patient.findByName(firstName);
+	}
 
 	public void EditPatient(JFrame mainScreenJFrame, String[] row) {
 		OpenPatientView(row);
