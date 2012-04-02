@@ -1,5 +1,7 @@
 package hms.controllers;
 
+import java.sql.SQLException;
+
 import javax.swing.JFrame;
 
 import hms.models.Ward;
@@ -16,6 +18,11 @@ public class PatientManager {
 
 	public PatientManager(PatientTableModel tableModel) {
 		this.mainViewTableModel = tableModel;
+	}
+	
+	public Patient GetPatient(int healthCareNumber) throws SQLException {
+		Patient patient = new Patient();
+		return patient.find(Integer.toString(healthCareNumber));
 	}
 
 	public void EditPatient(JFrame mainScreenJFrame, String[] row) {

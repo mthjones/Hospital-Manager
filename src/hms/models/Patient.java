@@ -27,11 +27,14 @@ public class Patient {
 	private String emerg_phone_number;
 	private String emerg_email;
 	private String in_hospital;
-	private int ward_id;
-	private int room_id;
-	private int bed_id;
+	public int ward_id;
+	public int room_id;
+	public int bed_id;
 	private Priority priority;
 	public ArrayList<String> errors = new ArrayList<String>();
+	
+	public Patient()
+	{}
 	
 	public Patient(String healthcare_number, 
 				   String name, 

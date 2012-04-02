@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
+import java.sql.SQLException;
 import java.util.Vector;
 import hms.models.*;
 
@@ -31,6 +32,9 @@ import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import java.awt.Font;
 import java.awt.Component;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainView {
 
@@ -42,6 +46,12 @@ public class MainView {
 	private NurseTableModel nurseTableModel;
 	private UserController userController;
 	private NurseController nurseController;
+	private JLabel wardNumber;
+	private JLabel email;
+	private JLabel phoneNumber;
+	private JLabel address;
+	private JLabel room;
+	private JLabel bed;
 
 	/**
 	 * Create the application.
@@ -49,14 +59,31 @@ public class MainView {
 	public MainView() {
 		initialize();
 
+		address.setText("");
+		phoneNumber.setText("");
+		email.setText("");
+		wardNumber.setText("");
+		room.setText("");
+		bed.setText("");
+
 		maximizeWindow();
 		patientManager = new PatientManager(patientTableModel);
-		
 		nurseController = new NurseController(nurseTableModel);
 	}
 
 	private void maximizeWindow() {
 		frmMain.setExtendedState(frmMain.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+	}
+	
+	private String[] getSelectedNurse() {
+		Object[][] content = nurseTableModel.getContent();
+		Object[] selectedRow = content[tableNurses.getSelectedRow()];
+		String[] strings = new String[content[tableNurses.getSelectedRow()].length];
+		for(int i = 0; i< strings.length; i++){
+			strings[i] = content[tableNurses.getSelectedRow()][i].toString();
+		}
+		
+		return strings;
 	}
 
 	/**
@@ -167,47 +194,124 @@ public class MainView {
 				viewAllRadioButton.setSelected(!inHospitalRadioButton.isSelected());
 			}
 		});
+		
+		JLabel lblWard = new JLabel("Ward");
+		
+		wardNumber = new JLabel("WardNumber");
+		
+		JLabel lblPhoneNumber = new JLabel("Phone Number");
+		
+		phoneNumber = new JLabel("PhoneNumber");
+		
+		JLabel lblEmail = new JLabel("Email");
+		
+		email = new JLabel("Email");
+		
+		JLabel lblAddress = new JLabel("Address");
+		
+		address = new JLabel("Address");
+		
+		JLabel lblRoom = new JLabel("Room");
+		
+		room = new JLabel("room");
+		
+		JLabel lblBed = new JLabel("Bed");
+		
+		bed = new JLabel("bed");
 
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-					.addContainerGap(902, Short.MAX_VALUE)
-					.addComponent(btnCreatePatient, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(btnEditPatient, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(btnDeletePatient, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(btnRefresh, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
-					.addGap(22))
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
-					.addContainerGap(1155, Short.MAX_VALUE)
-					.addComponent(inHospitalRadioButton, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(viewAllRadioButton)
-					.addGap(29))
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(jsp, GroupLayout.PREFERRED_SIZE, 1314, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(16, Short.MAX_VALUE))
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(btnCreatePatient, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(btnEditPatient, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(btnDeletePatient, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(btnRefresh, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+							.addGap(22))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(inHospitalRadioButton, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(viewAllRadioButton)
+							.addGap(29))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(jsp, GroupLayout.PREFERRED_SIZE, 636, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblPhoneNumber, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblBed, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblRoom, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblWard, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+										.addComponent(phoneNumber, GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+										.addComponent(bed, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+										.addComponent(room, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+										.addComponent(wardNumber, GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(email, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblAddress, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(address, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)))
+							.addGap(540))))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(viewAllRadioButton)
 						.addComponent(inHospitalRadioButton))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(jsp, GroupLayout.PREFERRED_SIZE, 608, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 619, Short.MAX_VALUE)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnCreatePatient)
 						.addComponent(btnEditPatient)
 						.addComponent(btnDeletePatient)
 						.addComponent(btnRefresh))
 					.addGap(8))
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(32)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jsp, GroupLayout.PREFERRED_SIZE, 610, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblPhoneNumber)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblEmail)
+										.addComponent(email))
+									.addPreferredGap(ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+									.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblAddress)
+										.addComponent(address))
+									.addGap(38)
+									.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+										.addComponent(wardNumber)
+										.addComponent(lblWard)))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(phoneNumber)
+									.addGap(100)))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(room)
+								.addComponent(lblRoom))
+							.addGap(8)
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(bed)
+								.addComponent(lblBed))
+							.addGap(460)))
+					.addContainerGap(32, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 
@@ -282,29 +386,16 @@ public class MainView {
 		JButton btnEditNurse = new JButton("Edit Nurse");
 		btnEditNurse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				Object[][] content = nurseTableModel.getContent();
-				Object[] selectedRow = content[tableNurses.getSelectedRow()];
-				String[] strs = new String[content[tableNurses.getSelectedRow()].length];
-				for(int i = 0; i< strs.length; i++){
-					strs[i] = content[tableNurses.getSelectedRow()][i].toString();
-				}
-				
-				nurseController.EditNurse(strs);
+				String[] strings = getSelectedNurse();
+				nurseController.EditNurse(strings);
 			}
 		});
 
 		JButton btnDeleteNurse = new JButton("Delete Nurse");
 		btnDeleteNurse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Object[][] content = nurseTableModel.getContent();
-				Object[] selectedRow = content[tableNurses.getSelectedRow()];
-				String[] strs = new String[content[tableNurses.getSelectedRow()].length];
-				for(int i = 0; i< strs.length; i++){
-					strs[i] = content[tableNurses.getSelectedRow()][i].toString();
-				}
-				
-				int idNumber = Integer.parseInt(strs[6]);
+				String[] strings = getSelectedNurse();
+				int idNumber = Integer.parseInt(strings[6]);
 				
 				nurseController.DeleteNurse(idNumber, nurseTableModel);
 			}
@@ -349,5 +440,36 @@ public class MainView {
 		);
 		panel_2.setLayout(gl_panel_2);
 		frmMain.getContentPane().setLayout(groupLayout);
+
+		tablePatients.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				
+				if(tablePatients.getSelectedRowCount() == 1){
+					Object[][] content = patientTableModel.getContent();
+					Object[] selectedRow = content[tablePatients.getSelectedRow()];
+					String[] strings = new String[content[tablePatients.getSelectedRow()].length];
+					for(int i = 0; i< strings.length; i++){
+						strings[i] = content[tablePatients.getSelectedRow()][i].toString();
+					}
+					
+					int healthCareNumber = Integer.parseInt(strings[0]);
+					Patient patient = null;
+					
+					try {
+						patient = patientManager.GetPatient(healthCareNumber);
+					}
+					catch (SQLException ex) {}
+					String roomId = Integer.toString(patient.room_id);
+					String bedId = Integer.toString(patient.bed_id);
+					
+					address.setText(patient.address);
+					phoneNumber.setText(patient.phone_number);
+					email.setText(patient.email);
+					wardNumber.setText(patientManager.getPatientSingleWardName(patient.ward_id));
+					room.setText(roomId);
+					bed.setText(bedId);
+				}
+			}
+		});
 	}
 }
