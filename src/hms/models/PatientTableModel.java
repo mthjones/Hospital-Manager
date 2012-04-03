@@ -169,7 +169,7 @@ public class PatientTableModel extends AbstractTableModel {
 				Object cellValue = null;
 				
 				if (columnClasses[i].equals(String.class.getName())) {
-					cellValue = patients.getString(columnNames[i]);
+					cellValue = Encryptor.decode(patients.getString(columnNames[i]));
 				} else if (columnClasses[i].equals(Integer.class.getName())) {
 					//This if statement is pretty shoddy...update if time allows
 					//i = 16 is first ward i + 3 + 16 is next and so on...

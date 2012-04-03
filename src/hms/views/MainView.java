@@ -249,7 +249,7 @@ public class MainView {
 			public void actionPerformed(ActionEvent e) {
 				if(((JRadioButton)e.getSource()).isSelected())
 				{
-					patientTableModel.fireTableDataChanged("SELECT * FROM patient WHERE in_hospital = 'Y'");
+					patientTableModel.fireTableDataChanged("SELECT * FROM patient WHERE (in_hospital = 'Y' OR in_hospital = 'L')");
 				} else {
 					patientTableModel.fireTableDataChanged();
 				}

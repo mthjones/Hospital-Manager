@@ -192,7 +192,7 @@ public class Patient {
 					Encryptor.encode(this.name) + "','" + 
 					Encryptor.encode(this.phone_number) + "','" + 
 					Encryptor.encode(this.email) + "','" + 
-					this.gender + "','" + 
+					Encryptor.encode(this.gender) + "','" + 
 					Encryptor.encode(this.treatment) + "','" + 
 					Encryptor.encode(this.address) + "','" + 
 					new java.sql.Date(this.birthdate.getTime()) + "','" + 
