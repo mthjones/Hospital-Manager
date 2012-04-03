@@ -90,7 +90,7 @@ public class PatientTableModel extends AbstractTableModel {
 	 * stores them in the appropriate instance variables.
 	 */
 	private void getTableColumnNamesAndClasses() throws SQLException {
-		ResultSet patients = Database.getInstance().executeQuery("SELECT * FROM patient");
+		ResultSet patients = Database.getInstance().executeQuery("SELECT healthcare_number, name, gender, birthdate, in_hospital FROM patient");
 		
 		ResultSetMetaData patientMeta = patients.getMetaData();
 		

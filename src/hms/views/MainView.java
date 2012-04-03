@@ -53,6 +53,13 @@ public class MainView {
 	private JLabel address;
 	private JLabel room;
 	private JLabel bed;
+	private JLabel medication;
+	private JLabel specialCare;
+	private JLabel history;
+	private JLabel comments;
+	private JLabel emergencyName;
+	private JLabel emergencyPhoneNumber;
+	private JLabel emergencyEmail;
 	private String searchTerm;
 	private JButton btnSearch;
 	private JTextField txtSearchBar;
@@ -69,6 +76,13 @@ public class MainView {
 		wardNumber.setText("");
 		room.setText("");
 		bed.setText("");
+		medication.setText("");
+		specialCare.setText("");
+		history.setText("");
+		comments.setText("");
+		emergencyName.setText("");
+		emergencyPhoneNumber.setText("");
+		emergencyEmail.setText("");
 
 		maximizeWindow();
 		patientManager = new PatientManager(patientTableModel);
@@ -248,6 +262,36 @@ public class MainView {
 		JLabel lblBed = new JLabel("Bed");
 		
 		bed = new JLabel("bed");
+		
+		JLabel lblMedication = new JLabel("Medication");
+		
+		medication = new JLabel("Medication");
+		
+		JLabel lblSpecialCare = new JLabel("Special Care");
+		
+		specialCare = new JLabel("Special Care");
+		
+		JLabel lblHistory = new JLabel("History");
+		
+		history = new JLabel("History");
+		
+		comments = new JLabel("Comments");
+		
+		JLabel lblComments = new JLabel("Comments");
+		
+		JLabel lblEmergencyContact = new JLabel("Emergency Contact");
+		
+		JLabel lblName = new JLabel("Name");
+		
+		emergencyName = new JLabel("Name");
+		
+		JLabel lblPhoneNumber_1 = new JLabel("Phone Number");
+		
+		emergencyPhoneNumber = new JLabel("EmergencyPhoneNumber");
+		
+		JLabel lblEmail_1 = new JLabel("Email");
+		
+		emergencyEmail = new JLabel("EmergencyEmail");
 
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -268,7 +312,6 @@ public class MainView {
 							.addGap(6)
 							.addComponent(btnRefresh, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
 							.addGap(22))
-							
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(inHospitalRadioButton, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
@@ -279,26 +322,71 @@ public class MainView {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(lblEmail_1, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(emergencyEmail, GroupLayout.PREFERRED_SIZE, 175, GroupLayout.PREFERRED_SIZE)
+									.addGap(388))
+								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_panel.createSequentialGroup()
+										.addComponent(lblPhoneNumber_1, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+										.addGap(10)
+										.addComponent(emergencyPhoneNumber, GroupLayout.PREFERRED_SIZE, 175, GroupLayout.PREFERRED_SIZE)
+										.addContainerGap())
 									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblPhoneNumber, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblBed, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblRoom, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblWard, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(phoneNumber, GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-										.addComponent(bed, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
-										.addComponent(room, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
-										.addComponent(wardNumber, GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(email, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_panel.createSequentialGroup()
-									.addComponent(lblAddress, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(address, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)))
-							.addGap(540))))
+										.addGroup(gl_panel.createSequentialGroup()
+											.addComponent(lblName, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(emergencyName, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+											.addContainerGap())
+										.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+											.addGroup(gl_panel.createSequentialGroup()
+												.addComponent(lblEmergencyContact, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
+												.addContainerGap())
+											.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_panel.createSequentialGroup()
+													.addComponent(lblComments, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
+													.addGap(29)
+													.addComponent(comments, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
+													.addContainerGap())
+												.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+													.addGroup(gl_panel.createSequentialGroup()
+														.addComponent(lblHistory, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
+														.addGap(29)
+														.addComponent(history, GroupLayout.PREFERRED_SIZE, 354, GroupLayout.PREFERRED_SIZE)
+														.addContainerGap())
+													.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+														.addGroup(gl_panel.createSequentialGroup()
+															.addComponent(lblSpecialCare, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
+															.addContainerGap())
+														.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+															.addGroup(gl_panel.createSequentialGroup()
+																.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+																	.addGroup(gl_panel.createSequentialGroup()
+																		.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+																			.addComponent(lblPhoneNumber, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+																			.addComponent(lblBed, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+																			.addComponent(lblRoom, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+																			.addComponent(lblWard, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+																		.addPreferredGap(ComponentPlacement.RELATED)
+																		.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+																			.addComponent(phoneNumber, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+																			.addComponent(bed, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+																			.addComponent(room, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+																			.addComponent(wardNumber, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+																			.addComponent(medication, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+																			.addComponent(specialCare, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)))
+																	.addGroup(gl_panel.createSequentialGroup()
+																		.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+																		.addPreferredGap(ComponentPlacement.RELATED)
+																		.addComponent(email, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE))
+																	.addGroup(gl_panel.createSequentialGroup()
+																		.addComponent(lblAddress, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+																		.addPreferredGap(ComponentPlacement.RELATED)
+																		.addComponent(address, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)))
+																.addGap(313))
+															.addGroup(gl_panel.createSequentialGroup()
+																.addComponent(lblMedication, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
+																.addContainerGap()))))))))))))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -309,7 +397,7 @@ public class MainView {
 						.addComponent(inHospitalRadioButton))
 					.addPreferredGap(ComponentPlacement.RELATED, 619, Short.MAX_VALUE)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(txtSearchBar)
+						.addComponent(txtSearchBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnSearch)
 						.addComponent(btnCreatePatient)
 						.addComponent(btnEditPatient)
@@ -347,8 +435,38 @@ public class MainView {
 							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(bed)
 								.addComponent(lblBed))
-							.addGap(460)))
-					.addContainerGap(32, Short.MAX_VALUE))
+							.addGap(28)
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblMedication)
+								.addComponent(medication))
+							.addGap(3)
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblSpecialCare)
+								.addComponent(specialCare))
+							.addGap(3)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblHistory)
+								.addComponent(history))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblComments)
+								.addComponent(comments))
+							.addGap(23)
+							.addComponent(lblEmergencyContact)
+							.addGap(5)
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblName)
+								.addComponent(emergencyName))
+							.addGap(3)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblPhoneNumber_1)
+								.addComponent(emergencyPhoneNumber))
+							.addGap(3)
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblEmail_1)
+								.addComponent(emergencyEmail))
+							.addGap(277)))
+					.addContainerGap(29, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 
@@ -505,6 +623,13 @@ public class MainView {
 					wardNumber.setText(patientManager.getPatientSingleWardName(patient.ward_id));
 					room.setText(roomId);
 					bed.setText(bedId);
+					medication.setText(patient.medications);
+					specialCare.setText(patient.special_care);
+					history.setText(patient.history);
+					comments.setText(patient.comments);
+					emergencyName.setText(patient.emerg_name);
+					emergencyPhoneNumber.setText(patient.emerg_phone_number);
+					emergencyEmail.setText(patient.emerg_email);
 				}
 			}
 		});
