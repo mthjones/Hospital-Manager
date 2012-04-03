@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import hms.util.Database;
 import hms.util.Priority;
+import hms.util.*;
 
 public class Patient {
 	//TODO create getters and setters
@@ -33,30 +34,30 @@ public class Patient {
 	private Priority priority;
 	public ArrayList<String> errors = new ArrayList<String>();
 	public static final String RESERVED_TEST_NAME = "Forbidden Name";
-	
+
 	public Patient()
 	{}
-	
+
 	public Patient(String healthcare_number, 
-				   String name, 
-				   String phone_number, 
-				   String email,
-                   String gender, 
-                   String treatment, 
-                   String address, 
-                   Date birthdate, 
-                   String medications, 
-                   String special_care, 
-                   String history, 
-                   String comments, 
-                   String emerg_name, 
-                   String emerg_phone_number, 
-                   String emerg_email,
-                   boolean in_hospital,
-                   int ward,
-                   int room,
-                   int bed,
-                   Priority priority) {
+			String name, 
+			String phone_number, 
+			String email,
+			String gender, 
+			String treatment, 
+			String address, 
+			Date birthdate, 
+			String medications, 
+			String special_care, 
+			String history, 
+			String comments, 
+			String emerg_name, 
+			String emerg_phone_number, 
+			String emerg_email,
+			boolean in_hospital,
+			int ward,
+			int room,
+			int bed,
+			Priority priority) {
 		this.name = name;
 		this.phone_number = phone_number;
 		this.email = email;
@@ -78,7 +79,7 @@ public class Patient {
 		this.bed_id = bed;
 		this.priority = priority;
 	}
-	
+
 	/**
 	 * Finds the patient corresponding to the given healthcare number in a patient object. If
 	 * the patient doesn't exist, returns null.
@@ -93,16 +94,31 @@ public class Patient {
 		} else {
 			patient.first();
 		}
-		return new Patient(patient.getString(1), patient.getString(2), patient.getString(3),
-                           patient.getString(4), patient.getString(5), patient.getString(6), patient.getString(7),
-                           patient.getDate(8), patient.getString(9), patient.getString(10), patient.getString(11),
-                           patient.getString(12), patient.getString(13), patient.getString(14), patient.getString(15),
-                           patient.getBoolean(16), patient.getInt(17), patient.getInt(18), patient.getInt(19), 
-                           Priority.fromInteger(patient.getInt(20)));
+		return new Patient(
+				Encryptor.decode(patient.getString(1)), 
+				Encryptor.encode(patient.getString(2)), 
+				Encryptor.encode(patient.getString(3)),
+				Encryptor.encode(patient.getString(4)), 
+				Encryptor.encode(patient.getString(5)), 
+				Encryptor.encode(patient.getString(6)), 
+				Encryptor.encode(patient.getString(7)),
+				patient.getDate(8), 
+				Encryptor.encode(patient.getString(9)), 
+				Encryptor.encode(patient.getString(10)),
+				Encryptor.encode(patient.getString(11)),
+				Encryptor.encode(patient.getString(12)), 
+				Encryptor.encode(patient.getString(13)), 
+				Encryptor.encode(patient.getString(14)), 
+				Encryptor.encode(patient.getString(15)),
+				patient.getBoolean(16), 
+				patient.getInt(17), 
+				patient.getInt(18), 
+				patient.getInt(19), 
+				Priority.fromInteger(patient.getInt(20)));
 	}
-	
+
 	public static Patient[] findByName(String name) throws SQLException {
-		ResultSet patientSet = Database.getInstance().executeQuery("SELECT * FROM patient WHERE name = '" + name + "'");
+		ResultSet patientSet = Database.getInstance().executeQuery("SELECT * FROM patient WHERE name = '" + Encryptor.encode(name) + "'");
 		patientSet.last();
 		int numPatients = 0;
 		if(patientSet.getRow() == 0) {
@@ -112,19 +128,34 @@ public class Patient {
 			patientSet.first();
 		}
 		Patient [] patients = new Patient[numPatients];
-		
+
 		for(int i = 0; i < numPatients; i++) {
-			patients[i] = new Patient(patientSet.getString(1), patientSet.getString(2), patientSet.getString(3),
-					patientSet.getString(4), patientSet.getString(5), patientSet.getString(6), patientSet.getString(7),
-					patientSet.getDate(8), patientSet.getString(9), patientSet.getString(10), patientSet.getString(11),
-					patientSet.getString(12), patientSet.getString(13), patientSet.getString(14), patientSet.getString(15),
-					patientSet.getBoolean(16), patientSet.getInt(17), patientSet.getInt(18), patientSet.getInt(19), 
-                    Priority.fromInteger(patientSet.getInt(20)));
+			patients[i] = new Patient(
+					Encryptor.decode(patientSet.getString(1)), 
+					Encryptor.decode(patientSet.getString(2)), 
+					Encryptor.decode(patientSet.getString(3)),
+					Encryptor.decode(patientSet.getString(4)), 
+					Encryptor.decode(patientSet.getString(5)), 
+					Encryptor.decode(patientSet.getString(6)), 
+					Encryptor.decode(patientSet.getString(7)),
+					patientSet.getDate(8), 
+					Encryptor.decode(patientSet.getString(9)), 
+					Encryptor.decode(patientSet.getString(10)), 
+					Encryptor.decode(patientSet.getString(11)),
+					Encryptor.decode(patientSet.getString(12)), 
+					Encryptor.decode(patientSet.getString(13)), 
+					Encryptor.decode(patientSet.getString(14)), 
+					Encryptor.decode(patientSet.getString(15)),
+					patientSet.getBoolean(16), 
+					patientSet.getInt(17), 
+					patientSet.getInt(18), 
+					patientSet.getInt(19), 
+					Priority.fromInteger(patientSet.getInt(20)));
 			patientSet.next();
 		}
 		return patients;
 	}
-	
+
 	// /**
 	//  * Finds all patients and returns them as in a patient objects. If
 	//  * no patients exist, null is returnes
@@ -137,15 +168,15 @@ public class Patient {
 	// 	Vector<Patient> paitents = new Vector<Patient>();
 	// 	while(!patient.isLast()){
 	// 		paitents.add(new Patient(patient.getString(1), patient.getString(2), patient.getString(3),
- //                                     patient.getString(4), patient.getString(5), patient.getString(6), patient.getString(7),
- //                                     patient.getDate(8), patient.getString(9), patient.getString(10), patient.getString(11),
- //                                     patient.getString(12), patient.getString(13), patient.getString(14), patient.getString(15),
- //                                     patient.getBoolean(16), patient.getInt(17), patient.getInt(18), patient.getInt(19)) );
+	//                                     patient.getString(4), patient.getString(5), patient.getString(6), patient.getString(7),
+	//                                     patient.getDate(8), patient.getString(9), patient.getString(10), patient.getString(11),
+	//                                     patient.getString(12), patient.getString(13), patient.getString(14), patient.getString(15),
+	//                                     patient.getBoolean(16), patient.getInt(17), patient.getInt(18), patient.getInt(19)) );
 	// 		if(!patient.next()) return null;
 	// 	}
 	// 	return paitents;
 	// }
-	
+
 	/**
 	 * Tries to save the patient to the database. Returns true on a successful save or false
 	 * if the save fails for any reason.
@@ -157,26 +188,26 @@ public class Patient {
 		}
 		try {
 			int rows_added = Database.getInstance().executeUpdate("INSERT INTO patient VALUES ('" + 
-                                                                  this.healthcare_number + "','" + 
-                                                                  this.name + "','" + 
-                                                                  this.phone_number + "','" + 
-                                                                  this.email + "','" + 
-                                                                  this.gender + "','" + 
-                                                                  this.treatment + "','" + 
-                                                                  this.address + "','" + 
-                                                                  new java.sql.Date(this.birthdate.getTime()) + "','" + 
-                                                                  this.medications + "','" + 
-                                                                  this.special_care + "','" + 
-                                                                  this.history + "','" + 
-                                                                  this.comments + "','" + 
-                                                                  this.emerg_name + "','" + 
-                                                                  this.emerg_phone_number + "','" + 
-                                                                  this.emerg_email + "','"+
-                                                                  this.in_hospital + "','" + 
-                                                                  this.ward_id + "','" + 
-                                                                  this.room_id + "','" + 
-                                                                  this.bed_id + "','" +
-                                                                  this.priority.toInteger() + "')");
+					Encryptor.encode(this.healthcare_number) + "','" + 
+					Encryptor.encode(this.name) + "','" + 
+					Encryptor.encode(this.phone_number) + "','" + 
+					Encryptor.encode(this.email) + "','" + 
+					Encryptor.encode( this.gender) + "','" + 
+					Encryptor.encode(this.treatment) + "','" + 
+					Encryptor.encode(this.address) + "','" + 
+					new java.sql.Date(this.birthdate.getTime()) + "','" + 
+					Encryptor.encode(this.medications) + "','" + 
+					Encryptor.encode(this.special_care) + "','" + 
+					Encryptor.encode(this.history) + "','" + 
+					Encryptor.encode(this.comments) + "','" + 
+					Encryptor.encode(this.emerg_name) + "','" + 
+					Encryptor.encode(this.emerg_phone_number) + "','" + 
+					Encryptor.encode(this.emerg_email) + "','"+
+					Encryptor.encode(this.in_hospital) + "','" + 
+					this.ward_id + "','" + 
+					this.room_id + "','" + 
+					this.bed_id + "','" +
+					this.priority.toInteger() + "')");
 			this.errors.clear();
 			return true;
 		} catch (SQLException sqle) {
@@ -184,7 +215,7 @@ public class Patient {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Tries to delete the patient from the database. Returns true on a successful delete or
 	 * false if the delete fails for any reason.
@@ -204,7 +235,7 @@ public class Patient {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Tries to delete a patient with a corresponding healthcare number from the database.
 	 * Static version of delete() for convenience's sake.

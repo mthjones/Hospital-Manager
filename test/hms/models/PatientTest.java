@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import hms.models.Patient;
-import hms.util.Priority;
+import hms.util.*;
 
 import org.junit.*;
 import static org.junit.Assert.*;
