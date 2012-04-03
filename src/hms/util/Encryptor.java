@@ -14,6 +14,9 @@ public class Encryptor {
 	*@return an encoded version of the word
 	*/
 	public static String encode(String word){
+		if(word == null || word.equals("null")){
+			return "null"; 
+		}
 		String RV = word.trim();
 		char[] value = RV.toCharArray();
 		for(int i = 0; i<RV.length(); i++){

@@ -33,6 +33,10 @@ import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import java.awt.Font;
 import java.awt.Component;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -199,6 +203,43 @@ public class MainView {
 		});
 		
 		txtSearchBar = new JTextField("search");
+		txtSearchBar.setForeground(Color.GRAY);
+		txtSearchBar.addKeyListener(new KeyListener() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				//do nothing
+			}
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				//do nothing
+			}
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				btnSearch.setText("search");
+			}
+		});
+		txtSearchBar.addFocusListener(new FocusListener () {
+
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				if(txtSearchBar.getText().equals("search"))
+				{
+					txtSearchBar.setForeground(Color.BLACK);
+					txtSearchBar.setText("");
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				if(txtSearchBar.getText().isEmpty())
+				{
+					txtSearchBar.setForeground(Color.GRAY);
+					txtSearchBar.setText("search");
+				}
+			}
+			
+		});
+		
 		btnSearch = new JButton("search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -206,6 +247,7 @@ public class MainView {
 				if (btnSearch.getText().equals("clear")) {
 					patientTableModel.fireTableDataChanged();
 					btnSearch.setText("search");
+					txtSearchBar.setForeground(Color.GRAY);
 					txtSearchBar.setText("search");
 				} else {
 					patientTableModel.fireTableDataChanged("SELECT * FROM patient WHERE name = '" + searchTerm + "'");

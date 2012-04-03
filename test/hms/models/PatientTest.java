@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Date;
 
 import hms.models.Patient;
-import hms.util.Priority;
+import hms.util.*;
 
 import org.junit.*;
 import static org.junit.Assert.*;
@@ -60,7 +60,13 @@ public class PatientTest {
 									  Priority.HIGH);
 		assertTrue(patient.create());
 		Patient patient2 = new Patient("123456789", "Mary Sue", "9876543210", "mary@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true,1,1,1, Priority.HIGH);
+		boolean hadException = false;
+		try{
 		assertFalse(patient2.create());
+		}catch(Exception e){
+			hadException = true;
+		}
+		assertTrue("Exception should have been thrown", hadException);
 		patient.delete();
 	}
 	

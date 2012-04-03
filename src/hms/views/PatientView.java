@@ -88,9 +88,9 @@ public class PatientView {
 			Integer chosenBed = new Integer(row[18]);
 			PatientManager.changeBedAvailability(chosenBed.intValue());
 		}
-		
+
 		try{
-		initialize(false);
+			initialize(false);
 		}catch(Throwable e){}
 		centreWindow(frmPatient);
 		if(row.length == 20){
@@ -133,7 +133,7 @@ public class PatientView {
 				textPaneHistory.setText(row[10]);
 			if(row[11]!= null)
 				textPaneComments.setText(row[11]);
-			
+
 			if (row[12] != null) {
 				textField_2.setText(row[12]);
 			}
@@ -163,8 +163,8 @@ public class PatientView {
 			}
 		}
 	}
-	
-	public void createPatient(boolean isNew){
+
+	public void createPatient(boolean isNew) throws Exception{
 		//TODO test to see if patient is in database
 		String healthCareNumber = textFieldPatientHealthCareNumber.getText();
 		Date BirthDate = getBirthDate();
@@ -175,31 +175,31 @@ public class PatientView {
 				textFieldPatientTelephoneNumber.getText(), 
 				textFieldPatientEmail.getText(),
 				rdbtnMale.isSelected()? "M":"F",
-				null,//no field for this
-				textPanePatientAddress.getText(),
-				BirthDate,
-				textPaneMedications.getText(),
-				textPane_1.getText(),
-				textPaneHistory.getText(),
-				textPaneComments.getText(),
-				textField_2.getText(),
-				textField.getText(),
-				textField_1.getText(),
-				inHospitalCheckBox.isSelected(),
-				comboBoxWard.getSelectedIndex(),
-				(Integer)comboBoxRoom.getSelectedItem(),
-				(Integer)comboBoxBed.getSelectedItem(),
-				(Priority)priorityDropdown.getSelectedItem());//for iteration 2 maybe? TODO
+						null,//no field for this
+						textPanePatientAddress.getText(),
+						BirthDate,
+						textPaneMedications.getText(),
+						textPane_1.getText(),
+						textPaneHistory.getText(),
+						textPaneComments.getText(),
+						textField_2.getText(),
+						textField.getText(),
+						textField_1.getText(),
+						inHospitalCheckBox.isSelected(),
+						comboBoxWard.getSelectedIndex(),
+						(Integer)comboBoxRoom.getSelectedItem(),
+						(Integer)comboBoxBed.getSelectedItem(),
+						(Priority)priorityDropdown.getSelectedItem());//for iteration 2 maybe? TODO
 		//textFieldPatientHealthCareNumber.setText(BirthDate.toString());
-		try {
-			if (!isNew) temp.delete();
-			temp.create();
-		}
-		catch (Exception e)
-		{
-		}
+		//		try {
+		if (!isNew) temp.delete();
+					temp.create();
+		//		}
+		//		catch (Exception e)
+		//		{
+		//		}
 	}
-	
+
 	private Date getBirthDate()
 	{
 		Date BirthDate = null;
@@ -226,11 +226,11 @@ public class PatientView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(boolean isNew) {
-		
+
 		lblInvalidInput = new JLabel("Invalid input, please try again.");
 		lblInvalidInput.setVisible(false);
 		lblInvalidInput.setForeground(Color.red);
-		
+
 		//bedToBeSaved is used to save the bed that was selected when "Save" is pressed. When "close" is pressed later, it will change the availability of the saved bed
 		//if patient is not new, uses the previous bed selected as the saved bed
 		if(isNew == true)
@@ -260,7 +260,7 @@ public class PatientView {
 		btnSaveAndClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TODO test to see if patient is in database
-				
+
 				if(validated()) {
 
 					//change room availability here
@@ -269,7 +269,11 @@ public class PatientView {
 						Integer chosenBed = new Integer((Integer)comboBoxBed.getSelectedItem());
 						PatientManager.changeBedAvailability(chosenBed.intValue());
 					}
-					createPatient(PatientView.isNew);
+					try{
+						createPatient(PatientView.isNew);
+					}catch(Exception k){
+						throw new ArrayIndexOutOfBoundsException("SQL Exception");
+					}
 					mainViewTableModel.fireTableDataChanged();
 					frmPatient.dispose();//TODO
 				}
@@ -281,7 +285,7 @@ public class PatientView {
 
 		invalidBdayInput = new JLabel("invalid");
 		invalidBdayInput.setVisible(false);
-		
+
 		JLabel lblEmail = new JLabel("Email");
 
 		textFieldPatientEmail = new JTextField();
@@ -421,155 +425,158 @@ public class PatientView {
 						Integer chosenBed = new Integer((Integer)comboBoxBed.getSelectedItem());
 						bedToBeSaved = chosenBed.intValue();
 					}
-
-					createPatient(PatientView.isNew);
+					try{
+						createPatient(PatientView.isNew);
+					}catch(Exception k){
+						throw new ArrayIndexOutOfBoundsException("SQL Exception");
+					}
 					mainViewTableModel.fireTableDataChanged();
 				}
 			}
 		});
-		
+
 		priorityDropdown = new JComboBox();
-		
+
 		priorityDropdown.addItem(Priority.HIGH);
 		priorityDropdown.addItem(Priority.MEDIUM);
 		priorityDropdown.addItem(Priority.LOW);
-		
+
 		inHospitalCheckBox = new JCheckBox("In Hospital");
 		inHospitalCheckBox.setSelected(true);
-				
+
 		JLabel lblPriority = new JLabel("Priority");
 		GroupLayout groupLayout = new GroupLayout(frmPatient.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+				groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(50, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblInvalidInput, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(buttonSave, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnSaveAndClose)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnClose, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-							.addGroup(groupLayout.createSequentialGroup()
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(lblName, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addComponent(textFieldPatientName, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED))
-									.addGroup(groupLayout.createSequentialGroup()
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-												.addComponent(lblAddress)
-												.addComponent(lblHealthCareNumber, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-											.addComponent(lblTelephoneNumber, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addContainerGap(50, Short.MAX_VALUE)
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(lblInvalidInput, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
 										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-											.addComponent(textPanePatientAddress, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(textFieldPatientHealthCareNumber, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-												.addComponent(textFieldPatientTelephoneNumber)))))
-								.addGap(16)
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-									.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblBirthdate1, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblPriority))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-									.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(buttonSave, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(btnSaveAndClose)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(btnClose, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE))
 										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-											.addComponent(lblExDdmmyyyy, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(textFieldPatientEmail, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
-											.addGroup(groupLayout.createSequentialGroup()
-												.addComponent(rdbtnMale)
-												.addGap(18)
-												.addComponent(rdbtnFemale, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-											.addComponent(formattedTextFieldBirthdate))
-										.addGap(106))
-									.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(priorityDropdown, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(inHospitalCheckBox))))
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(panelSpecialCareInformation, GroupLayout.PREFERRED_SIZE, 616, Short.MAX_VALUE)
-							.addComponent(panel_1, 0, 0, Short.MAX_VALUE)))
-					.addGap(24))
-		);
+												.addGroup(groupLayout.createSequentialGroup()
+														.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+																.addGroup(groupLayout.createSequentialGroup()
+																		.addComponent(lblName, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+																		.addPreferredGap(ComponentPlacement.UNRELATED)
+																		.addComponent(textFieldPatientName, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
+																		.addPreferredGap(ComponentPlacement.RELATED))
+																		.addGroup(groupLayout.createSequentialGroup()
+																				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+																						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+																								.addComponent(lblAddress)
+																								.addComponent(lblHealthCareNumber, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+																								.addComponent(lblTelephoneNumber, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+																								.addPreferredGap(ComponentPlacement.RELATED)
+																								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+																										.addComponent(textPanePatientAddress, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
+																										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+																												.addComponent(textFieldPatientHealthCareNumber, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+																												.addComponent(textFieldPatientTelephoneNumber)))))
+																												.addGap(16)
+																												.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+																														.addComponent(lblEmail, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+																														.addComponent(lblBirthdate1, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+																														.addComponent(lblPriority))
+																														.addPreferredGap(ComponentPlacement.RELATED)
+																														.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+																																.addGroup(groupLayout.createSequentialGroup()
+																																		.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+																																				.addComponent(lblExDdmmyyyy, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																																				.addComponent(textFieldPatientEmail, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+																																				.addGroup(groupLayout.createSequentialGroup()
+																																						.addComponent(rdbtnMale)
+																																						.addGap(18)
+																																						.addComponent(rdbtnFemale, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+																																						.addComponent(formattedTextFieldBirthdate))
+																																						.addGap(106))
+																																						.addGroup(groupLayout.createSequentialGroup()
+																																								.addComponent(priorityDropdown, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																																								.addPreferredGap(ComponentPlacement.RELATED)
+																																								.addComponent(inHospitalCheckBox))))
+																																								.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																																								.addComponent(panelSpecialCareInformation, GroupLayout.PREFERRED_SIZE, 616, Short.MAX_VALUE)
+																																								.addComponent(panel_1, 0, 0, Short.MAX_VALUE)))
+																																								.addGap(24))
+				);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(29)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textFieldPatientName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(rdbtnMale)
-								.addComponent(rdbtnFemale)
-								.addComponent(lblName))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblHealthCareNumber)
-								.addComponent(textFieldPatientHealthCareNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblBirthdate1)
-								.addComponent(formattedTextFieldBirthdate, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(textPanePatientAddress, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblAddress)
-								.addComponent(lblExDdmmyyyy))
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-									.addComponent(textFieldPatientTelephoneNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblTelephoneNumber))
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-									.addComponent(lblEmail)
-									.addComponent(textFieldPatientEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-							.addPreferredGap(ComponentPlacement.RELATED))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(inHospitalCheckBox)
-								.addComponent(priorityDropdown, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblPriority))
-							.addGap(48)))
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelSpecialCareInformation, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnSaveAndClose)
-						.addComponent(btnClose)
-						.addComponent(buttonSave)
-						.addComponent(lblInvalidInput))
-					.addGap(93))
-		);
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createSequentialGroup()
+										.addGap(29)
+										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+												.addComponent(textFieldPatientName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(rdbtnMale)
+												.addComponent(rdbtnFemale)
+												.addComponent(lblName))
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+														.addComponent(lblHealthCareNumber)
+														.addComponent(textFieldPatientHealthCareNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addComponent(lblBirthdate1)
+														.addComponent(formattedTextFieldBirthdate, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+																.addComponent(textPanePatientAddress, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+																.addComponent(lblAddress)
+																.addComponent(lblExDdmmyyyy))
+																.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+																		.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+																				.addComponent(textFieldPatientTelephoneNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+																				.addComponent(lblTelephoneNumber))
+																				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+																						.addComponent(lblEmail)
+																						.addComponent(textFieldPatientEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+																						.addPreferredGap(ComponentPlacement.RELATED))
+																						.addGroup(groupLayout.createSequentialGroup()
+																								.addContainerGap()
+																								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+																										.addComponent(inHospitalCheckBox)
+																										.addComponent(priorityDropdown, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+																										.addComponent(lblPriority))
+																										.addGap(48)))
+																										.addComponent(panel, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
+																										.addPreferredGap(ComponentPlacement.RELATED)
+																										.addComponent(panelSpecialCareInformation, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)
+																										.addPreferredGap(ComponentPlacement.RELATED)
+																										.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+																										.addGap(18)
+																										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+																												.addComponent(btnSaveAndClose)
+																												.addComponent(btnClose)
+																												.addComponent(buttonSave)
+																												.addComponent(lblInvalidInput))
+																												.addGap(93))
+				);
 
 		JLabel lblAssignPatientTo = new JLabel("Assign Patient to Room");
-		
-		
+
+
 		//Setting up wards, rooms, and bed combo boxes
-		
+
 		lblBed = new JLabel("* Beds");
 
 		comboBoxBed = new JComboBox();
-		
+
 		JLabel lblWard = new JLabel("Wards");
-		
+
 
 		String[] WardList = PatientManager.getPatientWardNames();
 		comboBoxWard = new JComboBox(WardList);
-		
+
 
 		JLabel lblRoom = new JLabel("Rooms");
 
 		comboBoxRoom = new JComboBox();
-		
+
 		//These next two listeners change room and bed to match the ones in the selected ward\
 		//TODO: Havent implemented anything to do with availability of beds yet
 		comboBoxWard.addActionListener(new ActionListener()
@@ -580,27 +587,27 @@ public class PatientView {
 				Integer[] rooms = PatientManager.getPatientRooms(ward_id);
 				try
 				{
-				comboBoxRoom.removeAllItems();
-				comboBoxBed.removeAllItems();
+					comboBoxRoom.removeAllItems();
+					comboBoxBed.removeAllItems();
 				}
 				catch(NullPointerException f)
 				{}
 				for(int i = 0; i < rooms.length; i++)
 					comboBoxRoom.addItem(rooms[i]);
-				
+
 			}
 		});
-		
+
 		comboBoxRoom.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				if(comboBoxRoom.getSelectedItem() != null)
 				{
-					
+
 					int room_id = (Integer)comboBoxRoom.getSelectedItem();
 					Integer[] beds = PatientManager.getPatientBeds(room_id);
-					
+
 
 					try
 					{
@@ -615,8 +622,8 @@ public class PatientView {
 				}
 			}
 		});
-			
-		
+
+
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 				gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -719,7 +726,7 @@ public class PatientView {
 		panelSpecialCareInformation.setLayout(gl_panelSpecialCareInformation);
 		frmPatient.getContentPane().setLayout(groupLayout);
 	}
-	
+
 	/**
 	 * Validates the information entered in the form. Creates a pop-up dialog if there are any errors.
 	 * Also shows text saying the input is invalid.
@@ -728,9 +735,9 @@ public class PatientView {
 	 */
 	private boolean validated() {
 		boolean validated = true;
-		
+
 		lblInvalidInput.setVisible(false);
-		
+
 		if(textFieldPatientName.getText().equals("")){
 			lblName.setForeground(Color.red);
 			//JOptionPane.showMessageDialog(frmPatient, "Invalid name entered.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
@@ -740,7 +747,7 @@ public class PatientView {
 		else {
 			lblName.setForeground(Color.black);
 		}
-		
+
 		if(textFieldPatientHealthCareNumber.getText().equals("")){
 			lblHealthCareNumber.setForeground(Color.red);
 			validated = false;
@@ -749,7 +756,7 @@ public class PatientView {
 		else {
 			lblHealthCareNumber.setForeground(Color.black);
 		}
-		
+
 		if(!formattedTextFieldBirthdate.isEditValid()) {
 			lblBirthdate1.setForeground(Color.red);
 			validated = false;
@@ -758,7 +765,7 @@ public class PatientView {
 		else {
 			lblBirthdate1.setForeground(Color.black);
 		}
-		
+
 		if(comboBoxBed.getSelectedItem() == null) {
 			lblBed.setForeground(Color.red);
 			validated = false;
@@ -767,7 +774,7 @@ public class PatientView {
 		else {
 			lblBed.setForeground(Color.black);
 		}
-		
+
 		return validated;
 	}
 }
