@@ -96,20 +96,20 @@ public class Patient {
 		}
 		return new Patient(
 				Encryptor.decode(patient.getString(1)), 
-				Encryptor.encode(patient.getString(2)), 
-				Encryptor.encode(patient.getString(3)),
-				Encryptor.encode(patient.getString(4)), 
-				Encryptor.encode(patient.getString(5)), 
-				Encryptor.encode(patient.getString(6)), 
-				Encryptor.encode(patient.getString(7)),
+				Encryptor.decode(patient.getString(2)), 
+				Encryptor.decode(patient.getString(3)),
+				Encryptor.decode(patient.getString(4)), 
+				patient.getString(5), 
+				Encryptor.decode(patient.getString(6)), 
+				Encryptor.decode(patient.getString(7)),
 				patient.getDate(8), 
-				Encryptor.encode(patient.getString(9)), 
-				Encryptor.encode(patient.getString(10)),
-				Encryptor.encode(patient.getString(11)),
-				Encryptor.encode(patient.getString(12)), 
-				Encryptor.encode(patient.getString(13)), 
-				Encryptor.encode(patient.getString(14)), 
-				Encryptor.encode(patient.getString(15)),
+				Encryptor.decode(patient.getString(9)), 
+				Encryptor.decode(patient.getString(10)),
+				Encryptor.decode(patient.getString(11)),
+				Encryptor.decode(patient.getString(12)), 
+				Encryptor.decode(patient.getString(13)), 
+				Encryptor.decode(patient.getString(14)), 
+				Encryptor.decode(patient.getString(15)),
 				patient.getBoolean(16), 
 				patient.getInt(17), 
 				patient.getInt(18), 
@@ -135,7 +135,7 @@ public class Patient {
 					Encryptor.decode(patientSet.getString(2)), 
 					Encryptor.decode(patientSet.getString(3)),
 					Encryptor.decode(patientSet.getString(4)), 
-					Encryptor.decode(patientSet.getString(5)), 
+					patientSet.getString(5), 
 					Encryptor.decode(patientSet.getString(6)), 
 					Encryptor.decode(patientSet.getString(7)),
 					patientSet.getDate(8), 
@@ -186,13 +186,13 @@ public class Patient {
 		if(this.name.equals(RESERVED_TEST_NAME)) {
 			return false; // a patient is not allowed to have this name, because it is reserved for testing purposes
 		}
-		try {
+		
 			int rows_added = Database.getInstance().executeUpdate("INSERT INTO patient VALUES ('" + 
 					Encryptor.encode(this.healthcare_number) + "','" + 
 					Encryptor.encode(this.name) + "','" + 
 					Encryptor.encode(this.phone_number) + "','" + 
 					Encryptor.encode(this.email) + "','" + 
-					Encryptor.encode( this.gender) + "','" + 
+					this.gender + "','" + 
 					Encryptor.encode(this.treatment) + "','" + 
 					Encryptor.encode(this.address) + "','" + 
 					new java.sql.Date(this.birthdate.getTime()) + "','" + 
@@ -210,10 +210,7 @@ public class Patient {
 					this.priority.toInteger() + "')");
 			this.errors.clear();
 			return true;
-		} catch (SQLException sqle) {
-			this.errors.add("Couldn't add to database");
-			return false;
-		}
+		
 	}
 
 	/**
