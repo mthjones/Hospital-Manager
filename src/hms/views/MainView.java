@@ -192,8 +192,9 @@ public class MainView {
 				if (btnSearch.getText().equals("clear")) {
 					patientTableModel.fireTableDataChanged();
 					btnSearch.setText("search");
+					txtSearchBar.setText("search");
 				} else {
-					patientTableModel.fireTableDataChanged(searchTerm);
+					patientTableModel.fireTableDataChanged("SELECT * FROM patient WHERE name = '" + searchTerm + "'");
 					btnSearch.setText("clear");
 				}
 			}
@@ -202,6 +203,16 @@ public class MainView {
 		final JRadioButton viewAllRadioButton = new JRadioButton("View All");
 
 		final JRadioButton inHospitalRadioButton = new JRadioButton("In Hospital");
+		inHospitalRadioButton.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(((JRadioButton)e.getSource()).isSelected())
+				{
+					patientTableModel.fireTableDataChanged("SELECT * FROM patient WHERE in_hospital = 'Y'");
+				} else {
+					patientTableModel.fireTableDataChanged();
+				}
+			}
+		});
 
 		viewAllRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

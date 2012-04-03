@@ -158,8 +158,8 @@ public class PatientTableModel extends AbstractTableModel {
 		}
 	}
 	
-	private void getTableContents(String name) throws SQLException {
-		ResultSet patients = Database.getInstance().executeQuery("SELECT * FROM patient WHERE name = '" + name + "'");
+	private void getTableContents(String query) throws SQLException {
+		ResultSet patients = Database.getInstance().executeQuery(query);
 		
 		ArrayList<Object[]> rowList = new ArrayList<Object[]>();
 		while (patients.next()) {
@@ -220,9 +220,9 @@ public class PatientTableModel extends AbstractTableModel {
 		super.fireTableDataChanged();
 	}
 	
-	public void fireTableDataChanged(String name) {
+	public void fireTableDataChanged(String query) {
 		try {
-			getTableContents(name);
+			getTableContents(query);
 		} catch (SQLException sqle) {
 			// Do nothing. Keep old contents
 		}
