@@ -15,8 +15,7 @@ public class LoginControllerTest {
 	@Test
 	public void test_invalidLoginSetsInvalidLoginErrorMessage() {
 		LoginController loginController = new LoginController();
-		LoginView loginView = new LoginView(loginController);
-		loginController.setView(loginView);
+		LoginView loginView = new LoginView(null, loginController);
 		
 		loginController.login("Invalid user", "Invalid pass");
 		assertEquals(loginView.getErrorMessage(), "Invalid login");
@@ -35,35 +34,25 @@ public class LoginControllerTest {
 	// }
 	
 	@Test
-	public void test_windowClosedOnSuccessfulLogin() throws SQLException {
+	public void test_dialogClosedOnSuccessfulLogin() throws SQLException {
 		User test_user = new User("test", "testpass");
 		test_user.create();
 		
 		LoginController loginController = new LoginController();
-		LoginView loginView = new LoginView(loginController);
-		loginController.setView(loginView);
-		
-		JFrame testFrame = new JFrame();
-		testFrame.getRootPane().add(loginView);
-		testFrame.pack();
+		LoginView loginView = new LoginView(null, loginController);
 		
 		loginController.login("test", "testpass");
-		assertFalse(SwingUtilities.getWindowAncestor(loginView).isDisplayable());
+		assertFalse(loginView.getDialog().isDisplayable());
 		
 		test_user.delete();
 	}
 	
 	@Test
-	public void test_windowStaysOpenOnUnsuccessfulLogin() {
+	public void test_dialogStaysOpenOnUnsuccessfulLogin() {
 		LoginController loginController = new LoginController();
-		LoginView loginView = new LoginView(loginController);
-		loginController.setView(loginView);
-		
-		JFrame testFrame = new JFrame();
-		testFrame.getRootPane().add(loginView);
-		testFrame.pack();
+		LoginView loginView = new LoginView(null, loginController);
 		
 		loginController.login("Invalid user", "Invalid pass");
-		assertTrue(SwingUtilities.getWindowAncestor(loginView).isDisplayable());
+		assertTrue(loginView.getDialog().isDisplayable());
 	}
 }

@@ -63,6 +63,14 @@ public class LoginView implements ActionListener {
 	}
 	
 	/**
+	 * Returns the dialog that the login view uses.
+	 * @return The dialog that the login view uses
+	 */
+	public JDialog getDialog() {
+		return this.dialog;
+	}
+	
+	/**
 	 * Handles all actions performed on components with the login panel as the action listener.
 	 * @param e The event to be handled
 	 */
