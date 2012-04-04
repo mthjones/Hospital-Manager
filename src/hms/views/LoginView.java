@@ -1,19 +1,19 @@
 package hms.views;
 
 import javax.swing.*;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.border.EmptyBorder;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
+
+import net.miginfocom.swing.MigLayout;
 
 import hms.controllers.LoginController;
 
 public class LoginView extends JPanel implements ActionListener {
 	final private JLabel usernameLabel = new JLabel("Username:");
 	final private JLabel passwordLabel = new JLabel("Password:");
-	final private JTextField usernameField = new JTextField();
-	final private JPasswordField passwordField = new JPasswordField();
+	final private JTextField usernameField = new JTextField(15);
+	final private JPasswordField passwordField = new JPasswordField(15);
 	final private JButton loginButton = new JButton("Login");
 	final private JLabel errorMessage = new JLabel("");
 	public boolean isNurse = false;
@@ -85,45 +85,17 @@ public class LoginView extends JPanel implements ActionListener {
 	 */
 	private void initUI() {
 		// Add some padding to the panel
-		this.setBorder(new EmptyBorder(20, 60, 20, 60));
+		this.setBorder(new EmptyBorder(10, 30, 10, 30));
 		
-		// Layout magic. Do not touch.
-		GroupLayout layout = new GroupLayout(this);
-		layout.setAutoCreateGaps(true);
-		layout.setAutoCreateContainerGaps(true);
+		this.setLayout(new MigLayout("", "[grow]"));
+		this.add(usernameLabel, "align label");
+		this.add(usernameField, "span 2, growx, wrap");
 		
-		layout.setHorizontalGroup(
-			layout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(layout.createSequentialGroup()
-					.addContainerGap(6, Short.MAX_VALUE)
-					.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(layout.createSequentialGroup()
-							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(this.usernameLabel)
-								.addComponent(this.passwordLabel))
-							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-								.addComponent(this.usernameField, 170, 170, 170)
-								.addComponent(this.passwordField, 170, 170, 170)))
-						.addGroup(Alignment.TRAILING, layout.createSequentialGroup()
-							.addComponent(this.errorMessage)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(this.loginButton))))
-		);
-		layout.setVerticalGroup(
-			layout.createParallelGroup(Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup()
-					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(this.usernameLabel)
-						.addComponent(this.usernameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(this.passwordLabel)
-						.addComponent(this.passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(this.loginButton)
-						.addComponent(this.errorMessage)))
-		);
-		this.setLayout(layout);
+		this.add(passwordLabel, "align label");
+		this.add(passwordField, "span 2, growx, wrap");
+		
+		this.add(errorMessage, "span 2, growx");
+		this.add(loginButton, "right");
 		
 		this.errorMessage.setForeground(Color.RED);
 		
