@@ -17,6 +17,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import hms.models.*;
+import hms.util.Encryptor;
 
 public class MainView {
 
@@ -230,7 +231,7 @@ public class MainView {
 					txtSearchBar.setForeground(Color.GRAY);
 					txtSearchBar.setText("search");
 				} else {
-					patientTableModel.fireTableDataChanged("SELECT * FROM patient WHERE name = '" + searchTerm + "'");
+					patientTableModel.fireTableDataChanged("SELECT * FROM patient WHERE name = '" + Encryptor.encode(searchTerm) + "'");
 					btnSearch.setText("clear");
 				}
 			}
