@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import hms.util.Database;
+import hms.util.*;
 
 public class Nurse {
 	
@@ -19,11 +19,12 @@ public class Nurse {
 	private String gender;
 	private int salary;
 	private int wardNumber;
+	private String password;
 	
 	public ArrayList<String> errors = new ArrayList<String>();
 	
 	
-	public Nurse(String name, String phone_number, String pager_number, String email_address, String address, String sin, int id_number, String gender, int salary, int ward) {
+	public Nurse(String name, String phone_number, String pager_number, String email_address, String address, String sin, int id_number, String gender, int salary, int ward, String password) {
 		this.name = name;
 		this.phone_number = phone_number;
 		this.pager_number = pager_number;
@@ -34,6 +35,7 @@ public class Nurse {
 		this.gender = gender;
 		this.salary = salary;
 		this.wardNumber = ward;
+		this.password = password;
 	}
 	
 	/**
@@ -52,7 +54,7 @@ public class Nurse {
 		}
 		return new Nurse(nurse.getString(1), nurse.getString(2), nurse.getString(3), nurse.getString(4), 
 				nurse.getString(5), nurse.getString(6), Integer.parseInt(nurse.getString(7)), nurse.getString(8), 
-				Integer.parseInt(nurse.getString(9)), Integer.parseInt(nurse.getString(10)));
+				Integer.parseInt(nurse.getString(9)), Integer.parseInt(nurse.getString(10)), Encryptor.decode(nurse.getString(11)));
 	}
 	
 	/**
@@ -68,7 +70,7 @@ public class Nurse {
 		while(!nurse.isLast()){
 			nurses.add(new Nurse(nurse.getString(1), nurse.getString(2), nurse.getString(3), nurse.getString(4), 
 					nurse.getString(5), nurse.getString(6), Integer.parseInt(nurse.getString(7)), nurse.getString(8), 
-					Integer.parseInt(nurse.getString(9)), Integer.parseInt(nurse.getString(10)) ));
+					Integer.parseInt(nurse.getString(9)), Integer.parseInt(nurse.getString(10)), Encryptor.decode(nurse.getString(11)) ));
 			if(!nurse.next()) return null;
 		}
 		return nurses;
@@ -85,7 +87,7 @@ public class Nurse {
 				this.name + "','" + this.phone_number + "','" + this.pager_number + "','" + 
 				this.email_address + "','" + this.address + "','" + this.sin + "','" + 
 				this.id_number + "','" + this.gender + "','" + 
-				this.salary + "','" + this.wardNumber + "')");
+				this.salary + "','" + this.wardNumber + "','" + Encryptor.encode(this.password) + "')");
 			this.errors.clear();
 			return true;
 		} catch (SQLException sqle) {

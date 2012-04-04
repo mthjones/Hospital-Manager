@@ -18,6 +18,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpringLayout;
@@ -26,6 +27,7 @@ import javax.swing.JComboBox;
 
 import hms.models.NurseTableModel;
 import hms.models.Nurse;
+import hms.util.*;
 
 public class NurseView {
 
@@ -48,7 +50,9 @@ public class NurseView {
 	private JLabel lblPhoneNumber;
 	private JLabel lblSalary;
 	private JLabel lblInvalidInput;
-	
+	private JLabel lblPassword = new JLabel("Password");
+	private JPasswordField passwordField = new JPasswordField("");
+
 	/**
 	 * Create the application.
 	 */
@@ -60,8 +64,8 @@ public class NurseView {
 	public NurseView(NurseTableModel mainViewTableModel, String[] row) {
 		this.mainViewTableModel = mainViewTableModel;
 		initialize(false);
-		
-		if(row.length == 10) {
+
+		if(row.length == 11) {
 			//Name
 			if(row[0] != null) {
 				txtName.setText(row[0]);
@@ -106,7 +110,7 @@ public class NurseView {
 			}
 			//wards
 			if(row[9] != null){
-				
+
 				if(row[9] != null){
 					String wardName = row[9];
 					int i = 0;
@@ -122,6 +126,10 @@ public class NurseView {
 						comboBox.setSelectedIndex(i);
 				}
 			}
+			//password
+			if(row[10] != null){
+				passwordField.setText(row[10]);
+			}
 		}
 	}
 
@@ -129,7 +137,7 @@ public class NurseView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize(boolean isNew) {
-		
+
 		lblInvalidInput = new JLabel("Invalid input, please try again.");
 		lblInvalidInput.setVisible(false);
 		lblInvalidInput.setForeground(Color.red);
@@ -341,8 +349,9 @@ public class NurseView {
 				txtSocialInsuranceNumber.getText(),
 				Nurse.generateIDNumber(),
 				rdbtnMale.isSelected()? "M":"F",
-						Integer.parseInt(textField.getText()),
-						((Ward)comboBox.getSelectedItem()).getWardNumber());
+				Integer.parseInt(textField.getText()),
+				((Ward)comboBox.getSelectedItem()).getWardNumber(),
+				Encryptor.encode(passwordField.getText()));
 		try{
 			temp.create();
 		}catch(Exception e1){
@@ -361,7 +370,8 @@ public class NurseView {
 				id_number,
 				rdbtnMale.isSelected()? "M":"F",
 						Integer.parseInt(textField.getText()),
-						((Ward)comboBox.getSelectedItem()).getWardNumber());
+						((Ward)comboBox.getSelectedItem()).getWardNumber(),
+						Encryptor.encode(passwordField.getText()));
 		try{
 			temp.delete();
 			temp.create();
@@ -369,23 +379,23 @@ public class NurseView {
 			return;
 		}
 	}
-	
+
 	private boolean validated() {
 		boolean validated = true;
-		
+
 		lblInvalidInput.setVisible(false);
-		
+
 		lblName.setForeground(Color.black);
 		lblSocialInsuranceNumber.setForeground(Color.black);
 		lblPhoneNumber.setForeground(Color.black);
-		
+
 		//Check Name
 		if(txtName.getText().equals("")){
 			lblName.setForeground(Color.red);
 			validated = false;
 			lblInvalidInput.setVisible(true);
 		}
-		
+
 		//Check SocialInsuranceNumber
 		try {
 			Integer.parseInt(txtSocialInsuranceNumber.getText());
@@ -394,14 +404,14 @@ public class NurseView {
 			validated = false;
 			lblInvalidInput.setVisible(true);
 		}
-		
+
 		//Check phone number
 		if(txtPhoneNumber.getText().equals("")) {
 			lblPhoneNumber.setForeground(Color.red);
 			validated = false;
 			lblInvalidInput.setVisible(true);
 		}
-		
+
 		//Check Salary
 		try {
 			Integer.parseInt(textField.getText());
@@ -410,12 +420,12 @@ public class NurseView {
 			validated = false;
 			lblInvalidInput.setVisible(true);
 		}
-		
-//		private JLabel lblSocialInsuranceNumber;
-//		private JLabel lblPhoneNumber;
-//		private JLabel lblSalary;
-//		private JLabel lblInvalidInput;
-		
+
+		//		private JLabel lblSocialInsuranceNumber;
+		//		private JLabel lblPhoneNumber;
+		//		private JLabel lblSalary;
+		//		private JLabel lblInvalidInput;
+
 		return validated;
 	}
 }
