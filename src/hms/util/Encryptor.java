@@ -9,8 +9,10 @@ public class Encryptor {
 		if(word == null || word.equals("null")) {
 			return "null"; 
 		}
-		String word = word.trim();
+		
+		word = word.trim();
 		char[] value = word.toCharArray();
+		
 		for (int i = 0; i < word.length(); i++) {
 			if (value[i] >= 'a' && value[i] <= 'z') {
 				value[i] -= 'a';
@@ -23,6 +25,7 @@ public class Encryptor {
 				value[i] += 'A';
 			}
 		}
+		
 		return new String(value);
 	}
 	
