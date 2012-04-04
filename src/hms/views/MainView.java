@@ -48,7 +48,7 @@ public class MainView {
 	private JTable tableNurses;
 	private PatientManager patientManager;
 	private PatientTableModel patientTableModel;
-	private NurseTableModel nurseTableModel;
+	private NurseTableModel nurseTableModel = new NurseTableModel();
 	private UserController userController;
 	private NurseController nurseController;
 	private JLabel wardNumber;
@@ -98,11 +98,12 @@ public class MainView {
 	}
 	
 	private String[] getSelectedNurse() {
+		if(tableNurses.getSelectedRowCount() != 1) return null;
 		Object[][] content = nurseTableModel.getContent();
 		Object[] selectedRow = content[tableNurses.getSelectedRow()];
-		String[] strings = new String[content[tableNurses.getSelectedRow()].length];
+		String[] strings = new String[selectedRow.length];
 		for(int i = 0; i< strings.length; i++){
-			strings[i] = content[tableNurses.getSelectedRow()][i].toString();
+			strings[i] = selectedRow[i].toString();
 		}
 		
 		return strings;
