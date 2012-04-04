@@ -14,8 +14,6 @@ class HospitalManager implements Runnable
 {
 	public void run() {
 		final LoginController loginController = new LoginController();
-		final LoginView loginView = new LoginView(loginController);
-		loginController.setView(loginView);
 		
 		final JFrame mainFrame = new JFrame("Hospital Manager");
 		mainFrame.setIconImage(new ImageIcon("/icon.png").getImage());
@@ -24,20 +22,9 @@ class HospitalManager implements Runnable
 		mainFrame.pack();
 		mainFrame.setLocationRelativeTo(null);
 		
-		final JDialog loginDialog = new JDialog(mainFrame, "Login", Dialog.ModalityType.APPLICATION_MODAL);
-		loginDialog.getContentPane().add(loginView);
-		loginDialog.getRootPane().setDefaultButton(loginView.getLoginButton());
-		loginDialog.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				loginDialog.dispose();
-				System.exit(0);
-			}
-		});
-		loginDialog.setResizable(false);
-		loginDialog.pack();
-		loginDialog.setLocationRelativeTo(mainFrame);
+		LoginView loginView = new LoginView(mainFrame, loginController);
+		loginView.show();
 		
-		loginDialog.setVisible(true);
 		// mainFrame.setVisible(true);
 		MainView mv = new MainView(loginView.isNurse);
 		mv.frmMain.setVisible(true);

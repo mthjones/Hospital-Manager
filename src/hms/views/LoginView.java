@@ -9,7 +9,8 @@ import net.miginfocom.swing.MigLayout;
 
 import hms.controllers.LoginController;
 
-public class LoginView extends JPanel implements ActionListener {
+public class LoginView implements ActionListener {
+	final private JDialog dialog;
 	final private JLabel usernameLabel = new JLabel("Username:");
 	final private JLabel passwordLabel = new JLabel("Password:");
 	final private JTextField usernameField = new JTextField(15);
@@ -24,10 +25,25 @@ public class LoginView extends JPanel implements ActionListener {
 	 * Constructs a new LoginView panel and sets up the controller for it.
 	 * @param controller The controller that is to handle actions from the login panel
 	 */
-	public LoginView(LoginController controller) {
+	public LoginView(JFrame parent, LoginController controller) {
 		this.controller = controller;
+		dialog = new JDialog(parent, "Login", Dialog.ModalityType.APPLICATION_MODAL);
+		dialog.getRootPane().setDefaultButton(this.loginButton);
+		
+		dialog.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				dialog.dispose();
+				System.exit(0);
+			}
+		});
 		
 		initUI();
+		
+		dialog.setResizable(false);
+		dialog.pack();
+		dialog.setLocationRelativeTo(parent);
+		
+		controller.setView(this);
 	}
 	
 	/**
@@ -47,14 +63,6 @@ public class LoginView extends JPanel implements ActionListener {
 	}
 	
 	/**
-	 * Returns the login button of the login panel
-	 * @return The login button of the login panel
-	 */
-	public JButton getLoginButton() {
-		return this.loginButton;
-	}
-	
-	/**
 	 * Handles all actions performed on components with the login panel as the action listener.
 	 * @param e The event to be handled
 	 */
@@ -63,39 +71,42 @@ public class LoginView extends JPanel implements ActionListener {
 	}
 	
 	/**
+	 * Shows the dialog.
+	 */
+	public void show() {
+		this.dialog.setVisible(true);
+	}
+	
+	/**
 	 * Closes the containing window of the login panel, if there is one.
 	 */
 	public void close() {
-		Window ancestor = SwingUtilities.getWindowAncestor(this);
-		if (ancestor != null) {
-			ancestor.dispose();
-		}
+		this.dialog.dispose();
 	}
 	
 	public void close(int i) {
 		isNurse = true;
-		Window ancestor = SwingUtilities.getWindowAncestor(this);
-		if (ancestor != null) {
-			ancestor.dispose();
-		}
+		this.dialog.dispose();
 	}
 	
 	/**
 	 * Initializes the UI components of the panel.
 	 */
 	private void initUI() {
+		Container contentPane = this.dialog.getContentPane();
+		
 		// Add some padding to the panel
-		this.setBorder(new EmptyBorder(10, 30, 10, 30));
+		this.dialog.getRootPane().setBorder(new EmptyBorder(10, 30, 10, 30));
 		
-		this.setLayout(new MigLayout("", "[grow]"));
-		this.add(usernameLabel, "align label");
-		this.add(usernameField, "span 2, growx, wrap");
+		contentPane.setLayout(new MigLayout("", "[grow]"));
+		contentPane.add(usernameLabel, "align label");
+		contentPane.add(usernameField, "span 2, growx, wrap");
 		
-		this.add(passwordLabel, "align label");
-		this.add(passwordField, "span 2, growx, wrap");
+		contentPane.add(passwordLabel, "align label");
+		contentPane.add(passwordField, "span 2, growx, wrap");
 		
-		this.add(errorMessage, "span 2, growx");
-		this.add(loginButton, "right");
+		contentPane.add(errorMessage, "span 2, growx");
+		contentPane.add(loginButton, "right");
 		
 		this.errorMessage.setForeground(Color.RED);
 		
