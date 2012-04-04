@@ -15,7 +15,6 @@ public class NurseController {
 	public NurseController(NurseTableModel tableModel) {
 		this.mainViewTableModel = tableModel;
 	}
-
 	public void EditNurse(String[] row) {
 		if(row != null)
 			OpenNurseView(row);
