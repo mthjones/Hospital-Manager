@@ -322,6 +322,8 @@ public class NurseView {
 		JLabel label_1 = new JLabel("Ward");
 		springLayout.putConstraint(SpringLayout.WEST, label_1, 0, SpringLayout.WEST, lblName);
 		springLayout.putConstraint(SpringLayout.EAST, label_1, 0, SpringLayout.EAST, lblSalary);
+		
+		
 		frame.getContentPane().add(label_1);
 
 		comboBox = new JComboBox();
@@ -331,11 +333,20 @@ public class NurseView {
 				comboBox.addItem(wards[i]);
 			}
 		}
+		springLayout.putConstraint(SpringLayout.NORTH, passwordField, 0, SpringLayout.SOUTH,comboBox);
+		springLayout.putConstraint(SpringLayout.WEST, passwordField, 0, SpringLayout.WEST,comboBox);
+		springLayout.putConstraint(SpringLayout.EAST, passwordField, 0, SpringLayout.EAST,comboBox);
+		
+		springLayout.putConstraint(SpringLayout.NORTH, lblPassword, 5, SpringLayout.SOUTH,label_1);
+		springLayout.putConstraint(SpringLayout.WEST, lblPassword, 0, SpringLayout.WEST,label_1);
+		
 		springLayout.putConstraint(SpringLayout.NORTH, label_1, 3, SpringLayout.NORTH, comboBox);
 		springLayout.putConstraint(SpringLayout.NORTH, comboBox, 6, SpringLayout.SOUTH, textField);
 		springLayout.putConstraint(SpringLayout.WEST, comboBox, 0, SpringLayout.WEST, txtSocialInsuranceNumber);
 		springLayout.putConstraint(SpringLayout.EAST, comboBox, 0, SpringLayout.EAST, button_1);
 		frame.getContentPane().add(comboBox);
+		frame.getContentPane().add(passwordField);
+		frame.getContentPane().add(lblPassword);
 	}
 
 	private void createNurse() {
@@ -351,7 +362,7 @@ public class NurseView {
 				rdbtnMale.isSelected()? "M":"F",
 				Integer.parseInt(textField.getText()),
 				((Ward)comboBox.getSelectedItem()).getWardNumber(),
-				Encryptor.encode(passwordField.getText()));
+				passwordField.getText());
 		try{
 			temp.create();
 		}catch(Exception e1){
@@ -371,7 +382,7 @@ public class NurseView {
 				rdbtnMale.isSelected()? "M":"F",
 						Integer.parseInt(textField.getText()),
 						((Ward)comboBox.getSelectedItem()).getWardNumber(),
-						Encryptor.encode(passwordField.getText()));
+						passwordField.getText());
 		try{
 			temp.delete();
 			temp.create();
