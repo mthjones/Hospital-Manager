@@ -244,7 +244,7 @@ public class MainView {
 			public void actionPerformed(ActionEvent e) {
 				if(((JRadioButton)e.getSource()).isSelected())
 				{
-					patientTableModel.fireTableDataChanged("SELECT * FROM patient WHERE (in_hospital = 'Y' OR in_hospital = 'L')");
+					patientTableModel.fireTableDataChanged("SELECT * FROM patient WHERE (in_hospital = 'Y' OR in_hospital = '" + Encryptor.encode("Y") + "')");
 				} else {
 					patientTableModel.fireTableDataChanged();
 				}
@@ -254,6 +254,12 @@ public class MainView {
 		viewAllRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				inHospitalRadioButton.setSelected(!viewAllRadioButton.isSelected());
+				if(((JRadioButton)e.getSource()).isSelected())
+				{
+					patientTableModel.fireTableDataChanged("SELECT * FROM patient");
+				} else {
+					patientTableModel.fireTableDataChanged();
+				}
 			}
 		});
 		inHospitalRadioButton.addActionListener(new ActionListener() {
