@@ -10,11 +10,22 @@ public class ApplicationFrame extends JFrame {
 	
 	public ApplicationFrame() {
 		super(TITLE);
+		initComponents();
+		configureWindow();
+	}
+	
+	private void initComponents() {
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.addTab("Patients", new PatientPanel());
+		tabbedPane.addTab("Nurses", null);//new MainView(false).frmMain.getContentPane());
+		getContentPane().add(tabbedPane);
+	}
+	
+	private void configureWindow() {
 		setIconImage(ICON);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		setSize(INITIAL_SIZE);		
-		getContentPane().add(new MainView(false).frmMain.getContentPane());
 		pack();
+		setMinimumSize(getSize());
 		setLocationRelativeTo(null);
 	}
 }
