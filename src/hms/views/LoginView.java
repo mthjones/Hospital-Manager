@@ -16,6 +16,7 @@ public class LoginView extends JPanel implements ActionListener {
 	final private JPasswordField passwordField = new JPasswordField();
 	final private JButton loginButton = new JButton("Login");
 	final private JLabel errorMessage = new JLabel("");
+	public boolean isNurse = false;
 	
 	private LoginController controller;
 	
@@ -65,6 +66,14 @@ public class LoginView extends JPanel implements ActionListener {
 	 * Closes the containing window of the login panel, if there is one.
 	 */
 	public void close() {
+		Window ancestor = SwingUtilities.getWindowAncestor(this);
+		if (ancestor != null) {
+			ancestor.dispose();
+		}
+	}
+	
+	public void close(int i) {
+		isNurse = true;
 		Window ancestor = SwingUtilities.getWindowAncestor(this);
 		if (ancestor != null) {
 			ancestor.dispose();

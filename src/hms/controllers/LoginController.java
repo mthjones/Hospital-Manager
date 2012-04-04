@@ -2,7 +2,7 @@ package hms.controllers;
 
 import java.sql.SQLException;
 
-import hms.models.User;
+import hms.models.*;
 import hms.views.LoginView;
 
 public class LoginController {
@@ -16,7 +16,10 @@ public class LoginController {
 		try {
 			if (User.authenticate(username, password)) {
 				this.view.close();
-			} else {
+			}else if(Nurse.authenticate(username , password)){
+				this.view.close(0);
+			}
+			else {
 				view.setErrorMessage("Invalid login");
 			}
 		} catch (SQLException sqle) {

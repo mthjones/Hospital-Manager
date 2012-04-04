@@ -67,11 +67,13 @@ public class MainView {
 	private String searchTerm;
 	private JButton btnSearch;
 	private JTextField txtSearchBar;
+	private boolean isNurse;
 
 	/**
 	 * Create the application.
 	 */
-	public MainView() {
+	public MainView(boolean isNurse) {
+		this.isNurse = isNurse;
 		initialize();
 
 		address.setText("");
@@ -514,7 +516,7 @@ public class MainView {
 		panel.setLayout(gl_panel);
 
 		JPanel usersPanel = new JPanel();
-		patientsUsersNursesTabbedPane.addTab("Users", null, usersPanel, null);
+		if( ! isNurse) patientsUsersNursesTabbedPane.addTab("Users", null, usersPanel, null);
 
 		JScrollPane usersScrollPane = new JScrollPane((Component) null);
 
@@ -570,7 +572,7 @@ public class MainView {
 		usersPanel.setLayout(gl_usersPanel);
 
 		JPanel panel_2 = new JPanel();
-		patientsUsersNursesTabbedPane.addTab("Nurses", null, panel_2, null);
+		if( !isNurse) patientsUsersNursesTabbedPane.addTab("Nurses", null, panel_2, null);
 		tableNurses = new JTable(nurseTableModel);
 		JScrollPane nursesScrollPane = new JScrollPane(tableNurses);
 

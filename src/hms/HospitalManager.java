@@ -39,7 +39,7 @@ class HospitalManager implements Runnable
 		
 		loginDialog.setVisible(true);
 		// mainFrame.setVisible(true);
-		MainView mv = new MainView();
+		MainView mv = new MainView(loginView.isNurse);
 		mv.frmMain.setVisible(true);
 	}
 	

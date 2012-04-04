@@ -8,7 +8,7 @@ import java.util.Vector;
 import hms.util.*;
 
 public class Nurse {
-	
+
 	private String name;
 	private String phone_number;
 	private String pager_number;
@@ -20,10 +20,10 @@ public class Nurse {
 	private int salary;
 	private int wardNumber;
 	private String password;
-	
+
 	public ArrayList<String> errors = new ArrayList<String>();
-	
-	
+
+
 	public Nurse(String name, String phone_number, String pager_number, String email_address, String address, String sin, int id_number, String gender, int salary, int ward, String password) {
 		this.name = name;
 		this.phone_number = phone_number;
@@ -37,7 +37,7 @@ public class Nurse {
 		this.wardNumber = ward;
 		this.password = password;
 	}
-	
+
 	/**
 	 * Finds the nurse corresponding to the given id number in a nurse object. If
 	 * the nurse doesn't exist, returns null.
@@ -56,7 +56,7 @@ public class Nurse {
 				nurse.getString(5), nurse.getString(6), Integer.parseInt(nurse.getString(7)), nurse.getString(8), 
 				Integer.parseInt(nurse.getString(9)), Integer.parseInt(nurse.getString(10)), Encryptor.decode(nurse.getString(11)));
 	}
-	
+
 	/**
 	 * Finds all nurses and returns them as in nurse objects. If
 	 * no nurses exist, null is returned
@@ -75,7 +75,7 @@ public class Nurse {
 		}
 		return nurses;
 	}
-	
+
 	/**
 	 * Tries to save the nurse to the database. Returns true on a successful save or false
 	 * if the save fails for any reason.
@@ -84,10 +84,10 @@ public class Nurse {
 	public boolean create() throws SQLException {
 		try {
 			int rows_added = Database.getInstance().executeUpdate("INSERT INTO nurse VALUES ('" + 
-				this.name + "','" + this.phone_number + "','" + this.pager_number + "','" + 
-				this.email_address + "','" + this.address + "','" + this.sin + "','" + 
-				this.id_number + "','" + this.gender + "','" + 
-				this.salary + "','" + this.wardNumber + "','" + Encryptor.encode(this.password) + "')");
+					this.name + "','" + this.phone_number + "','" + this.pager_number + "','" + 
+					this.email_address + "','" + this.address + "','" + this.sin + "','" + 
+					this.id_number + "','" + this.gender + "','" + 
+					this.salary + "','" + this.wardNumber + "','" + Encryptor.encode(this.password) + "')");
 			this.errors.clear();
 			return true;
 		} catch (SQLException sqle) {
@@ -95,7 +95,7 @@ public class Nurse {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Tries to delete the nurse from the database. Returns true on a successful delete or
 	 * false if the delete fails for any reason.
@@ -115,7 +115,7 @@ public class Nurse {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Tries to delete the nurse specified from idNumber from the database. Returns true on a 
 	 * successful delete or false if the delete fails.
@@ -133,7 +133,7 @@ public class Nurse {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Generates an ID number that is not being used by any other nurses. Starts at 1 and increments until an unused one is found.
 	 * 
@@ -141,7 +141,7 @@ public class Nurse {
 	 */
 	public static int generateIDNumber(){
 		int id = 1;
-		
+
 		try {
 			ResultSet nurses = Database.getInstance().executeQuery("SELECT id_number FROM nurse");
 			if(nurses == null){}
@@ -168,5 +168,22 @@ public class Nurse {
 			//error occurred. Ignore for now.
 		}
 		return id;
+	}
+
+	public static boolean authenticate(String username, String password) throws SQLException {
+		ResultSet user = null;
+		try{
+			user = Database.getInstance().executeQuery("SELECT id_number, password, COUNT(*) FROM nurse WHERE id_number = '" + Integer.parseInt(username) + "'");
+		}catch(NumberFormatException e){
+			return false;
+		}
+		user.next();
+		if (user.getInt(3) == 0) {
+			return false;
+		}
+		if (user.getString("password") == null || user.getString("password").equals(Encryptor.decode(password))) {
+			return true;
+		}
+		return false;
 	}
 }
