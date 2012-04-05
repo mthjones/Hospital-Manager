@@ -150,6 +150,10 @@ public class PatientInfoPanel extends JPanel {
 		setTextComponentBorders();
 	}
 	
+	/**
+	 * Sets all text component borders to the same style so we have a more unified look
+	 * across JTextFields and JTextAreas.
+	 */
 	private void setTextComponentBorders() {
 		for (Component comp : getComponents()) {
 			if (comp instanceof JTextComponent) {
