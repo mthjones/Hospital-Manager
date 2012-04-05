@@ -531,8 +531,15 @@ public class MainView {
 											txtSearchBar.setForeground(Color.GRAY);
 											txtSearchBar.setText("search");
 										} else {
-											patientTableModel.fireTableDataChanged("SELECT * FROM patient WHERE name = '" + Encryptor.encode(searchTerm) + "'");
-											btnSearch.setText("clear");
+											try 
+											{
+												int number = Integer.parseInt(searchTerm);
+												patientTableModel.fireTableDataChanged("SELECT * FROM patient WHERE healthcare_number = '" + Encryptor.encode(String.valueOf(searchTerm) + "'"));
+												btnSearch.setText("clear");
+											} catch (NumberFormatException ex) {
+												patientTableModel.fireTableDataChanged("SELECT * FROM patient WHERE name = '" + Encryptor.encode(searchTerm) + "'");
+												btnSearch.setText("clear");
+											}
 										}
 									}
 								});
