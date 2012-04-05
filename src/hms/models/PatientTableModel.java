@@ -45,14 +45,6 @@ public class PatientTableModel extends AbstractTableModel {
 	}
 	
 	/**
-	 * Returns the patient at the given row.
-	 * @return the patient at the given row
-	 */
-	public Patient getPatient(int row) {
-		return patients[row];
-	}
-	
-	/**
 	 * Returns the object in the database in the row'th row and the col'th column in that
 	 * row.
 	 * @param row The row of the object to be returned
