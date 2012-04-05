@@ -17,7 +17,7 @@ public class PatientPanel extends JPanel implements ActionListener {
 	final private JScrollPane patientsTablePane = new JScrollPane(patientsTable);
 	final private PatientInfoPanel patientInfoPanel = new PatientInfoPanel();
 	
-	final private JTextField searchField = new JTextField(20);
+	final private JTextField searchField = new JTextField(25);
 	final private JButton searchButton = new JButton("Search");
 	final private JButton createButton = new JButton("Create");
 	final private JButton editButton = new JButton("Edit");
@@ -59,7 +59,7 @@ public class PatientPanel extends JPanel implements ActionListener {
 		});
 		
 		patientsTable.setFillsViewportHeight(true);
-		patientsTablePane.setMinimumSize(new Dimension(400, 50));
+		patientsTablePane.setMinimumSize(new Dimension(600, 50));
 		patientInfoPanel.setMinimumSize(new Dimension(400, 50));
 		
 		patientInfoPanel.setEditable(false);
