@@ -141,30 +141,37 @@ public class PatientInfoPanel extends JPanel {
 				textComp.setEditable(editable);
 			}
 		}
+		maleButton.setEnabled(false);
+		femaleButton.setEnabled(false);
 	}
 	
 	/**
 	 * Clears all of the patient information from the panel.
 	 */
 	public void clearPatientInformation() {
-		this.nameField.setText("");
-		this.phoneField.setText("");
-		this.emailField.setText("");
-		this.healthcareNumberField.setText("");
-		this.addressField.setText("");
-		this.birthdateField.setText("");
-		this.emergencyNameField.setText("");
-		this.emergencyPhoneField.setText("");
-		this.emergencyEmailField.setText("");
-		this.medicationsField.setText("");
-		this.specialCareField.setText("");
-		this.historyField.setText("");
-		this.commentsField.setText("");
-		this.maleButton.setSelected(false);
-		this.femaleButton.setSelected(false);
-		this.wardField.setText("");
-		this.roomField.setText("");
-		this.bedField.setText("");
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				nameField.setText("");
+				phoneField.setText("");
+				emailField.setText("");
+				healthcareNumberField.setText("");
+				addressField.setText("");
+				birthdateField.setText("");
+				emergencyNameField.setText("");
+				emergencyPhoneField.setText("");
+				emergencyEmailField.setText("");
+				medicationsField.setText("");
+				specialCareField.setText("");
+				historyField.setText("");
+				commentsField.setText("");
+				maleButton.setSelected(false);
+				femaleButton.setSelected(false);
+				wardField.setText("");
+				roomField.setText("");
+				bedField.setText("");
+			}
+		});
 	}
 	
 	/**
@@ -172,29 +179,36 @@ public class PatientInfoPanel extends JPanel {
 	 * @param patient The patient to take the information from.
 	 */
 	public void loadPatientInformation(Patient patient) {
-		this.nameField.setText(patient.getName());
-		this.phoneField.setText(patient.getPhoneNumber());
-		this.emailField.setText(patient.getEmail());
-		this.healthcareNumberField.setText(patient.getHealthcareNumber());
-		this.addressField.setText(patient.getAddress());
-		this.birthdateField.setText(birthdateFormat.format(patient.getBirthdate()));
-		this.emergencyNameField.setText(patient.getEmergencyName());
-		this.emergencyPhoneField.setText(patient.getEmergencyPhoneNumber());
-		this.emergencyEmailField.setText(patient.getEmergencyEmail());
-		this.medicationsField.setText(patient.getMedications());
-		this.specialCareField.setText(patient.getSpecialCare());
-		this.historyField.setText(patient.getHistory());
-		this.commentsField.setText(patient.getComments());
-		if (patient.getGender().equals("M")) {
-			maleButton.setSelected(true);
-			femaleButton.setSelected(false);
-		} else {
-			maleButton.setSelected(false);
-			femaleButton.setSelected(true);
-		}
-		this.wardField.setText(patient.getWard().toString());
-		this.roomField.setText(patient.getRoom().toString());
-		this.bedField.setText(patient.getBed().toString());
+		final Patient finalPatient = patient;
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				nameField.setText(finalPatient.getName());
+				phoneField.setText(finalPatient.getPhoneNumber());
+				emailField.setText(finalPatient.getEmail());
+				healthcareNumberField.setText(finalPatient.getHealthcareNumber());
+				addressField.setText(finalPatient.getAddress());
+				birthdateField.setText(birthdateFormat.format(finalPatient.getBirthdate()));
+				emergencyNameField.setText(finalPatient.getEmergencyName());
+				emergencyPhoneField.setText(finalPatient.getEmergencyPhoneNumber());
+				emergencyEmailField.setText(finalPatient.getEmergencyEmail());
+				medicationsField.setText(finalPatient.getMedications());
+				specialCareField.setText(finalPatient.getSpecialCare());
+				historyField.setText(finalPatient.getHistory());
+				commentsField.setText(finalPatient.getComments());
+				if (finalPatient.getGender().equals("M")) {
+					maleButton.setSelected(true);
+					femaleButton.setSelected(false);
+				} else {
+					maleButton.setSelected(false);
+					femaleButton.setSelected(true);
+				}
+				wardField.setText(finalPatient.getWard().toString());
+				roomField.setText(finalPatient.getRoom().toString());
+				bedField.setText(finalPatient.getBed().toString());
+			}
+		});
+		
 	}
 	
 	/**
