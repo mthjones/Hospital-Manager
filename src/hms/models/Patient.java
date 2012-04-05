@@ -27,7 +27,7 @@ public class Patient {
 	public String emerg_name;
 	public String emerg_phone_number;
 	public String emerg_email;
-	private String in_hospital;
+	private boolean in_hospital;
 	public int ward_id;
 	public int room_id;
 	public int bed_id;
@@ -73,7 +73,7 @@ public class Patient {
 		this.emerg_name = emerg_name;
 		this.emerg_phone_number = emerg_phone_number;
 		this.emerg_email = emerg_email;
-		this.in_hospital = in_hospital ? "Y" : "N";
+		this.in_hospital = in_hospital;
 		this.ward_id = ward;
 		this.room_id = room;
 		this.bed_id = bed;
@@ -203,7 +203,7 @@ public class Patient {
 					Encryptor.encode(this.emerg_name) + "','" + 
 					Encryptor.encode(this.emerg_phone_number) + "','" + 
 					Encryptor.encode(this.emerg_email) + "','"+
-					Encryptor.encode(this.in_hospital) + "','" + 
+					this.in_hospital + "','" + 
 					this.ward_id + "','" + 
 					this.room_id + "','" + 
 					this.bed_id + "','" +
@@ -310,7 +310,7 @@ public class Patient {
 		return this.emerg_email;
 	}
 	
-	public String getInHospital() {
+	public boolean getInHospital() {
 		return this.in_hospital;
 	}
 	
