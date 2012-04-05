@@ -185,7 +185,6 @@ public class PatientInfoPanel extends JPanel {
 		this.specialCareField.setText(patient.getSpecialCare());
 		this.historyField.setText(patient.getHistory());
 		this.commentsField.setText(patient.getComments());
-		System.out.println(patient.getGender());
 		if (patient.getGender().equals("M")) {
 			maleButton.setSelected(true);
 			femaleButton.setSelected(false);
