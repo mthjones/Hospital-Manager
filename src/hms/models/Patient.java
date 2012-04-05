@@ -249,4 +249,30 @@ public class Patient {
 			return false;
 		}
 	}
+	
+	public String[] getStrings() {
+		String[] strings = new String[20];
+		strings[0] = healthcare_number;
+		strings[1] = name;
+		strings[2] = phone_number;
+		strings[3] = email;
+		strings[4] = gender;
+		strings[5] = treatment;
+		strings[6] = address;
+		strings[7] = birthdate.toString();
+		strings[8] = medications;
+		strings[9] = special_care;
+		strings[10] = history;
+		strings[11] = comments;
+		strings[12] = emerg_name;
+		strings[13] = emerg_phone_number;
+		strings[14] = emerg_email;
+		strings[15] = in_hospital;
+		strings[16] = Integer.toString(ward_id);
+		strings[17] = Integer.toString(room_id);
+		strings[18] = Integer.toString(bed_id);
+		strings[19] = priority.toString();
+		
+		return strings;
+	}
 }
