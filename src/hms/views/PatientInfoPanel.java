@@ -46,9 +46,10 @@ public class PatientInfoPanel extends JPanel {
 		final JLabel nameLabel = new JLabel("Name:");
 		final JLabel phoneLabel = new JLabel("Phone:");
 		final JLabel emailLabel = new JLabel("Email:");
-		final JLabel healthcareNumberLabel = new JLabel("Healthcare Number:");
+		final JLabel healthcareNumberLabel = new JLabel("Health #:");
 		final JLabel addressLabel = new JLabel("Address:");
 		final JLabel birthdateLabel = new JLabel("Birthdate:");
+		final JLabel genderLabel = new JLabel("Gender:");
 		
 		final JLabel emergencyNameLabel = new JLabel("Name:");
 		final JLabel emergencyPhoneLabel = new JLabel("Phone:");
@@ -63,66 +64,70 @@ public class PatientInfoPanel extends JPanel {
 		final JLabel roomLabel = new JLabel("Room:");
 		final JLabel bedLabel = new JLabel("Bed:");
 		
-		this.setLayout(new MigLayout("fillx", "[label]rel[grow,fill]"));
+		this.setLayout(new MigLayout("fillx", "[label]rel[grow,fill][grow,fill]"));
 		
 		addSeparator("General Information");
 		
 		this.add(nameLabel);
-		this.add(nameField, "wrap");
+		this.add(nameField, "span 2, wrap");
 		
 		this.add(phoneLabel);
-		this.add(phoneField, "wrap");
+		this.add(phoneField, "span 2, wrap");
 		
 		this.add(healthcareNumberLabel);
-		this.add(healthcareNumberField, "wrap");
+		this.add(healthcareNumberField, "span 2, wrap");
 		
 		this.add(birthdateLabel);
-		this.add(birthdateField, "wrap");
+		this.add(birthdateField, "span 2, wrap");
 		
 		this.add(emailLabel);
-		this.add(emailField, "wrap");
+		this.add(emailField, "span 2, wrap");
 		
 		this.add(addressLabel);
 		this.addressField.setRows(3);
-		this.add(addressField, "wrap para");
+		this.add(addressField, "span 2, wrap");
+		
+		this.add(genderLabel);
+		this.add(maleButton);
+		this.add(femaleButton, "wrap para");
 		
 		addSeparator("Emergency Contact Information");
 		
 		this.add(emergencyNameLabel);
-		this.add(emergencyNameField, "wrap");
+		this.add(emergencyNameField, "span 2, wrap");
 		
 		this.add(emergencyPhoneLabel);
-		this.add(emergencyPhoneField, "wrap");
+		this.add(emergencyPhoneField, "span 2, wrap");
 		
 		this.add(emergencyEmailLabel);
-		this.add(emergencyEmailField, "wrap para");
+		this.add(emergencyEmailField, "span 2, wrap para");
 		
 		addSeparator("Additional Information");
 		
 		this.add(medicationsLabel);
 		this.medicationsField.setRows(3);
-		this.add(medicationsField, "wrap");
+		this.add(medicationsField, "span 2, wrap");
 		
 		this.add(specialCareLabel);
 		this.specialCareField.setRows(3);
-		this.add(specialCareField, "wrap");
+		this.add(specialCareField, "span 2, wrap");
 		
 		this.add(historyLabel);
 		this.historyField.setRows(3);
-		this.add(historyField, "wrap");
+		this.add(historyField, "span 2, wrap");
 		
 		this.add(commentsLabel);
 		this.commentsField.setRows(3);
-		this.add(commentsField, "wrap para");
+		this.add(commentsField, "span 2, wrap para");
 		
 		addSeparator("Location");
 		
 		this.add(wardLabel);
-		this.add(wardField, "wrap");
+		this.add(wardField, "span 2, wrap");
 		this.add(roomLabel);
-		this.add(roomField, "wrap");
+		this.add(roomField, "span 2, wrap");
 		this.add(bedLabel);
-		this.add(bedField, "wrap");
+		this.add(bedField, "span 2, wrap");
 	}
 	
 	/**
@@ -155,7 +160,7 @@ public class PatientInfoPanel extends JPanel {
 		this.specialCareField.setText("");
 		this.historyField.setText("");
 		this.commentsField.setText("");
-		this.maleButton.setSelected(true);
+		this.maleButton.setSelected(false);
 		this.femaleButton.setSelected(false);
 		this.wardField.setText("");
 		this.roomField.setText("");
@@ -180,12 +185,13 @@ public class PatientInfoPanel extends JPanel {
 		this.specialCareField.setText(patient.getSpecialCare());
 		this.historyField.setText(patient.getHistory());
 		this.commentsField.setText(patient.getComments());
-		if (patient.getGender() == "M") {
+		System.out.println(patient.getGender());
+		if (patient.getGender().equals("M")) {
 			maleButton.setSelected(true);
 			femaleButton.setSelected(false);
 		} else {
-			maleButton.setSelected(true);
-			femaleButton.setSelected(false);
+			maleButton.setSelected(false);
+			femaleButton.setSelected(true);
 		}
 		this.wardField.setText(patient.getWard().toString());
 		this.roomField.setText(patient.getRoom().toString());
