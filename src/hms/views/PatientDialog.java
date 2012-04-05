@@ -7,6 +7,7 @@ import javax.swing.text.*;
 
 import net.miginfocom.swing.MigLayout;
 
+import hms.util.Priority;
 import hms.models.Patient;
 
 public class PatientDialog extends JPanel {
@@ -17,6 +18,8 @@ public class PatientDialog extends JPanel {
 	final private JTextArea addressField = new JTextArea();
 	final private SimpleDateFormat birthdateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	final private JFormattedTextField birthdateField = new JFormattedTextField(birthdateFormat);
+	final private JComboBox priorityDropdown = new JComboBox();
+	final private JCheckBox inHospitalCheckbox = new JCheckBox();
 	
 	final private JTextField emergencyNameField = new JTextField();
 	final private JTextField emergencyPhoneField = new JTextField();
@@ -51,9 +54,12 @@ public class PatientDialog extends JPanel {
 		final JLabel nameLabel = new JLabel("Name:");
 		final JLabel phoneLabel = new JLabel("Phone:");
 		final JLabel emailLabel = new JLabel("Email:");
-		final JLabel healthcareNumberLabel = new JLabel("Healthcare Number:");
+		final JLabel healthcareNumberLabel = new JLabel("Health #:");
 		final JLabel addressLabel = new JLabel("Address:");
 		final JLabel birthdateLabel = new JLabel("Birthdate:");
+		final JLabel genderLabel = new JLabel("Gender:");
+		final JLabel priorityLabel = new JLabel("Priority:");
+		final JLabel inHospitalLabel = new JLabel("In Hospital:");
 		
 		final JLabel emergencyNameLabel = new JLabel("Name:");
 		final JLabel emergencyPhoneLabel = new JLabel("Phone:");
@@ -68,66 +74,98 @@ public class PatientDialog extends JPanel {
 		final JLabel roomLabel = new JLabel("Room:");
 		final JLabel bedLabel = new JLabel("Bed:");
 		
-		this.setLayout(new MigLayout("fillx", "[label]rel[grow,fill]"));
+		genderGroup.add(maleButton);
+		genderGroup.add(femaleButton);
+		
+		priorityDropdown.addItem(Priority.HIGH);
+		priorityDropdown.addItem(Priority.MEDIUM);
+		priorityDropdown.addItem(Priority.LOW);
+		
+		this.setLayout(new MigLayout("fillx", "[label]rel[grow,fill][grow,fill]", "[]5[]"));
 		
 		addSeparator("General Information");
 		
 		this.add(nameLabel);
-		this.add(nameField, "wrap");
+		this.add(nameField, "span 2, wrap");
 		
 		this.add(phoneLabel);
-		this.add(phoneField, "wrap");
+		this.add(phoneField, "span 2, wrap");
 		
 		this.add(healthcareNumberLabel);
-		this.add(healthcareNumberField, "wrap");
+		this.add(healthcareNumberField, "span 2, wrap");
 		
 		this.add(birthdateLabel);
-		this.add(birthdateField, "wrap");
+		this.add(birthdateField, "span 2, wrap");
 		
 		this.add(emailLabel);
-		this.add(emailField, "wrap");
+		this.add(emailField, "span 2, wrap");
 		
 		this.add(addressLabel);
 		this.addressField.setRows(3);
-		this.add(addressField, "wrap para");
+		this.add(addressField, "span 2, wrap");
+		
+		this.add(genderLabel);
+		this.add(maleButton);
+		this.add(femaleButton, "wrap");
+		
+		this.add(priorityLabel);
+		this.add(priorityDropdown, "wrap");
+		
+		this.add(inHospitalLabel);
+		this.add(inHospitalCheckbox, "wrap para");
 		
 		addSeparator("Emergency Contact Information");
 		
 		this.add(emergencyNameLabel);
-		this.add(emergencyNameField, "wrap");
+		this.add(emergencyNameField, "span 2, wrap");
 		
 		this.add(emergencyPhoneLabel);
-		this.add(emergencyPhoneField, "wrap");
+		this.add(emergencyPhoneField, "span 2, wrap");
 		
 		this.add(emergencyEmailLabel);
-		this.add(emergencyEmailField, "wrap para");
+		this.add(emergencyEmailField, "span 2, wrap para");
 		
 		addSeparator("Additional Information");
 		
 		this.add(medicationsLabel);
 		this.medicationsField.setRows(3);
-		this.add(medicationsField, "wrap");
+		this.add(medicationsField, "span 2, wrap");
 		
 		this.add(specialCareLabel);
 		this.specialCareField.setRows(3);
-		this.add(specialCareField, "wrap");
+		this.add(specialCareField, "span 2, wrap");
 		
 		this.add(historyLabel);
 		this.historyField.setRows(3);
-		this.add(historyField, "wrap");
+		this.add(historyField, "span 2, wrap");
 		
 		this.add(commentsLabel);
 		this.commentsField.setRows(3);
-		this.add(commentsField, "wrap para");
+		this.add(commentsField, "span 2, wrap para");
 		
 		addSeparator("Location");
 		
 		this.add(wardLabel);
-		this.add(wardField, "wrap");
+		this.add(wardField, "span 2, wrap");
 		this.add(roomLabel);
-		this.add(roomField, "wrap");
+		this.add(roomField, "span 2, wrap");
 		this.add(bedLabel);
-		this.add(bedField, "wrap");
+		this.add(bedField, "span 2, wrap");
+		
+		setTextComponentBorders();
+	}
+	
+	/**
+	 * Sets all text component borders to the same style so we have a more unified look
+	 * across JTextFields and JTextAreas.
+	 */
+	private void setTextComponentBorders() {
+		for (Component comp : getComponents()) {
+			if (comp instanceof JTextComponent) {
+				JTextComponent textComp = (JTextComponent)comp;
+				textComp.setBorder(BorderFactory.createEtchedBorder());
+			}
+		}
 	}
 	
 	/**
@@ -135,29 +173,41 @@ public class PatientDialog extends JPanel {
 	 * @param patient The patient to take the information from.
 	 */
 	public void loadPatientInformation(Patient patient) {
-		this.nameField.setText(patient.getName());
-		this.phoneField.setText(patient.getPhoneNumber());
-		this.emailField.setText(patient.getEmail());
-		this.healthcareNumberField.setText(patient.getHealthcareNumber());
-		this.addressField.setText(patient.getAddress());
-		this.birthdateField.setText(birthdateFormat.format(patient.getBirthdate()));
-		this.emergencyNameField.setText(patient.getEmergencyName());
-		this.emergencyPhoneField.setText(patient.getEmergencyPhoneNumber());
-		this.emergencyEmailField.setText(patient.getEmergencyEmail());
-		this.medicationsField.setText(patient.getMedications());
-		this.specialCareField.setText(patient.getSpecialCare());
-		this.historyField.setText(patient.getHistory());
-		this.commentsField.setText(patient.getComments());
-		if (patient.getGender().equals("M")) {
-			maleButton.setSelected(true);
-			femaleButton.setSelected(false);
-		} else {
-			maleButton.setSelected(false);
-			femaleButton.setSelected(true);
-		}
-		this.wardField.setText(patient.getWard().toString());
-		this.roomField.setText(patient.getRoom().toString());
-		this.bedField.setText(patient.getBed().toString());
+		final Patient finalPatient = patient;
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				nameField.setText(finalPatient.getName());
+				phoneField.setText(finalPatient.getPhoneNumber());
+				emailField.setText(finalPatient.getEmail());
+				healthcareNumberField.setText(finalPatient.getHealthcareNumber());
+				addressField.setText(finalPatient.getAddress());
+				birthdateField.setText(birthdateFormat.format(finalPatient.getBirthdate()));
+				emergencyNameField.setText(finalPatient.getEmergencyName());
+				emergencyPhoneField.setText(finalPatient.getEmergencyPhoneNumber());
+				emergencyEmailField.setText(finalPatient.getEmergencyEmail());
+				medicationsField.setText(finalPatient.getMedications());
+				specialCareField.setText(finalPatient.getSpecialCare());
+				historyField.setText(finalPatient.getHistory());
+				commentsField.setText(finalPatient.getComments());
+				if (finalPatient.getGender().equals("M")) {
+					maleButton.setSelected(true);
+					femaleButton.setSelected(false);
+				} else {
+					maleButton.setSelected(false);
+					femaleButton.setSelected(true);
+				}
+				wardField.setText(finalPatient.getWard().toString());
+				roomField.setText(finalPatient.getRoom().toString());
+				bedField.setText(finalPatient.getBed().toString());
+				priorityDropdown.setSelectedItem(finalPatient.getPriority());
+				if (finalPatient.getInHospital().equals("Y")) {
+					inHospitalCheckbox.setSelected(true);
+				} else {
+					inHospitalCheckbox.setSelected(false);
+				}
+			}
+		});
 	}
 	
 	/**
