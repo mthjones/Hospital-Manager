@@ -249,4 +249,68 @@ public class Patient {
 			return false;
 		}
 	}
+	
+		public String getHealthcareNumber() {
+		return this.healthcare_number;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public String getPhoneNumber() {
+		return this.phone_number;
+	}
+	
+	public String getEmail() {
+		return this.email;
+	}
+	
+	public String getGender() {
+		return this.gender;
+	}
+	
+	public String getTreatment() {
+		return this.treatment;
+	}
+	
+	public String getAddress() {
+		return this.address;
+	}
+	
+	public Date getBirthdate() {
+		return this.birthdate;
+	}
+	
+	public String getMedications() {
+		return this.medications;
+	}
+	
+	public String getSpecialCare() {
+		return this.special_care;
+	}
+	
+	public String getHistory() {
+		return this.history;
+	}
+	
+	public String getComments() {
+		return this.comments;
+	}
+	
+	public String getEmergencyName() {
+		return this.emerg_name;
+	}
+	
+	public String getEmergencyPhoneNumber() {
+		return this.emerg_phone_number;
+	}
+	
+	public String getEmergencyEmail() {
+		return this.emerg_email;
+	}
+	
+	public String getInHospital() {
+		return this.in_hospital;
+	}
 }
