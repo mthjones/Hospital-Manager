@@ -28,11 +28,16 @@ class HospitalManager implements Runnable
 				} catch (SQLException sqle) { }
 			}
 		});
-		
-		// Instantiate our database connection now so we don't have to when the user tries to log in
-		try {
-			Database.getInstance();
-		} catch (SQLException sqle) { }
+		// Asynchronously instantiate our database connection now so we don't have 
+		// to when the user tries to log in
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Database.getInstance();
+				} catch (SQLException sqle) { }
+			}
+		});
 		
 		HospitalManager hm = new HospitalManager();
 		SwingUtilities.invokeLater(hm);
