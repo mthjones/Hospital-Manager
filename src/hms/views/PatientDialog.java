@@ -28,7 +28,7 @@ public class PatientDialog {
 	public PatientDialog(Window parent, Patient patient) {
 		this.title = "Edit Patient";
 		this.parent = parent;
-		this.patientInfoPanel.loadPatientInformation(patient);
+		this.patientInfoPanel.loadInformation(patient);
 		initUI();
 	}
 	

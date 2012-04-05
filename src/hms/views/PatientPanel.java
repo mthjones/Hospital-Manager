@@ -52,11 +52,11 @@ public class PatientPanel extends JPanel implements ActionListener {
 				final ListSelectionModel lsm = (ListSelectionModel)e.getSource();
 				editButton.setEnabled(!lsm.isSelectionEmpty());
 				deleteButton.setEnabled(!lsm.isSelectionEmpty());
-				patientInfoPanel.clearPatientInformation();
+				patientInfoPanel.reset();
 				try {
 					Patient selectedPatient = getSelectedPatient();
 					if (selectedPatient != null) {
-						patientInfoPanel.loadPatientInformation(selectedPatient);
+						patientInfoPanel.loadInformation(selectedPatient);
 					}
 				} catch (SQLException sqle) {}
 			}

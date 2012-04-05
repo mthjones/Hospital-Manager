@@ -11,7 +11,7 @@ import net.miginfocom.swing.MigLayout;
 import hms.util.Priority;
 import hms.models.*;
 
-public class PatientInfoPanel extends JPanel {
+public class PatientInfoPanel extends AbstractInfoPanel {
 	final private JLabel nameLabel = new JLabel("Name:");
 	final private JLabel phoneLabel = new JLabel("Phone:");
 	final private JLabel emailLabel = new JLabel("Email:");
@@ -69,7 +69,7 @@ public class PatientInfoPanel extends JPanel {
 	/**
 	 * Initializes the components for this panel.
 	 */
-	private void initUI() {
+	protected void initUI() {
 		genderGroup.add(maleButton);
 		genderGroup.add(femaleButton);
 		
@@ -168,62 +168,41 @@ public class PatientInfoPanel extends JPanel {
 		this.add(bedLabel);
 		this.add(bedDropdown, "span 2, wrap");
 		
+		requiredComponents.add(nameLabel);
+		requiredComponents.add(healthcareNumberLabel);
+		requiredComponents.add(birthdateLabel);
+		requiredComponents.add(bedLabel);
+		
+		for (Component comp : getComponents()) {
+			if (comp instanceof JTextComponent) {
+				editableComponents.add((JTextComponent)comp);
+			}
+		}
+		editableComponents.add(maleButton);
+		editableComponents.add(femaleButton);
+		editableComponents.add(priorityDropdown);
+		editableComponents.add(inHospitalCheckbox);
+		editableComponents.add(wardDropdown);
+		editableComponents.add(roomDropdown);
+		editableComponents.add(bedDropdown);
+		
 		setTextComponentBorders();
-	}
-	
-	/**
-	 * Sets all text component borders to the same style so we have a more unified look
-	 * across JTextFields and JTextAreas.
-	 */
-	private void setTextComponentBorders() {
-		for (Component comp : getComponents()) {
-			if (comp instanceof JTextComponent) {
-				JTextComponent textComp = (JTextComponent)comp;
-				textComp.setBorder(BorderFactory.createEtchedBorder());
-			}
-		}
-	}
-	
-	/**
-	 * Sets whether the text components on this panel are editable.
-	 * @param editable A boolean value to set whether the text components should be editable.
-	 */
-	public void setEditable(boolean editable) {
-		for (Component comp : getComponents()) {
-			if (comp instanceof JTextComponent) {
-				JTextComponent textComp = (JTextComponent)comp;
-				textComp.setEditable(editable);
-			}
-		}
-		maleButton.setEnabled(editable);
-		femaleButton.setEnabled(editable);
-		priorityDropdown.setEnabled(editable);
-		inHospitalCheckbox.setEnabled(editable);
-		wardDropdown.setEnabled(editable);
-		roomDropdown.setEnabled(editable);
-		bedDropdown.setEnabled(editable);
 	}
 	
 	/**
 	 * Clears all of the patient information from the panel.
 	 */
-	public void clearPatientInformation() {
+	public void reset() {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				nameField.setText("");
-				phoneField.setText("");
-				emailField.setText("");
-				healthcareNumberField.setText("");
-				addressField.setText("");
-				birthdateField.setText("");
-				emergencyNameField.setText("");
-				emergencyPhoneField.setText("");
-				emergencyEmailField.setText("");
-				medicationsField.setText("");
-				specialCareField.setText("");
-				historyField.setText("");
-				commentsField.setText("");
+				for (Component comp : getComponents()) {
+					if (comp instanceof JTextComponent) {
+						JTextComponent textComp = (JTextComponent)comp;
+						textComp.setText("");
+						editableComponents.add((JTextComponent)comp);
+					}
+				}
 				maleButton.setSelected(false);
 				femaleButton.setSelected(false);
 				wardDropdown.setSelectedItem("Hospital");
@@ -239,7 +218,8 @@ public class PatientInfoPanel extends JPanel {
 	 * Loads the patient information into the form from the given patient.
 	 * @param patient The patient to take the information from.
 	 */
-	public void loadPatientInformation(Patient patient) {
+	public void loadInformation(Object objToLoad) {
+		Patient patient = (Patient)objToLoad;
 		final Patient finalPatient = patient;
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
@@ -303,25 +283,6 @@ public class PatientInfoPanel extends JPanel {
 	}
 	
 	/**
-	 * Toggles the signifiers for required fields on the patient info panel.
-	 * @param showRequiredFields Boolean to determine whether the required fields should be signified
-	 */
-	public void signifyRequiredFields(boolean showRequiredFields) {
-		String signifier = "* ";
-		if (showRequiredFields) {
-			nameLabel.setText(signifier + nameLabel.getText());
-			healthcareNumberLabel.setText(signifier + healthcareNumberLabel.getText());
-			birthdateLabel.setText(signifier + birthdateLabel.getText());
-			bedLabel.setText(signifier + bedLabel.getText());
-		} else {
-			nameLabel.setText(nameLabel.getText().replaceFirst(signifier, ""));
-			healthcareNumberLabel.setText(healthcareNumberLabel.getText().replaceFirst(signifier, ""));
-			birthdateLabel.setText(birthdateLabel.getText().replaceFirst(signifier, ""));
-			bedLabel.setText(bedLabel.getText().replaceFirst(signifier, ""));
-		}
-	}
-	
-	/**
 	 * Validates the fields in the panel and returns a boolean value of whether
 	 * all the fields are valid. Also marks all invalid field labels in red.
 	 * @return true if the fields are all valid; false otherwise
@@ -361,17 +322,5 @@ public class PatientInfoPanel extends JPanel {
 		}
 		
 		return validated;
-	}
-	
-	/**
-	 * Creates a form separator.
-	 * @param label The label to use on the separator.
-	 */
-	private void addSeparator(String message) {
-		JLabel label = new JLabel(message);
-		Font font = label.getFont();
-		label.setFont(font.deriveFont(font.getStyle() ^ Font.BOLD));
-		this.add(label, "split, span, gapbottom 10");
-		this.add(new JSeparator(), "growx, wrap, gapbottom 10");
 	}
 }
