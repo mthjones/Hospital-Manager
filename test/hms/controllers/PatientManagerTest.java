@@ -48,21 +48,4 @@ public class PatientManagerTest {
 		}
 		
 	}
-	
-	@Test
-	public void testDoDeletePatient_patientExists() {
-		try {
-			testPatient.create();
-			assertTrue(PatientManager.doDeletePatient(NUMBER));
-		} catch (SQLException e) {
-			assertTrue(false);
-		}
-		
-	}
-	
-	@Test
-	public void testDoDeletePatient_patientDoesNotExist() {
-			assertFalse(PatientManager.doDeletePatient(NUMBER));
-	}
-
 }

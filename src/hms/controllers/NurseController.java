@@ -2,7 +2,7 @@ package hms.controllers;
 
 import hms.views.NurseView;
 import hms.views.UserView;
-import hms.views.DeleteNurseConfirmationView;
+// import hms.views.DeleteNurseConfirmationView;
 import hms.models.NurseTableModel;
 import hms.models.Nurse;
 
@@ -19,16 +19,7 @@ public class NurseController {
 		if(row != null)
 			OpenNurseView(row);
 	}
-
-	public void DeleteNurse(int id_number, NurseTableModel mainViewTableModel) {
-		DeleteNurseConfirmationView confirmationView = new DeleteNurseConfirmationView(id_number, mainViewTableModel);
-		confirmationView.frmConfirmDeleteNurse.setVisible(true);
-	}
-
-	public static boolean doDeleteNurse(int idNumber) {
-		return Nurse.deleteFromInteger(idNumber);
-	}
-
+	
 	public void CreateNurse() {
 		OpenNurseView();
 	}

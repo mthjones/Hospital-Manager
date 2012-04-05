@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import hms.models.Ward;
 
 import hms.views.PatientView;
-import hms.views.DeletePatientConfirmationView;
 import hms.models.Patient;
 import hms.models.PatientTableModel;
 import hms.models.Room;
@@ -65,15 +64,6 @@ public class PatientManager {
 	public static void changeBedAvailability(int bed_id)
 	{
 		Bed.changeBedAvailability(bed_id);
-	}
-	
-	public void deletePatient(JFrame frmMain, String healthcareNumber) {
-		DeletePatientConfirmationView confirmationView = new DeletePatientConfirmationView(healthcareNumber, mainViewTableModel);
-		confirmationView.frmConfirmDeletePatient.setVisible(true);
-	}
-	
-	public static boolean doDeletePatient(String healthcareNumber) {
-		return Patient.deleteFromString(healthcareNumber);
 	}
 	
 	private void OpenPatientView() {
