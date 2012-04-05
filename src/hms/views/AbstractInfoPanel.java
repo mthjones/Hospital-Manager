@@ -66,12 +66,12 @@ public abstract class AbstractInfoPanel extends JPanel {
 	 */
 	public void signifyRequiredFields(boolean showRequiredFields) {
 		for (JComponent component : requiredComponents) {
-			if (component instanceof JTextComponent) {
+			if (component instanceof JLabel) {
 				if (showRequiredFields) {
-					JTextComponent textComp = (JTextComponent)component;
+					JLabel textComp = (JLabel)component;
 					textComp.setText(REQUIRED_SIGNIFIER + textComp.getText());
 				} else {
-					JTextComponent textComp = (JTextComponent)component;
+					JLabel textComp = (JLabel)component;
 					textComp.setText(textComp.getText().replaceFirst(REQUIRED_SIGNIFIER, ""));
 				}
 			}
