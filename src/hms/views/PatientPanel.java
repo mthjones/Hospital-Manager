@@ -127,13 +127,7 @@ public class PatientPanel extends JPanel implements ActionListener {
 		if (e.getActionCommand().equals("search")) {
 			// NYI
 		} else if (e.getActionCommand().equals("create")) {
-			JDialog pDialog = new JDialog(SwingUtilities.windowForComponent(this), "Create Patient", Dialog.ModalityType.APPLICATION_MODAL);
-			pDialog.add(new PatientDialog());
-			pDialog.setMinimumSize(new Dimension(400, 0));
-			pDialog.pack();
-			pDialog.setResizable(false);
-			pDialog.setLocationRelativeTo(SwingUtilities.windowForComponent(this));
-			pDialog.setVisible(true);
+			new PatientDialog(SwingUtilities.windowForComponent(this));
 		} else if (e.getActionCommand().equals("edit")) {
 			// Broken
 		} else if (e.getActionCommand().equals("delete")) {
