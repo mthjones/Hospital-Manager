@@ -1,6 +1,6 @@
 package hms.views;
 
-import java.text.SimpleDateFormat;
+import java.text.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -274,6 +274,33 @@ public class PatientInfoPanel extends JPanel {
 				inHospitalCheckbox.setSelected(finalPatient.getInHospital());
 			}
 		});
+	}
+	
+	/**
+	 * Creates a new Patient object from the information present on the panel.
+	 * @return A Patient object corresponding to the information on the panel.
+	 */
+	public Patient patientFromInformation() throws ParseException {
+		return new Patient(healthcareNumberField.getText(),
+						   nameField.getText(),
+						   phoneField.getText(),
+						   emailField.getText(),
+						   maleButton.isSelected() ? "M" : "F",
+						   "",
+						   addressField.getText(),
+						   birthdateFormat.parse(birthdateField.getText()),
+						   medicationsField.getText(),
+						   specialCareField.getText(),
+						   historyField.getText(),
+						   commentsField.getText(),
+						   emergencyNameField.getText(),
+						   emergencyPhoneField.getText(),
+						   emergencyEmailField.getText(),
+						   inHospitalCheckbox.isSelected(),
+						   wardDropdown.getSelectedIndex(),
+						   (Integer)roomDropdown.getSelectedItem(),
+						   (Integer)bedDropdown.getSelectedItem(),
+						   (Priority)priorityDropdown.getSelectedItem());
 	}
 	
 	/**
