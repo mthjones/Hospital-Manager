@@ -17,7 +17,8 @@ public class ApplicationFrame extends JFrame {
 	private void initComponents() {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.addTab("Patients", new PatientPanel());
-		tabbedPane.addTab("Nurses", null);//new MainView(false).frmMain.getContentPane());
+		tabbedPane.addTab("Nurses", new NursePanel());
+		//tabbedPane.addTab("Old", new MainView(false).frmMain.getContentPane());
 		getContentPane().add(tabbedPane);
 	}
 	
