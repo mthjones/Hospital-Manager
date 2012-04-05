@@ -104,8 +104,12 @@ public class PatientPanel extends JPanel implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("search")) {
+			// NYI
 		} else if (e.getActionCommand().equals("create")) {
+			PatientView pView = new PatientView(patientsTableModel);
+			pView.frmPatient.setVisible(true);
 		} else if (e.getActionCommand().equals("edit")) {
+			// Broken
 		} else if (e.getActionCommand().equals("delete")) {
 			if (JOptionPane.showConfirmDialog(this, "Delete selected patient?", "Delete patient", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
 				try {
