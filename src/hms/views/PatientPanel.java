@@ -88,6 +88,8 @@ public class PatientPanel extends JPanel implements ActionListener {
 			}
 		});
 		
+		patientsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
 		patientsTable.setFillsViewportHeight(true);
 		patientsTablePane.setMinimumSize(new Dimension(600, 50));
 		patientInfoPanel.setMinimumSize(new Dimension(400, 50));
