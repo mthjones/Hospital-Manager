@@ -17,7 +17,6 @@ public class LoginView implements ActionListener {
 	final private JPasswordField passwordField = new JPasswordField(15);
 	final private JButton loginButton = new JButton("Login");
 	final private JLabel errorMessage = new JLabel("");
-	public boolean isNurse = false;
 	
 	private LoginController controller;
 	
@@ -89,11 +88,6 @@ public class LoginView implements ActionListener {
 	 * Closes the containing window of the login panel, if there is one.
 	 */
 	public void close() {
-		this.dialog.dispose();
-	}
-	
-	public void close(int i) {
-		isNurse = true;
 		this.dialog.dispose();
 	}
 	
