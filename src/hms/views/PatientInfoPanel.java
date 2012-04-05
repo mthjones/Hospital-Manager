@@ -199,6 +199,9 @@ public class PatientInfoPanel extends JPanel {
 		femaleButton.setEnabled(editable);
 		priorityDropdown.setEnabled(editable);
 		inHospitalCheckbox.setEnabled(editable);
+		wardDropdown.setEnabled(editable);
+		roomDropdown.setEnabled(editable);
+		bedDropdown.setEnabled(editable);
 	}
 	
 	/**
