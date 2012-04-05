@@ -336,7 +336,7 @@ public class PatientInfoPanel extends JPanel {
 			nameLabel.setForeground(Color.BLACK);
 		}
 		
-		if(healthcareNumberField.getText().equals("")){
+		if (healthcareNumberField.getText().equals("")){
 			healthcareNumberLabel.setForeground(Color.RED);
 			validated = false;
 		}
@@ -352,7 +352,7 @@ public class PatientInfoPanel extends JPanel {
 			birthdateLabel.setForeground(Color.RED);
 		}
 
-		if(bedDropdown.getSelectedItem() == null) {
+		if (bedDropdown.getSelectedItem() == null) {
 			bedLabel.setForeground(Color.RED);
 			validated = false;
 		}
