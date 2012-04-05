@@ -2,13 +2,14 @@ package hms.views;
 
 import java.text.SimpleDateFormat;
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.text.*;
 
 import net.miginfocom.swing.MigLayout;
 
 import hms.util.Priority;
-import hms.models.Patient;
+import hms.models.*;
 
 public class PatientInfoPanel extends JPanel {
 	final private JTextField nameField = new JTextField();
@@ -34,9 +35,9 @@ public class PatientInfoPanel extends JPanel {
 	final private JRadioButton femaleButton = new JRadioButton("Female");
 	final private ButtonGroup genderGroup = new ButtonGroup();
 	
-	final private JTextField wardField = new JTextField(10);
-	final private JTextField roomField = new JTextField(4);
-	final private JTextField bedField = new JTextField(4);
+	final private JComboBox wardDropdown = new JComboBox();
+	final private JComboBox roomDropdown = new JComboBox();
+	final private JComboBox bedDropdown = new JComboBox();
 	
 	public PatientInfoPanel() {
 		initUI();
@@ -72,6 +73,28 @@ public class PatientInfoPanel extends JPanel {
 		genderGroup.add(maleButton);
 		genderGroup.add(femaleButton);
 		
+		wardDropdown.setModel(new DefaultComboBoxModel(Ward.getWardNames()));
+		
+		ActionListener locationListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				final ActionEvent finalEvent = e;
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						if (finalEvent.getActionCommand().equals("UpdateRooms")) {
+							roomDropdown.setModel(new DefaultComboBoxModel(Room.getRoomNumbers(wardDropdown.getSelectedIndex())));
+						}
+						bedDropdown.setModel(new DefaultComboBoxModel(Bed.getBedNumbers((Integer)roomDropdown.getSelectedItem())));
+					}
+				});
+			}
+		};
+		
+		wardDropdown.setActionCommand("UpdateRooms");
+		// wardDropdown.addActionListener(locationListener);
+		// roomDropdown.addActionListener(locationListener);
+		
 		priorityDropdown.addItem(Priority.HIGH);
 		priorityDropdown.addItem(Priority.MEDIUM);
 		priorityDropdown.addItem(Priority.LOW);
@@ -104,10 +127,10 @@ public class PatientInfoPanel extends JPanel {
 		this.add(femaleButton, "wrap");
 		
 		this.add(priorityLabel);
-		this.add(priorityDropdown, "wrap");
+		this.add(priorityDropdown, "span 2, wrap");
 		
 		this.add(inHospitalLabel);
-		this.add(inHospitalCheckbox, "wrap para");
+		this.add(inHospitalCheckbox, "span 2, wrap para");
 		
 		addSeparator("Emergency Contact Information");
 		
@@ -141,11 +164,11 @@ public class PatientInfoPanel extends JPanel {
 		addSeparator("Location");
 		
 		this.add(wardLabel);
-		this.add(wardField, "span 2, wrap");
+		this.add(wardDropdown, "span 2, wrap");
 		this.add(roomLabel);
-		this.add(roomField, "span 2, wrap");
+		this.add(roomDropdown, "span 2, wrap");
 		this.add(bedLabel);
-		this.add(bedField, "span 2, wrap");
+		this.add(bedDropdown, "span 2, wrap");
 		
 		setTextComponentBorders();
 	}
@@ -202,9 +225,9 @@ public class PatientInfoPanel extends JPanel {
 				commentsField.setText("");
 				maleButton.setSelected(false);
 				femaleButton.setSelected(false);
-				wardField.setText("");
-				roomField.setText("");
-				bedField.setText("");
+				wardDropdown.setSelectedItem("Hospital");
+				roomDropdown.removeAllItems();
+				bedDropdown.removeAllItems();
 				priorityDropdown.setSelectedItem(Priority.HIGH);
 				inHospitalCheckbox.setSelected(false);
 			}
@@ -240,18 +263,17 @@ public class PatientInfoPanel extends JPanel {
 					maleButton.setSelected(false);
 					femaleButton.setSelected(true);
 				}
-				wardField.setText(finalPatient.getWard().toString());
-				roomField.setText(finalPatient.getRoom().toString());
-				bedField.setText(finalPatient.getBed().toString());
+				wardDropdown.setSelectedItem(Ward.getSingleWardName(finalPatient.getWard()));
+				roomDropdown.setModel(new DefaultComboBoxModel(Room.getRoomNumbers(wardDropdown.getSelectedIndex())));
+				roomDropdown.addItem(finalPatient.getRoom());
+				roomDropdown.setSelectedItem(finalPatient.getRoom());
+				bedDropdown.setModel(new DefaultComboBoxModel(Bed.getBedNumbers((Integer)roomDropdown.getSelectedItem())));
+				bedDropdown.addItem(finalPatient.getBed());
+				bedDropdown.setSelectedItem(finalPatient.getBed());
 				priorityDropdown.setSelectedItem(finalPatient.getPriority());
-				if (finalPatient.getInHospital().equals("Y")) {
-					inHospitalCheckbox.setSelected(true);
-				} else {
-					inHospitalCheckbox.setSelected(false);
-				}
+				inHospitalCheckbox.setSelected(finalPatient.getInHospital());
 			}
 		});
-		
 	}
 	
 	/**
