@@ -1,3 +1,5 @@
+package hms.views;
+
 import javax.swing.*;
 
 import hms.models.Nurse;
