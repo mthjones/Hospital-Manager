@@ -196,8 +196,11 @@ public class PatientInfoPanel extends JPanel {
 	 * Creates a form separator.
 	 * @param label The label to use on the separator.
 	 */
-	private void addSeparator(String label) {
-		this.add(new JLabel(label), "split, span, gaptop 10");
-		this.add(new JSeparator(), "growx, wrap, gaptop 10");
+	private void addSeparator(String message) {
+		JLabel label = new JLabel(message);
+		Font font = label.getFont();
+		label.setFont(font.deriveFont(font.getStyle() ^ Font.BOLD));
+		this.add(label, "split, span, gapbottom 10");
+		this.add(new JSeparator(), "growx, wrap, gapbottom 10");
 	}
 }
