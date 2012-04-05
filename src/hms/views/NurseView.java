@@ -249,7 +249,7 @@ public class NurseView {
 		});
 
 		lblPhoneNumber = new JLabel("* Phone Number");
-		springLayout.putConstraint(SpringLayout.NORTH, lblPhoneNumber, 41, SpringLayout.SOUTH, lblSocialInsuranceNumber);
+		springLayout.putConstraint(SpringLayout.NORTH, lblPhoneNumber, 10, SpringLayout.SOUTH, rdbtnMale);
 		springLayout.putConstraint(SpringLayout.WEST, lblPhoneNumber, 0, SpringLayout.WEST, lblName);
 		frame.getContentPane().add(lblPhoneNumber);
 
@@ -261,21 +261,21 @@ public class NurseView {
 		frame.getContentPane().add(txtPhoneNumber);
 
 		JLabel lblPagerNumber = new JLabel("Pager Number");
-		springLayout.putConstraint(SpringLayout.EAST, lblPhoneNumber, 22, SpringLayout.EAST, lblPagerNumber);
+		springLayout.putConstraint(SpringLayout.NORTH, lblPagerNumber, 10, SpringLayout.SOUTH, txtPhoneNumber);
 		springLayout.putConstraint(SpringLayout.WEST, lblPagerNumber, 11, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, lblPagerNumber, 102, SpringLayout.WEST, frame.getContentPane());
 		frame.getContentPane().add(lblPagerNumber);
 
 		txtPagerNumber = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, txtPagerNumber, 8, SpringLayout.SOUTH, txtPhoneNumber);
+		springLayout.putConstraint(SpringLayout.NORTH, txtPagerNumber, 6, SpringLayout.SOUTH, txtPhoneNumber);
 		springLayout.putConstraint(SpringLayout.WEST, txtPagerNumber, 0, SpringLayout.WEST, txtSocialInsuranceNumber);
 		springLayout.putConstraint(SpringLayout.EAST, txtPagerNumber, -9, SpringLayout.EAST, frame.getContentPane());
 		txtPagerNumber.setColumns(10);
 		frame.getContentPane().add(txtPagerNumber);
 
 		JLabel lblEmail = new JLabel("Email");
-		springLayout.putConstraint(SpringLayout.SOUTH, lblPagerNumber, -12, SpringLayout.NORTH, lblEmail);
-		springLayout.putConstraint(SpringLayout.NORTH, lblEmail, 149, SpringLayout.NORTH, frame.getContentPane());
+		//springLayout.putConstraint(SpringLayout.SOUTH, lblPagerNumber, -12, SpringLayout.NORTH, lblEmail);
+		springLayout.putConstraint(SpringLayout.NORTH, lblEmail, 10, SpringLayout.SOUTH, txtPagerNumber);
 		springLayout.putConstraint(SpringLayout.WEST, lblEmail, 0, SpringLayout.WEST, lblName);
 		springLayout.putConstraint(SpringLayout.EAST, lblEmail, 0, SpringLayout.EAST, lblName);
 		frame.getContentPane().add(lblEmail);
