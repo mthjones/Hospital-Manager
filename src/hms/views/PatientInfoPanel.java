@@ -7,6 +7,7 @@ import javax.swing.text.*;
 
 import net.miginfocom.swing.MigLayout;
 
+import hms.util.Priority;
 import hms.models.Patient;
 
 public class PatientInfoPanel extends JPanel {
@@ -17,6 +18,8 @@ public class PatientInfoPanel extends JPanel {
 	final private JTextArea addressField = new JTextArea();
 	final private SimpleDateFormat birthdateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	final private JFormattedTextField birthdateField = new JFormattedTextField(birthdateFormat);
+	final private JComboBox priorityDropdown = new JComboBox();
+	final private JCheckBox inHospitalCheckbox = new JCheckBox();
 	
 	final private JTextField emergencyNameField = new JTextField();
 	final private JTextField emergencyPhoneField = new JTextField();
@@ -50,6 +53,8 @@ public class PatientInfoPanel extends JPanel {
 		final JLabel addressLabel = new JLabel("Address:");
 		final JLabel birthdateLabel = new JLabel("Birthdate:");
 		final JLabel genderLabel = new JLabel("Gender:");
+		final JLabel priorityLabel = new JLabel("Priority:");
+		final JLabel inHospitalLabel = new JLabel("In Hospital:");
 		
 		final JLabel emergencyNameLabel = new JLabel("Name:");
 		final JLabel emergencyPhoneLabel = new JLabel("Phone:");
@@ -64,7 +69,14 @@ public class PatientInfoPanel extends JPanel {
 		final JLabel roomLabel = new JLabel("Room:");
 		final JLabel bedLabel = new JLabel("Bed:");
 		
-		this.setLayout(new MigLayout("fillx", "[label]rel[grow,fill][grow,fill]"));
+		genderGroup.add(maleButton);
+		genderGroup.add(femaleButton);
+		
+		priorityDropdown.addItem(Priority.HIGH);
+		priorityDropdown.addItem(Priority.MEDIUM);
+		priorityDropdown.addItem(Priority.LOW);
+		
+		this.setLayout(new MigLayout("fillx", "[label]rel[grow,fill][grow,fill]", "[]5[]"));
 		
 		addSeparator("General Information");
 		
@@ -89,7 +101,13 @@ public class PatientInfoPanel extends JPanel {
 		
 		this.add(genderLabel);
 		this.add(maleButton);
-		this.add(femaleButton, "wrap para");
+		this.add(femaleButton, "wrap");
+		
+		this.add(priorityLabel);
+		this.add(priorityDropdown, "wrap");
+		
+		this.add(inHospitalLabel);
+		this.add(inHospitalCheckbox, "wrap para");
 		
 		addSeparator("Emergency Contact Information");
 		
@@ -128,6 +146,17 @@ public class PatientInfoPanel extends JPanel {
 		this.add(roomField, "span 2, wrap");
 		this.add(bedLabel);
 		this.add(bedField, "span 2, wrap");
+		
+		setTextComponentBorders();
+	}
+	
+	private void setTextComponentBorders() {
+		for (Component comp : getComponents()) {
+			if (comp instanceof JTextComponent) {
+				JTextComponent textComp = (JTextComponent)comp;
+				textComp.setBorder(BorderFactory.createEtchedBorder());
+			}
+		}
 	}
 	
 	/**
@@ -143,6 +172,8 @@ public class PatientInfoPanel extends JPanel {
 		}
 		maleButton.setEnabled(false);
 		femaleButton.setEnabled(false);
+		priorityDropdown.setEnabled(false);
+		inHospitalCheckbox.setEnabled(false);
 	}
 	
 	/**
@@ -170,6 +201,8 @@ public class PatientInfoPanel extends JPanel {
 				wardField.setText("");
 				roomField.setText("");
 				bedField.setText("");
+				priorityDropdown.setSelectedItem(Priority.HIGH);
+				inHospitalCheckbox.setSelected(false);
 			}
 		});
 	}
@@ -206,6 +239,12 @@ public class PatientInfoPanel extends JPanel {
 				wardField.setText(finalPatient.getWard().toString());
 				roomField.setText(finalPatient.getRoom().toString());
 				bedField.setText(finalPatient.getBed().toString());
+				priorityDropdown.setSelectedItem(finalPatient.getPriority());
+				if (finalPatient.getInHospital().equals("Y")) {
+					inHospitalCheckbox.setSelected(true);
+				} else {
+					inHospitalCheckbox.setSelected(false);
+				}
 			}
 		});
 		
