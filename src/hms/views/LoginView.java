@@ -85,7 +85,7 @@ public class LoginView implements ActionListener {
 	}
 	
 	/**
-	 * Closes the containing window of the login panel, if there is one.
+	 * Closes the login dialog.
 	 */
 	public void close() {
 		this.dialog.dispose();
