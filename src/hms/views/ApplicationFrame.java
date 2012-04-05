@@ -31,7 +31,8 @@ public class ApplicationFrame extends JFrame {
 		setIconImage(ICON);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		pack();
-		setMinimumSize(getSize());
+		setMinimumSize(new Dimension(getSize().width, 600));
+		setSize(getMinimumSize());
 		setLocationRelativeTo(null);
 	}
 }

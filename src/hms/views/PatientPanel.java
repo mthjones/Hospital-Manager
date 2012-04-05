@@ -17,6 +17,7 @@ public class PatientPanel extends JPanel implements ActionListener {
 	final private JTable patientsTable = new JTable(patientsTableModel);
 	final private JScrollPane patientsTablePane = new JScrollPane(patientsTable);
 	final private PatientInfoPanel patientInfoPanel = new PatientInfoPanel();
+	final private JScrollPane patientInfoScrollPane = new JScrollPane(patientInfoPanel);
 	
 	final private JTextField searchField = new JTextField(25);
 	final private JButton searchButton = new JButton("Search");
@@ -92,7 +93,7 @@ public class PatientPanel extends JPanel implements ActionListener {
 		
 		patientsTable.setFillsViewportHeight(true);
 		patientsTablePane.setMinimumSize(new Dimension(600, 50));
-		patientInfoPanel.setMinimumSize(new Dimension(400, 50));
+		patientInfoScrollPane.setMinimumSize(new Dimension(400, 50));
 		
 		patientInfoPanel.setEditable(false);
 		
@@ -109,7 +110,7 @@ public class PatientPanel extends JPanel implements ActionListener {
 	 * @return the split pane with the table and information
 	 */
 	private JSplitPane createSplitPane() {
-		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, patientsTablePane, patientInfoPanel);
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, patientsTablePane, patientInfoScrollPane);
 		splitPane.setDividerLocation((int)this.getSize().getWidth() - 400);
 		splitPane.setResizeWeight(0.9);
 		splitPane.setBorder(null);
