@@ -12,7 +12,7 @@ public abstract class AbstractInfoPanel extends JPanel {
 	protected ArrayList<JComponent> editableComponents = new ArrayList<JComponent>();
 	
 	/**
-	 * Initializes the user interface components.
+	 * Should initialize the user interface components.
 	 */
 	abstract void initUI();
 	
