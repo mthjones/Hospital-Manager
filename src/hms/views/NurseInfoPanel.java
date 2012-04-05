@@ -5,6 +5,10 @@ import javax.swing.*;
 import hms.models.Nurse;
 
 public class NurseInfoPanel extends AbstractInfoPanel {
+	public NurseInfoPanel() {
+		initUI();
+	}
+	
 	protected void initUI() {
 		
 	}
