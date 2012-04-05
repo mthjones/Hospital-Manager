@@ -129,7 +129,9 @@ public class PatientPanel extends JPanel implements ActionListener {
 		} else if (e.getActionCommand().equals("create")) {
 			new PatientDialog(SwingUtilities.windowForComponent(this));
 		} else if (e.getActionCommand().equals("edit")) {
-			// Broken
+			try {
+				new PatientDialog(SwingUtilities.windowForComponent(this), getSelectedPatient());
+			} catch (SQLException sqle) {}
 		} else if (e.getActionCommand().equals("delete")) {
 			if (JOptionPane.showConfirmDialog(this, "Delete selected patient?", "Delete patient", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
 				try {
