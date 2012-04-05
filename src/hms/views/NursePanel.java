@@ -25,6 +25,9 @@ public class NursePanel extends JPanel implements ActionListener {
 		initUI();
 	}
 	
+	/**
+	 * Intializes the components of this panel.
+	 */
 	private void initUI() {
 		this.setLayout(new MigLayout("", "[grow]"));
 		
@@ -55,6 +58,10 @@ public class NursePanel extends JPanel implements ActionListener {
 		this.add(createButtonPanel(), "growx");
 	}
 	
+	/**
+	 * Forms a panel that contains the buttons for the main panel.
+	 * @return A panel of buttons
+	 */
 	private JPanel createButtonPanel() {
 		JPanel buttonPanel = new JPanel(new MigLayout("nogrid, fillx"));
 		buttonPanel.add(createButton, "sg, gap push");
@@ -64,6 +71,10 @@ public class NursePanel extends JPanel implements ActionListener {
 		return buttonPanel;
 	}
 	
+	/**
+	 * Returns the selected nurse from the table or null if there is no currently selected nurse.
+	 * @return the selected nurse from the table or null if there is no currently selected nurse
+	 */
 	private Nurse getSelectedNurse() throws SQLException {
 		try {
 			return Nurse.find((Integer)nursesTableModel.getContent()[nursesTable.getSelectedRow()][6]);
@@ -72,6 +83,10 @@ public class NursePanel extends JPanel implements ActionListener {
 		}
 	}
 	
+	/**
+	 * Handles action events that occur from any object that has this panel as an action listener.
+	 * @param e The event to be handled
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("create")) {
 			NurseView nView = new NurseView(nursesTableModel);

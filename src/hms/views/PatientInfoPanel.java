@@ -39,6 +39,9 @@ public class PatientInfoPanel extends JPanel {
 		initUI();
 	}
 	
+	/**
+	 * Initializes the components for this panel.
+	 */
 	private void initUI() {
 		final JLabel nameLabel = new JLabel("Name:");
 		final JLabel phoneLabel = new JLabel("Phone:");
@@ -122,6 +125,10 @@ public class PatientInfoPanel extends JPanel {
 		this.add(bedField, "wrap");
 	}
 	
+	/**
+	 * Sets whether the text components on this panel are editable.
+	 * @param editable A boolean value to set whether the text components should be editable.
+	 */
 	public void setEditable(boolean editable) {
 		for (Component comp : getComponents()) {
 			if (comp instanceof JTextComponent) {
@@ -131,6 +138,9 @@ public class PatientInfoPanel extends JPanel {
 		}
 	}
 	
+	/**
+	 * Clears all of the patient information from the panel.
+	 */
 	public void clearPatientInformation() {
 		this.nameField.setText("");
 		this.phoneField.setText("");
@@ -152,6 +162,10 @@ public class PatientInfoPanel extends JPanel {
 		this.bedField.setText("");
 	}
 	
+	/**
+	 * Loads the patient information into the form from the given patient.
+	 * @param patient The patient to take the information from.
+	 */
 	public void loadPatientInformation(Patient patient) {
 		this.nameField.setText(patient.getName());
 		this.phoneField.setText(patient.getPhoneNumber());
@@ -178,6 +192,10 @@ public class PatientInfoPanel extends JPanel {
 		this.bedField.setText(patient.getBed().toString());
 	}
 	
+	/**
+	 * Creates a form separator.
+	 * @param label The label to use on the separator.
+	 */
 	private void addSeparator(String label) {
 		this.add(new JLabel(label), "split, span, gaptop 10");
 		this.add(new JSeparator(), "growx, wrap, gaptop 10");

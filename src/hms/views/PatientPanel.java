@@ -25,10 +25,13 @@ public class PatientPanel extends JPanel implements ActionListener {
 	final private JButton refreshButton = new JButton("Refresh");
 	
 	public PatientPanel() {
-		initComponents();
+		initUI();
 	}
 	
-	private void initComponents() {
+	/**
+	 * Initializes the components for this panel.
+	 */
+	private void initUI() {
 		this.setLayout(new MigLayout("", "[grow]"));
 		
 		searchButton.setActionCommand("search");
@@ -71,6 +74,11 @@ public class PatientPanel extends JPanel implements ActionListener {
 		this.add(createButtonPanel(), "growx");
 	}
 	
+	/**
+	 * Forms the split pane with the table of patients on the left and the patient information
+	 * section on the right and returns it.
+	 * @return the split pane with the table and information
+	 */
 	private JSplitPane createSplitPane() {
 		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, patientsTablePane, patientInfoPanel);
 		splitPane.setDividerLocation((int)this.getSize().getWidth() - 400);
@@ -79,6 +87,10 @@ public class PatientPanel extends JPanel implements ActionListener {
 		return splitPane;
 	}
 	
+	/**
+	 * Forms a panel that contains the buttons for the main panel as well as the search field.
+	 * @return A panel of buttons
+	 */
 	private JPanel createButtonPanel() {
 		JPanel buttonPanel = new JPanel(new MigLayout("nogrid, fillx"));
 		buttonPanel.add(searchField);
@@ -102,6 +114,10 @@ public class PatientPanel extends JPanel implements ActionListener {
 		}
 	}
 	
+	/**
+	 * Handles action events that occur from any object that has this panel as an action listener.
+	 * @param e The event to be handled
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("search")) {
 			// NYI

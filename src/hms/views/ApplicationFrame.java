@@ -10,17 +10,23 @@ public class ApplicationFrame extends JFrame {
 	
 	public ApplicationFrame() {
 		super(TITLE);
-		initComponents();
+		initUI();
 		configureWindow();
 	}
 	
-	private void initComponents() {
+	/**
+	 * Initialize the components for the application frame.
+	 */
+	private void initUI() {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.addTab("Patients", new PatientPanel());
 		tabbedPane.addTab("Nurses", new NursePanel());
 		getContentPane().add(tabbedPane);
 	}
 	
+	/**
+	 * Configure the application frame itself.
+	 */
 	private void configureWindow() {
 		setIconImage(ICON);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
