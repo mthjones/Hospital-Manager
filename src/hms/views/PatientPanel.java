@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
+import javax.swing.table.*;
 import java.sql.SQLException;
 
 import net.miginfocom.swing.MigLayout;
@@ -19,6 +20,7 @@ public class PatientPanel extends JPanel implements ActionListener {
 	
 	final private JTextField searchField = new JTextField(25);
 	final private JButton searchButton = new JButton("Search");
+	final private JButton clearButton = new JButton("Clear");
 	final private JButton createButton = new JButton("Create");
 	final private JButton editButton = new JButton("Edit");
 	final private JButton deleteButton = new JButton("Delete");
@@ -34,8 +36,6 @@ public class PatientPanel extends JPanel implements ActionListener {
 	private void initUI() {
 		this.setLayout(new MigLayout("", "[grow]"));
 		
-		searchButton.setActionCommand("search");
-		searchButton.addActionListener(this);
 		createButton.setActionCommand("create");
 		createButton.addActionListener(this);
 		editButton.setActionCommand("edit");
@@ -63,6 +63,28 @@ public class PatientPanel extends JPanel implements ActionListener {
 						} catch (SQLException sqle) {}
 					}
 				});
+			}
+		});
+		
+		final TableRowSorter<PatientTableModel> sorter = new TableRowSorter<PatientTableModel>(patientsTableModel);
+		patientsTable.setRowSorter(sorter);
+		
+		searchButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				RowFilter<PatientTableModel, Object> rf = null;
+				try {
+					rf = RowFilter.regexFilter(searchField.getText());
+					sorter.setRowFilter(rf);
+				} catch (java.util.regex.PatternSyntaxException pse) { }
+			}
+		});
+		
+		clearButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				sorter.setRowFilter(null);
+				searchField.setText("");
 			}
 		});
 		
@@ -100,6 +122,7 @@ public class PatientPanel extends JPanel implements ActionListener {
 		JPanel buttonPanel = new JPanel(new MigLayout("nogrid, fillx"));
 		buttonPanel.add(searchField);
 		buttonPanel.add(searchButton, "sg");
+		buttonPanel.add(clearButton, "sg");
 		buttonPanel.add(createButton, "sg, gap push");
 		buttonPanel.add(editButton, "sg");
 		buttonPanel.add(deleteButton, "sg");
