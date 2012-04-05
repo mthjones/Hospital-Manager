@@ -103,7 +103,7 @@ public class PatientTest {
 		Patient [] results = Patient.findByName("John Q Public");
 		assertNotNull(results);
 		assertEquals(1, results.length);
-		assertTrue(results[0].name.equals("John Q Public"));
+		assertTrue(results[0].getName().equals("John Q Public"));
 		patient.delete();
 	}
 	
@@ -116,8 +116,8 @@ public class PatientTest {
 		Patient [] results = Patient.findByName("John Q Public");
 		assertNotNull(results);
 		assertEquals(2, results.length);
-		assertTrue(results[0].name.equals("John Q Public") && results[0].healthcare_number.equals("123456789"));
-		assertTrue(results[1].name.equals("John Q Public") && results[1].healthcare_number.equals("987654321"));
+		assertTrue(results[0].getName().equals("John Q Public") && results[0].getHealthcareNumber().equals("123456789"));
+		assertTrue(results[1].getName().equals("John Q Public") && results[1].getHealthcareNumber().equals("987654321"));
 		patient1.delete();
 		patient2.delete();
 	}
