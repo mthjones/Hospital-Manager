@@ -136,7 +136,7 @@ public class PatientPanel extends JPanel implements ActionListener {
 	 */
 	private Patient getSelectedPatient() throws SQLException {
 		try {
-			return Patient.find((String)patientsTableModel.getContent()[patientsTable.getSelectedRow()][0]);
+			return Patient.find((String)patientsTable.getValueAt(patientsTable.getSelectedRow(), 0));
 		} catch (ArrayIndexOutOfBoundsException e) {
 			return null;
 		}
