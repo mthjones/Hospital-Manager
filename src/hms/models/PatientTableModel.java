@@ -17,8 +17,8 @@ public class PatientTableModel extends AbstractTableModel {
 	private Patient[] patients;
 	
 	/**
-	 * Constructs a new PatientTableModel. Sets the columnNames and columnClasses and content
-	 * instance variables. If they are inaccessible, sets them to arrays of empty strings.
+	 * Constructs a new PatientTableModel by loading an array of Patients from the 
+	 * database.
 	 */
 	public PatientTableModel() {
 		try {
@@ -65,7 +65,7 @@ public class PatientTableModel extends AbstractTableModel {
 	}
 	
 	/**
-	 * Cells are not editable because we have the create and edit forms
+	 * Cells should not be editable
 	 * @return false
 	 */
 	public boolean isCellEditable(int row, int col) {
@@ -82,8 +82,8 @@ public class PatientTableModel extends AbstractTableModel {
 	}
 	
 	/**
-	 * Gets all of the table contents and stores them in an array of an array of Objects
-	 * so we do not need to query the database all of the time.
+	 * Gets all of the table contents and stores them in an array of Patients so we 
+	 * do not need to query the database until there is a change.
 	 */
 	private void getTableContents() throws SQLException {
 		ResultSet patientsResult = Database.getInstance().executeQuery("SELECT * FROM patient");
