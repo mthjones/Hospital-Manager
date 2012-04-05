@@ -75,25 +75,23 @@ public class PatientInfoPanel extends JPanel {
 		
 		wardDropdown.setModel(new DefaultComboBoxModel(Ward.getWardNames()));
 		
-		ActionListener locationListener = new ActionListener() {
+		wardDropdown.addItemListener(new ItemListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				final ActionEvent finalEvent = e;
-				SwingUtilities.invokeLater(new Runnable() {
-					@Override
-					public void run() {
-						if (finalEvent.getActionCommand().equals("UpdateRooms")) {
-							roomDropdown.setModel(new DefaultComboBoxModel(Room.getRoomNumbers(wardDropdown.getSelectedIndex())));
-						}
-						bedDropdown.setModel(new DefaultComboBoxModel(Bed.getBedNumbers((Integer)roomDropdown.getSelectedItem())));
-					}
-				});
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					roomDropdown.setModel(new DefaultComboBoxModel(Room.getRoomNumbers(wardDropdown.getSelectedIndex())));
+				}
 			}
-		};
+		});
 		
-		wardDropdown.setActionCommand("UpdateRooms");
-		wardDropdown.addActionListener(locationListener);
-		roomDropdown.addActionListener(locationListener);
+		roomDropdown.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					bedDropdown.setModel(new DefaultComboBoxModel(Bed.getBedNumbers((Integer)roomDropdown.getSelectedItem())));
+				}
+			}
+		});
 		
 		priorityDropdown.addItem(Priority.HIGH);
 		priorityDropdown.addItem(Priority.MEDIUM);
@@ -263,11 +261,9 @@ public class PatientInfoPanel extends JPanel {
 					maleButton.setSelected(false);
 					femaleButton.setSelected(true);
 				}
-				wardDropdown.setSelectedItem(Ward.getSingleWardName(finalPatient.getWard()));
-				roomDropdown.setModel(new DefaultComboBoxModel(Room.getRoomNumbers(wardDropdown.getSelectedIndex())));
+				wardDropdown.setSelectedIndex(finalPatient.getWard());
 				roomDropdown.addItem(finalPatient.getRoom());
 				roomDropdown.setSelectedItem(finalPatient.getRoom());
-				bedDropdown.setModel(new DefaultComboBoxModel(Bed.getBedNumbers((Integer)roomDropdown.getSelectedItem())));
 				bedDropdown.addItem(finalPatient.getBed());
 				bedDropdown.setSelectedItem(finalPatient.getBed());
 				priorityDropdown.setSelectedItem(finalPatient.getPriority());
