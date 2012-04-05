@@ -318,14 +318,8 @@ public class Patient {
 		return priority;
 	}
 	
-	public Ward getWard() {
-		Ward[] wards = Ward.getWards();
-		for (Ward ward : wards) {
-			if (ward.getWardNumber() == ward_id) {
-				return ward;
-			}
-		}
-		return null;
+	public Integer getWard() {
+		return ward_id;
 	}
 	
 	public Integer getRoom() {
