@@ -38,6 +38,8 @@ public class PatientDialog {
 	private void initUI() {
 		this.dialog = new JDialog(this.parent, this.title, Dialog.ModalityType.APPLICATION_MODAL);
 		
+		patientInfoPanel.signifyRequiredFields(true);
+		
 		Container contentPane = this.dialog.getContentPane();
 		
 		contentPane.setLayout(new MigLayout("", "[grow,fill]"));
@@ -54,14 +56,16 @@ public class PatientDialog {
 		this.saveButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					Patient patient = patientInfoPanel.patientFromInformation();
+				if (patientInfoPanel.validateInformation()) {
 					try {
-						patient.delete();
-						patient.create();
-					} catch (SQLException sqle) {}
-				} catch (ParseException pe) {}
-				close();
+						Patient patient = patientInfoPanel.patientFromInformation();
+						try {
+							patient.delete();
+							patient.create();
+						} catch (SQLException sqle) {}
+					} catch (ParseException pe) {}
+					close();
+				}
 			}
 		});
 		

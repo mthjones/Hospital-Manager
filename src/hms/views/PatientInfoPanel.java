@@ -12,6 +12,29 @@ import hms.util.Priority;
 import hms.models.*;
 
 public class PatientInfoPanel extends JPanel {
+	final private JLabel nameLabel = new JLabel("Name:");
+	final private JLabel phoneLabel = new JLabel("Phone:");
+	final private JLabel emailLabel = new JLabel("Email:");
+	final private JLabel healthcareNumberLabel = new JLabel("Health #:");
+	final private JLabel addressLabel = new JLabel("Address:");
+	final private JLabel birthdateLabel = new JLabel("Birthdate:");
+	final private JLabel genderLabel = new JLabel("Gender:");
+	final private JLabel priorityLabel = new JLabel("Priority:");
+	final private JLabel inHospitalLabel = new JLabel("In Hospital:");
+	
+	final private JLabel emergencyNameLabel = new JLabel("Name:");
+	final private JLabel emergencyPhoneLabel = new JLabel("Phone:");
+	final private JLabel emergencyEmailLabel = new JLabel("Email:");
+	
+	final private JLabel medicationsLabel = new JLabel("Medications:");
+	final private JLabel specialCareLabel = new JLabel("Special Care:");
+	final private JLabel historyLabel = new JLabel("History:");
+	final private JLabel commentsLabel = new JLabel("Comments:");
+	
+	final private JLabel wardLabel = new JLabel("Ward:");
+	final private JLabel roomLabel = new JLabel("Room:");
+	final private JLabel bedLabel = new JLabel("Bed:");
+	
 	final private JTextField nameField = new JTextField();
 	final private JTextField phoneField = new JTextField();
 	final private JTextField emailField = new JTextField();
@@ -47,29 +70,6 @@ public class PatientInfoPanel extends JPanel {
 	 * Initializes the components for this panel.
 	 */
 	private void initUI() {
-		final JLabel nameLabel = new JLabel("Name:");
-		final JLabel phoneLabel = new JLabel("Phone:");
-		final JLabel emailLabel = new JLabel("Email:");
-		final JLabel healthcareNumberLabel = new JLabel("Health #:");
-		final JLabel addressLabel = new JLabel("Address:");
-		final JLabel birthdateLabel = new JLabel("Birthdate:");
-		final JLabel genderLabel = new JLabel("Gender:");
-		final JLabel priorityLabel = new JLabel("Priority:");
-		final JLabel inHospitalLabel = new JLabel("In Hospital:");
-		
-		final JLabel emergencyNameLabel = new JLabel("Name:");
-		final JLabel emergencyPhoneLabel = new JLabel("Phone:");
-		final JLabel emergencyEmailLabel = new JLabel("Email:");
-		
-		final JLabel medicationsLabel = new JLabel("Medications:");
-		final JLabel specialCareLabel = new JLabel("Special Care:");
-		final JLabel historyLabel = new JLabel("History:");
-		final JLabel commentsLabel = new JLabel("Comments:");
-		
-		final JLabel wardLabel = new JLabel("Ward:");
-		final JLabel roomLabel = new JLabel("Room:");
-		final JLabel bedLabel = new JLabel("Bed:");
-		
 		genderGroup.add(maleButton);
 		genderGroup.add(femaleButton);
 		
@@ -300,6 +300,67 @@ public class PatientInfoPanel extends JPanel {
 						   (Integer)roomDropdown.getSelectedItem(),
 						   (Integer)bedDropdown.getSelectedItem(),
 						   (Priority)priorityDropdown.getSelectedItem());
+	}
+	
+	/**
+	 * Toggles the signifiers for required fields on the patient info panel.
+	 * @param showRequiredFields Boolean to determine whether the required fields should be signified
+	 */
+	public void signifyRequiredFields(boolean showRequiredFields) {
+		String signifier = "* ";
+		if (showRequiredFields) {
+			nameLabel.setText(signifier + nameLabel.getText());
+			healthcareNumberLabel.setText(signifier + healthcareNumberLabel.getText());
+			birthdateLabel.setText(signifier + birthdateLabel.getText());
+			bedLabel.setText(signifier + bedLabel.getText());
+		} else {
+			nameLabel.setText(nameLabel.getText().replaceFirst(signifier, ""));
+			healthcareNumberLabel.setText(healthcareNumberLabel.getText().replaceFirst(signifier, ""));
+			birthdateLabel.setText(birthdateLabel.getText().replaceFirst(signifier, ""));
+			bedLabel.setText(bedLabel.getText().replaceFirst(signifier, ""));
+		}
+	}
+	
+	/**
+	 * Validates the fields in the panel and returns a boolean value of whether
+	 * all the fields are valid. Also marks all invalid field labels in red.
+	 * @return true if the fields are all valid; false otherwise
+	 */
+	public boolean validateInformation() {
+		boolean validated = true;
+		
+		if (nameField.getText().trim().equals("")) {
+			nameLabel.setForeground(Color.RED);
+			validated = false;
+		} else {
+			nameLabel.setForeground(Color.BLACK);
+		}
+		
+		if(healthcareNumberField.getText().equals("")){
+			healthcareNumberLabel.setForeground(Color.RED);
+			validated = false;
+		}
+		else {
+			healthcareNumberLabel.setForeground(Color.BLACK);
+		}
+		
+		try {
+			birthdateFormat.parse(birthdateField.getText());
+			birthdateLabel.setForeground(Color.BLACK);
+		} catch (ParseException pe) {
+			validated = false;
+			birthdateLabel.setForeground(Color.RED);
+		}
+
+		if(bedDropdown.getSelectedItem() == null) {
+			bedLabel.setForeground(Color.RED);
+			validated = false;
+		}
+		else {
+			bedLabel.setForeground(Color.BLACK);
+		}
+		
+		return validated;
 	}
 	
 	/**
