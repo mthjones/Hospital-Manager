@@ -16,10 +16,9 @@ public class LoginController {
 		try {
 			if (User.authenticate(username, password)) {
 				this.view.close();
-			}else if(Nurse.authenticate(username , password)){
-				this.view.close(0);
-			}
-			else {
+			} else if (Nurse.authenticate(username, password)){
+				this.view.close();
+			} else {
 				view.setErrorMessage("Invalid login");
 			}
 		} catch (SQLException sqle) {
