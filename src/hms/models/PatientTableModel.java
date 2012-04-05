@@ -20,24 +20,17 @@ import hms.util.*;
 
 public class PatientTableModel extends AbstractTableModel {
 	private final String[] columnNames = {"Health #", "Name", "Gender", "Birthdate", "In Hospital?", "Priority"};
-	private String[] columnClasses;
-	private Object[][] content;
+	private Patient[] patients;
 	
 	/**
 	 * Constructs a new PatientTableModel. Sets the columnNames and columnClasses and content
 	 * instance variables. If they are inaccessible, sets them to arrays of empty strings.
 	 */
-	
-	public Object[][] getContent(){
-		return content;
-	}
-	
 	public PatientTableModel() {
 		try {
-			getTableColumnNamesAndClasses();
 			getTableContents();
 		} catch (SQLException sqle) {
-			content = new Object[][] {{""}};
+			patients = new Patient[0];
 		}
 	}
 	
@@ -54,7 +47,15 @@ public class PatientTableModel extends AbstractTableModel {
 	 * @return The number of rows in the table.
 	 */
 	public int getRowCount() {
-		return content.length;
+		return patients.length;
+	}
+	
+	/**
+	 * Returns the patient at the given row.
+	 * @return the patient at the given row
+	 */
+	public Patient getPatient(int row) {
+		return patients[row];
 	}
 	
 	/**
@@ -65,7 +66,16 @@ public class PatientTableModel extends AbstractTableModel {
 	 * @return The object at the specified location in the database
 	 */
 	public Object getValueAt(int row, int col) {
-		return content[row][col];
+		Patient patient = patients[row];
+		switch (col) {
+			case 0: return patient.getHealthcareNumber();
+			case 1: return patient.getName();
+			case 2: return patient.getGender();
+			case 3: return patient.getBirthdate();
+			case 4: return patient.getInHospital();
+			case 5: return patient.getPriority();
+			default: return "";
+		}
 	}
 	
 	/**
@@ -86,123 +96,43 @@ public class PatientTableModel extends AbstractTableModel {
 	}
 	
 	/**
-	 * Gets all of the table column names and storage classes from the database metadata and
-	 * stores them in the appropriate instance variables.
-	 */
-	private void getTableColumnNamesAndClasses() throws SQLException {
-		ResultSet patients = Database.getInstance().executeQuery("SELECT healthcare_number, name, gender, birthdate, in_hospital, priority FROM patient");
-		
-		ResultSetMetaData patientMeta = patients.getMetaData();
-		
-		columnClasses = new String[patientMeta.getColumnCount()];
-		
-		for (int i = 0; i < patientMeta.getColumnCount(); i++) {
-			columnClasses[i] = patientMeta.getColumnClassName(i+1);
-		}
-		
-		patients.close();
-	}
-	
-	/**
 	 * Gets all of the table contents and stores them in an array of an array of Objects
 	 * so we do not need to query the database all of the time.
 	 */
 	private void getTableContents() throws SQLException {
-		ResultSet patients = Database.getInstance().executeQuery("SELECT healthcare_number, name, gender, birthdate, in_hospital, priority FROM patient");
+		ResultSet patientsResult = Database.getInstance().executeQuery("SELECT * FROM patient");
 		
-		ArrayList<Object[]> rowList = new ArrayList<Object[]>();
-		while (patients.next()) {
-			ArrayList<Object> cellList = new ArrayList<Object>();
-			for (int i = 0; i < columnClasses.length; i++) {
-				Object cellValue = null;
-				
-				if (columnClasses[i].equals(String.class.getName())) {
-					cellValue = Encryptor.decode(patients.getString(i+1));
-				} else if (columnClasses[i].equals(Integer.class.getName())) {
-					//This if statement is pretty shoddy...update if time allows
-					//i = 16 is first ward i + 3 + 16 is next and so on...
-					if(((i % 16) == 3 || i == 16) && (i % 19) != 0)
-					{
-						//Assigns ward names instead of numbers for wards
-						cellValue = Ward.getSingleWardName(patients.getInt(i+1));
-					}
-					else
-					{
-						cellValue = new Integer(patients.getInt(i+1));
-					}
-				} else if (columnClasses[i].equals(Double.class.getName())) {
-					cellValue = new Double(patients.getDouble(i+1));
-				} else if (columnClasses[i].equals(Date.class.getName())) {
-					cellValue = patients.getDate(i+1);
-				} else if (columnClasses[i].equals(Float.class.getName())) {
-					cellValue = patients.getFloat(i+1);
-				} else if (columnClasses[i].equals(Character.class.getName())) {
-					cellValue = new Character(patients.getString(i+1).charAt(0));
-				} 
-				else {
-					cellValue = patients.getString(i);
-				}
-				cellList.add(cellValue);
-			}
-			Object[] cells = cellList.toArray();
-			rowList.add(cells);
+		ArrayList<Patient> patientList = new ArrayList<Patient>();
+		
+		for (int i = 0; patientsResult.next(); i++) {
+			patientList.add(new Patient(Encryptor.decode(patientsResult.getString(1)), 
+									  Encryptor.decode(patientsResult.getString(2)), 
+									  Encryptor.decode(patientsResult.getString(3)),
+									  Encryptor.decode(patientsResult.getString(4)), 
+									  Encryptor.decode(patientsResult.getString(5)), 
+									  Encryptor.decode(patientsResult.getString(6)), 
+									  Encryptor.decode(patientsResult.getString(7)),
+									  patientsResult.getDate(8),
+									  Encryptor.decode(patientsResult.getString(9)), 
+									  Encryptor.decode(patientsResult.getString(10)),
+									  Encryptor.decode(patientsResult.getString(11)),
+									  Encryptor.decode(patientsResult.getString(12)), 
+									  Encryptor.decode(patientsResult.getString(13)), 
+									  Encryptor.decode(patientsResult.getString(14)), 
+									  Encryptor.decode(patientsResult.getString(15)),
+									  patientsResult.getBoolean(16), 
+									  patientsResult.getInt(17), 
+									  patientsResult.getInt(18), 
+									  patientsResult.getInt(19), 
+									  Priority.fromInteger(patientsResult.getInt(20))));
 		}
 		
-		patients.close();
-		
-		content = new Object[rowList.size()][];
-		for (int i = 0; i < content.length; i++) {
-			content[i] = rowList.get(i);
-		}
-	}
-	
-	private void getTableContents(String query) throws SQLException {
-		ResultSet patients = Database.getInstance().executeQuery(query);
-		
-		ArrayList<Object[]> rowList = new ArrayList<Object[]>();
-		while (patients.next()) {
-			ArrayList<Object> cellList = new ArrayList<Object>();
-			for (int i = 0; i < columnClasses.length; i++) {
-				Object cellValue = null;
-				
-				if (columnClasses[i].equals(String.class.getName())) {
-					cellValue = Encryptor.decode(patients.getString(columnNames[i]));
-				} else if (columnClasses[i].equals(Integer.class.getName())) {
-					//This if statement is pretty shoddy...update if time allows
-					//i = 16 is first ward i + 3 + 16 is next and so on...
-					if(((i % 16) == 3 || i == 16) && (i % 19) != 0)
-					{
-						//Assigns ward names instead of numbers for wards
-						cellValue = Ward.getSingleWardName(patients.getInt(columnNames[i]));
-					}
-					else
-					{
-						cellValue = new Integer(patients.getInt(columnNames[i]));
-					}
-				} else if (columnClasses[i].equals(Double.class.getName())) {
-					cellValue = new Double(patients.getDouble(columnNames[i]));
-				} else if (columnClasses[i].equals(Date.class.getName())) {
-					cellValue = patients.getDate(columnNames[i]);
-				} else if (columnClasses[i].equals(Float.class.getName())) {
-					cellValue = patients.getFloat(columnNames[i]);
-				} else if (columnClasses[i].equals(Character.class.getName())) {
-					cellValue = new Character(patients.getString(columnNames[i]).charAt(0));
-				} 
-				else {
-					cellValue = patients.getString(columnNames[i]);
-				}
-				cellList.add(cellValue);
-			}
-			Object[] cells = cellList.toArray();
-			rowList.add(cells);
+		patients = new Patient[patientList.size()];
+		for (int i = 0; i < patients.length; i++) {
+			patients[i] = patientList.get(i);
 		}
 		
-		patients.close();
-		
-		content = new Object[rowList.size()][];
-		for (int i = 0; i < content.length; i++) {
-			content[i] = rowList.get(i);
-		}
+		patientsResult.close();
 	}
 	
 	/**
@@ -212,15 +142,6 @@ public class PatientTableModel extends AbstractTableModel {
 	public void fireTableDataChanged() {
 		try {
 			getTableContents();
-		} catch (SQLException sqle) {
-			// Do nothing. Keep old contents
-		}
-		super.fireTableDataChanged();
-	}
-	
-	public void fireTableDataChanged(String query) {
-		try {
-			getTableContents(query);
 		} catch (SQLException sqle) {
 			// Do nothing. Keep old contents
 		}
