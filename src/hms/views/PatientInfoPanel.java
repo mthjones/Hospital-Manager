@@ -17,7 +17,7 @@ public class PatientInfoPanel extends JPanel {
 	final private JTextField emailField = new JTextField();
 	final private JTextField healthcareNumberField = new JTextField();
 	final private JTextArea addressField = new JTextArea();
-	final private SimpleDateFormat birthdateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	final private SimpleDateFormat birthdateFormat = new SimpleDateFormat("MM/dd/yyyy");
 	final private JFormattedTextField birthdateField = new JFormattedTextField(birthdateFormat);
 	final private JComboBox priorityDropdown = new JComboBox();
 	final private JCheckBox inHospitalCheckbox = new JCheckBox();
@@ -92,8 +92,8 @@ public class PatientInfoPanel extends JPanel {
 		};
 		
 		wardDropdown.setActionCommand("UpdateRooms");
-		// wardDropdown.addActionListener(locationListener);
-		// roomDropdown.addActionListener(locationListener);
+		wardDropdown.addActionListener(locationListener);
+		roomDropdown.addActionListener(locationListener);
 		
 		priorityDropdown.addItem(Priority.HIGH);
 		priorityDropdown.addItem(Priority.MEDIUM);
