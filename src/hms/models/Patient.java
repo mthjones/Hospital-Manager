@@ -313,4 +313,26 @@ public class Patient {
 	public String getInHospital() {
 		return this.in_hospital;
 	}
+	
+	public Priority getPriority() {
+		return priority;
+	}
+	
+	public Ward getWard() {
+		Ward[] wards = Ward.getWards();
+		for (Ward ward : wards) {
+			if (ward.getWardNumber() == ward_id) {
+				return ward;
+			}
+		}
+		return null;
+	}
+	
+	public Integer getRoom() {
+		return room_id;
+	}
+	
+	public Integer getBed() {
+		return bed_id;
+	}
 }
