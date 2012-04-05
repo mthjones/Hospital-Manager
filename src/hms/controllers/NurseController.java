@@ -1,7 +1,7 @@
 package hms.controllers;
 
 import hms.views.NurseView;
-import hms.views.UserView;
+//import hms.views.UserView;
 // import hms.views.DeleteNurseConfirmationView;
 import hms.models.NurseTableModel;
 import hms.models.Nurse;
