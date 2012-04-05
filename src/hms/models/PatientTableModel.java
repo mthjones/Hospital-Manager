@@ -19,7 +19,7 @@ import hms.models.Ward;
 import hms.util.*;
 
 public class PatientTableModel extends AbstractTableModel {
-	private String[] columnNames;
+	private final String[] columnNames = {"Health #", "Name", "Gender", "Birthdate", "In Hospital?", "Priority"};
 	private String[] columnClasses;
 	private Object[][] content;
 	
@@ -38,7 +38,6 @@ public class PatientTableModel extends AbstractTableModel {
 			getTableContents();
 		} catch (SQLException sqle) {
 			content = new Object[][] {{""}};
-			columnNames = new String[] {""};
 		}
 	}
 	
@@ -95,11 +94,9 @@ public class PatientTableModel extends AbstractTableModel {
 		
 		ResultSetMetaData patientMeta = patients.getMetaData();
 		
-		columnNames = new String[patientMeta.getColumnCount()];
 		columnClasses = new String[patientMeta.getColumnCount()];
 		
 		for (int i = 0; i < patientMeta.getColumnCount(); i++) {
-			columnNames[i] = patientMeta.getColumnName(i+1);
 			columnClasses[i] = patientMeta.getColumnClassName(i+1);
 		}
 		
@@ -120,30 +117,30 @@ public class PatientTableModel extends AbstractTableModel {
 				Object cellValue = null;
 				
 				if (columnClasses[i].equals(String.class.getName())) {
-					cellValue = Encryptor.decode(patients.getString(columnNames[i]));
+					cellValue = Encryptor.decode(patients.getString(i+1));
 				} else if (columnClasses[i].equals(Integer.class.getName())) {
 					//This if statement is pretty shoddy...update if time allows
 					//i = 16 is first ward i + 3 + 16 is next and so on...
 					if(((i % 16) == 3 || i == 16) && (i % 19) != 0)
 					{
 						//Assigns ward names instead of numbers for wards
-						cellValue = Ward.getSingleWardName(patients.getInt(columnNames[i]));
+						cellValue = Ward.getSingleWardName(patients.getInt(i+1));
 					}
 					else
 					{
-						cellValue = new Integer(patients.getInt(columnNames[i]));
+						cellValue = new Integer(patients.getInt(i+1));
 					}
 				} else if (columnClasses[i].equals(Double.class.getName())) {
-					cellValue = new Double(patients.getDouble(columnNames[i]));
+					cellValue = new Double(patients.getDouble(i+1));
 				} else if (columnClasses[i].equals(Date.class.getName())) {
-					cellValue = patients.getDate(columnNames[i]);
+					cellValue = patients.getDate(i+1);
 				} else if (columnClasses[i].equals(Float.class.getName())) {
-					cellValue = patients.getFloat(columnNames[i]);
+					cellValue = patients.getFloat(i+1);
 				} else if (columnClasses[i].equals(Character.class.getName())) {
-					cellValue = new Character(patients.getString(columnNames[i]).charAt(0));
+					cellValue = new Character(patients.getString(i+1).charAt(0));
 				} 
 				else {
-					cellValue = patients.getString(columnNames[i]);
+					cellValue = patients.getString(i);
 				}
 				cellList.add(cellValue);
 			}
