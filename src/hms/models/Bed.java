@@ -49,10 +49,22 @@ public class Bed {
 				bedResults.first();
 			}
 			return new Bed(bedResults.getInt("bedID"), Room.find(bedResults.getInt("room")), 
-						   bedResults.getBoolean("occupied"), bedResults.getString("size"));
+						   bedResults.getString("occupied").equals("Y"), bedResults.getString("size"));
 		} catch (SQLException sqle) {
 			return null;
 		}
+	}
+	
+	/**
+	 * Sets whether a bed is occupied or not.
+	 * NOTE: This immediately updates the value in the database.
+	 * @param The value to set the bed's occupied value to
+	 */
+	public void setOccupied(boolean isOccupied) {
+		this.occupied = isOccupied;
+		try {
+			Database.getInstance().executeUpdate("UPDATE bed SET (occupied = '" + (isOccupied ? "Y" : "N") + "') WHERE bedID = " + this.number);
+		} catch (SQLException sqle) { }
 	}
 	
 	public boolean equals(Object other) {

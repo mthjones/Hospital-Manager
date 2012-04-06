@@ -92,7 +92,7 @@ public class PatientInfoPanel extends AbstractInfoPanel {
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 					Room selectedRoom = (Room)roomDropdown.getSelectedItem();
-					bedDropdown.setModel(new DefaultComboBoxModel(selectedRoom.getBeds()));
+					bedDropdown.setModel(new DefaultComboBoxModel(selectedRoom.getAvailableBeds()));
 				}
 			}
 		});

@@ -118,29 +118,29 @@ public class Patient implements AbstractModel {
 			return false; // a patient is not allowed to have this name, because it is reserved for testing purposes
 		}
 		
-			int rows_added = Database.getInstance().executeUpdate("INSERT INTO patient VALUES ('" + 
-					Encryptor.encode(this.healthcare_number) + "','" + 
-					Encryptor.encode(this.name) + "','" + 
-					Encryptor.encode(this.phone_number) + "','" + 
-					Encryptor.encode(this.email) + "','" + 
-					Encryptor.encode(this.gender) + "','" + 
-					Encryptor.encode(this.treatment) + "','" + 
-					Encryptor.encode(this.address) + "','" + 
-					new java.sql.Date(this.birthdate.getTime()) + "','" + 
-					Encryptor.encode(this.medications) + "','" + 
-					Encryptor.encode(this.special_care) + "','" + 
-					Encryptor.encode(this.history) + "','" + 
-					Encryptor.encode(this.comments) + "','" + 
-					Encryptor.encode(this.emerg_name) + "','" + 
-					Encryptor.encode(this.emerg_phone_number) + "','" + 
-					Encryptor.encode(this.emerg_email) + "','"+
-					this.in_hospital + "','" + 
-					this.ward_id + "','" + 
-					this.room_id + "','" + 
-					this.bed_id + "','" +
-					this.priority.toInteger() + "')");
-			return true;
-		
+		int rows_added = Database.getInstance().executeUpdate("INSERT INTO patient VALUES ('" + 
+				Encryptor.encode(this.healthcare_number) + "','" + 
+				Encryptor.encode(this.name) + "','" + 
+				Encryptor.encode(this.phone_number) + "','" + 
+				Encryptor.encode(this.email) + "','" + 
+				Encryptor.encode(this.gender) + "','" + 
+				Encryptor.encode(this.treatment) + "','" + 
+				Encryptor.encode(this.address) + "','" + 
+				new java.sql.Date(this.birthdate.getTime()) + "','" + 
+				Encryptor.encode(this.medications) + "','" + 
+				Encryptor.encode(this.special_care) + "','" + 
+				Encryptor.encode(this.history) + "','" + 
+				Encryptor.encode(this.comments) + "','" + 
+				Encryptor.encode(this.emerg_name) + "','" + 
+				Encryptor.encode(this.emerg_phone_number) + "','" + 
+				Encryptor.encode(this.emerg_email) + "','"+
+				this.in_hospital + "','" + 
+				this.ward_id + "','" + 
+				this.room_id + "','" + 
+				this.bed_id + "','" +
+				this.priority.toInteger() + "')");
+		this.getBed().setOccupied(true);
+		return true;
 	}
 
 	/**
@@ -154,6 +154,7 @@ public class Patient implements AbstractModel {
 			if (patient == 0) {
 				return false;
 			}
+			this.getBed().setOccupied(false);
 			return true;
 		} catch (SQLException sqle) {
 			return false;
