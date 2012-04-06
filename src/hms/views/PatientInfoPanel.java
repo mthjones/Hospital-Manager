@@ -186,6 +186,8 @@ public class PatientInfoPanel extends AbstractInfoPanel {
 		editableComponents.add(roomDropdown);
 		editableComponents.add(bedDropdown);
 		
+		birthdateField.setValue(new java.util.Date());
+		
 		setTextComponentBorders();
 	}
 	
