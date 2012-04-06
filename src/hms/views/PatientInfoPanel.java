@@ -244,7 +244,6 @@ public class PatientInfoPanel extends AbstractInfoPanel {
 			femaleButton.setSelected(true);
 		}
 		wardDropdown.setSelectedItem(finalPatient.getWard());
-		roomDropdown.addItem(finalPatient.getRoom());
 		roomDropdown.setSelectedItem(finalPatient.getRoom());
 		bedDropdown.addItem(finalPatient.getBed());
 		bedDropdown.setSelectedItem(finalPatient.getBed());
