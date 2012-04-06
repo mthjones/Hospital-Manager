@@ -27,7 +27,6 @@ public class Patient implements AbstractModel {
 	private int room_id;
 	private int bed_id;
 	private Priority priority;
-	private ArrayList<String> errors = new ArrayList<String>();
 	static final String RESERVED_TEST_NAME = "Forbidden Name";
 
 	public Patient(String healthcare_number, 
@@ -179,7 +178,6 @@ public class Patient implements AbstractModel {
 					this.room_id + "','" + 
 					this.bed_id + "','" +
 					this.priority.toInteger() + "')");
-			this.errors.clear();
 			return true;
 		
 	}
@@ -193,13 +191,10 @@ public class Patient implements AbstractModel {
 		try {
 			int patient = Database.getInstance().executeUpdate("DELETE FROM patient WHERE healthcare_number = '" + this.healthcare_number + "'");
 			if (patient == 0) {
-				this.errors.add("Patient does not exist");
 				return false;
 			}
-			this.errors.clear();
 			return true;
 		} catch (SQLException sqle) {
-			this.errors.add("Could not delete patient");
 			return false;
 		}
 	}

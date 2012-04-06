@@ -21,9 +21,6 @@ public class Nurse implements AbstractModel {
 	private int wardNumber;
 	private String password;
 
-	public ArrayList<String> errors = new ArrayList<String>();
-
-
 	public Nurse(String name, String phone_number, String pager_number, String email_address, String address, String sin, int id_number, String gender, int salary, int ward, String password) {
 		this.name = name;
 		this.phone_number = phone_number;
@@ -88,10 +85,8 @@ public class Nurse implements AbstractModel {
 					this.email_address + "','" + this.address + "','" + this.sin + "','" + 
 					this.id_number + "','" + this.gender + "','" + 
 					this.salary + "','" + this.wardNumber + "','" + Encryptor.encode(this.password) + "')");
-			this.errors.clear();
 			return true;
 		} catch (SQLException sqle) {
-			this.errors.add("Couldn't add to database");
 			return false;
 		}
 	}
@@ -105,13 +100,10 @@ public class Nurse implements AbstractModel {
 		try {
 			int nurse = Database.getInstance().executeUpdate("DELETE FROM nurse WHERE id_number = '" + this.id_number + "'");
 			if (nurse == 0) {
-				this.errors.add("Nurse does not exist");
 				return false;
 			}
-			this.errors.clear();
 			return true;
 		} catch (SQLException sqle) {
-			this.errors.add("Could not delete nurse");
 			return false;
 		}
 	}
