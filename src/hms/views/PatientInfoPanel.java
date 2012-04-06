@@ -100,15 +100,15 @@ public class PatientInfoPanel extends AbstractInfoPanel {
 		this.setLayout(new MigLayout("fillx", "[label]rel[grow,fill][grow,fill]", "[]5[]"));
 		
 		addSeparator("General Information");
+				
+		this.add(healthcareNumberLabel);
+		this.add(healthcareNumberField, "span 2, wrap");
 		
 		this.add(nameLabel);
 		this.add(nameField, "span 2, wrap");
 		
 		this.add(phoneLabel);
 		this.add(phoneField, "span 2, wrap");
-		
-		this.add(healthcareNumberLabel);
-		this.add(healthcareNumberField, "span 2, wrap");
 		
 		this.add(birthdateLabel);
 		this.add(birthdateField, "span 2, wrap");
