@@ -5,16 +5,33 @@ import java.sql.SQLException;
 import hms.util.Database;
 
 public class Bed {
-	
-	private int room_id;
-	private boolean taken;
-	private int bed_id;
+	private int number;
+	private Room room;
+	private boolean occupied;
 	private String size;
 	
-	public Bed(int roomid, int bedid)
+	public Bed(int number, Room room, boolean occupied, String size)
 	{
-		room_id = roomid;
-		bed_id = bedid;
+		this.room = room;
+		this.number = number;
+		this.occupied = occupied;
+		this.size = size;
+	}
+	
+	public int getNumber() {
+		return this.number;
+	}
+	
+	public Room getRoom() {
+		return this.room;
+	}
+	
+	public boolean getOccupied() {
+		return this.occupied;
+	}
+	
+	public String getSize() {
+		return this.size;
 	}
 	
 	public static Integer[] getBedNumbers(int room_id)

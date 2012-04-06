@@ -9,20 +9,39 @@ import java.util.Vector;
 import hms.util.Database;
 
 public class Ward {
+	private int id;
+	private String name;
 
-	private Vector<Room> rooms;
-	private int ward_id;
-	private String ward_name;
-
-	public Ward(int ID, String name, Vector<Room> room)
+	public Ward(int id, String name)
 	{
-		ward_id = ID;
-		ward_name = name;
-		rooms = room;
+		this.id = id;
+		this.name = name;
 	}
-
+	
+	public int getID() {
+		return this.id;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public Vector<Room> getRooms() {
+		Vector<Room> rooms = new Vector<Room>();
+		try
+		{
+			ResultSet roomResults = Database.getInstance().executeQuery("SELECT * FROM room WHERE ward = " + this.id);
+			
+			while (roomResults.next()) {
+				rooms.add(new Room(roomResults.getInt("roomID"),
+								   this));
+			}
+		} catch(SQLException e) {}
+		return rooms;
+	}
+	
 	public int getWardNumber(){
-		return ward_id;
+		return this.id;
 	}
 
 	public static String[] getWardNames()
@@ -60,7 +79,7 @@ public class Ward {
 			do{
 				String name = wardNames.getString("wardName");
 				int number = Integer.parseInt(wardNames.getString("wardID"));
-				wards[i] = new Ward(number, name, null);
+				wards[i] = new Ward(number, name);
 				i++;
 			}while(wardNames.next());
 		}
@@ -69,7 +88,7 @@ public class Ward {
 	}
 	
 	public String toString(){
-		return ward_name;
+		return this.name;
 	}
 	
 	public static String getSingleWardName(int wardID)
