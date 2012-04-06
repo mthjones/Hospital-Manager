@@ -47,6 +47,7 @@ public class Ward {
 				wards.add(new Ward(wardResults.getInt("wardID"), wardResults.getString("wardName")));
 			}
 		} catch (SQLException sqle) {}
+		return wards;
 	}
 	
 	public int getWardNumber(){
