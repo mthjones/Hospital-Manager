@@ -53,12 +53,17 @@ public class PatientPanel extends JPanel implements ActionListener {
 				editButton.setEnabled(!lsm.isSelectionEmpty());
 				deleteButton.setEnabled(!lsm.isSelectionEmpty());
 				patientInfoPanel.reset();
-				try {
-					Patient selectedPatient = getSelectedPatient();
-					if (selectedPatient != null) {
-						patientInfoPanel.loadInformation(selectedPatient);
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						try{
+							Patient selectedPatient = getSelectedPatient();
+							if (selectedPatient != null) {
+								patientInfoPanel.loadInformation(selectedPatient);
+							}
+						} catch (SQLException sqle) {}
 					}
-				} catch (SQLException sqle) {}
+				});
 			}
 		});
 		
