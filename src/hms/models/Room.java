@@ -26,6 +26,10 @@ public class Room {
 		return this.ward;
 	}
 	
+	/**
+	 * Retrieves all beds in the room and returns a vector of them.
+	 * @return A vector of all of the beds in the room.
+	 */
 	public Vector<Bed> getBeds() {
 		Vector<Bed> beds = new Vector<Bed>();
 		try {
@@ -41,6 +45,10 @@ public class Room {
 		return beds;
 	}
 	
+	/**
+	 * Retrieves all available beds in the room and returns a vector of them.
+	 * @return A vector of all of the available beds in the room.
+	 */
 	public Vector<Bed> getAvailableBeds() {
 		Vector<Bed> beds = new Vector<Bed>();
 		try {
@@ -56,6 +64,11 @@ public class Room {
 		return beds;
 	}
 	
+	/**
+	 * Finds a room given the id for it and returns it.
+	 * @param id The id of the room to find.
+	 * @return The room with the matching ID.
+	 */
 	public static Room find(int id) {
 		try {
 			ResultSet roomResults = Database.getInstance().executeQuery("SELECT * FROM room WHERE roomID = " + id);

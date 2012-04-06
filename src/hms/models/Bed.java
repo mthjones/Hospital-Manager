@@ -34,6 +34,11 @@ public class Bed {
 		return this.size;
 	}
 	
+	/**
+	 * Finds a bed given the id for it and returns it.
+	 * @param id The id of the bed to find.
+	 * @return The bed with the matching ID.
+	 */
 	public static Bed find(int id) {
 		try {
 			ResultSet bedResults = Database.getInstance().executeQuery("SELECT * FROM bed WHERE bedID = " + id);

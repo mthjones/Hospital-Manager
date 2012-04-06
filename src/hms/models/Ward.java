@@ -26,6 +26,10 @@ public class Ward {
 		return this.name;
 	}
 	
+	/**
+	 * Retrieves all rooms that are in the ward and returns them in a vector of Room objects.
+	 * @return A vector of room objects that are in the ward
+	 */
 	public Vector<Room> getRooms() {
 		Vector<Room> rooms = new Vector<Room>();
 		try {
@@ -38,6 +42,10 @@ public class Ward {
 		return rooms;
 	}
 	
+	/**
+	 * Retrieves all wards and returns them in a vector of Ward objects.
+	 * @return A vector of all wards.
+	 */
 	public static Vector<Ward> getAllWards() {
 		Vector<Ward> wards = new Vector<Ward>();
 		try {
@@ -50,6 +58,11 @@ public class Ward {
 		return wards;
 	}
 	
+	/**
+	 * Finds a ward given the id for it and returns it.
+	 * @param id The id of the ward to find.
+	 * @return The ward with the matching ID.
+	 */
 	public static Ward find(int id) {
 		try {
 			ResultSet wardResults = Database.getInstance().executeQuery("SELECT * FROM ward WHERE wardID = " + id);
