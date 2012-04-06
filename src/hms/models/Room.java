@@ -9,16 +9,37 @@ import java.util.Vector;
 import hms.util.Database;
 
 public class Room {
+	private int number;
+	private Ward ward;
 	
-	private Vector<Bed> beds;
-	private int room_id;
-	private int ward_id;
-	
-	public Room(int roomid, int wardid, Vector<Bed> bed)
+	public Room(int number, Ward ward)
 	{
-		room_id = roomid;
-		ward_id = wardid;
-		beds = bed;
+		this.number = number;
+		this.ward = ward;
+	}
+	
+	public int getNumber() {
+		return this.number;
+	}
+	
+	public Ward getWard() {
+		return this.ward;
+	}
+	
+	private Vector<Bed> getBeds() {
+		Vector<Bed> beds = new Vector<Bed>();
+		try
+		{
+			ResultSet bedResults = Database.getInstance().executeQuery("SELECT * FROM bed WHERE room = " + this.number);
+			
+			while (bedResults.next()) {
+				beds.add(new Bed(bedResults.getInt("bedID"),
+								 this,
+								 bedResults.getBoolean("occupied"),
+								 bedResults.getString("size")));
+			}
+		} catch(SQLException e) {}
+		return beds;
 	}
 	
 	public static Integer[] getRoomNumbers(int ward_id)
