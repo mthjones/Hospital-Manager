@@ -17,7 +17,14 @@ public class InfoDialog {
 	final private JButton saveButton = new JButton("Save");
 	final private JButton cancelButton = new JButton("Cancel");
 	
-	protected InfoDialog(Window parent, String title, AbstractInfoPanel panel) {
+	/**
+	 * Creates and shows a new InfoDialog that contains the panel given to it
+	 * and with the title given.
+	 * @param parent The parent component that the dialog is anchored to.
+	 * @param title The title for the dialog.
+	 * @param panel The information panel to show on the dialog.
+	 */
+	public InfoDialog(Window parent, String title, AbstractInfoPanel panel) {
 		this.dialog = new JDialog(parent, title, Dialog.ModalityType.APPLICATION_MODAL);
 		this.panel = panel;
 		
@@ -30,6 +37,9 @@ public class InfoDialog {
 		this.dialog.setVisible(true);
 	}
 	
+	/**
+	 * Intializes the user interface components.
+	 */
 	protected void initUI() {
 		panel.signifyRequiredFields(true);
 		
@@ -60,11 +70,7 @@ public class InfoDialog {
 		contentPane.add(this.panel, "wrap, growx");
 		contentPane.add(createButtonPanel());
 	}
-	
-	public JButton getSaveButton() {
-		return this.saveButton;
-	}
-	
+
 	/**
 	 * Closes the dialog.
 	 */
