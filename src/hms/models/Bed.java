@@ -63,7 +63,7 @@ public class Bed {
 	public void setOccupied(boolean isOccupied) {
 		this.occupied = isOccupied;
 		try {
-			Database.getInstance().executeUpdate("UPDATE bed SET (occupied = '" + (isOccupied ? "Y" : "N") + "') WHERE bedID = " + this.number);
+			Database.getInstance().executeUpdate("UPDATE bed SET occupied = '" + (isOccupied ? "Y" : "N") + "' WHERE bedID = " + this.number);
 		} catch (SQLException sqle) { }
 	}
 	
