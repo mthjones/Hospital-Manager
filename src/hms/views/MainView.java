@@ -255,7 +255,7 @@ public class MainView {
 								strings[i] = content[tablePatients.getSelectedRow()][i].toString();
 							}
 							
-							int healthCareNumber = Integer.parseInt(strings[0]);
+							int healthCareNumber = Integer.parseInt((String)tablePatients.getValueAt(tablePatients.getSelectedRow(), 0));
 							Patient patient = null;
 							
 							try {
