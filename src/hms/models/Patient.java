@@ -272,15 +272,15 @@ public class Patient implements AbstractModel {
 		return priority;
 	}
 	
-	public Integer getWard() {
-		return ward_id;
+	public Ward getWard() {
+		return Ward.find(this.ward_id);
 	}
 	
-	public Integer getRoom() {
-		return room_id;
+	public Room getRoom() {
+		return Room.find(room_id);
 	}
 	
-	public Integer getBed() {
-		return bed_id;
+	public Bed getBed() {
+		return Bed.find(bed_id);
 	}
 }

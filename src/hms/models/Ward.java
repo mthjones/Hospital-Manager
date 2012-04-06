@@ -50,68 +50,28 @@ public class Ward {
 		return wards;
 	}
 	
-	public int getWardNumber(){
-		return this.id;
-	}
-
-	public static String[] getWardNames()
-	{
-		String[] Wards = null;
-		try
-		{
-			ResultSet wardNames = Database.getInstance().executeQuery("SELECT wardName FROM ward");
-			if (wardNames == null) return null;
-			wardNames.last();
-			int numRows = wardNames.getRow();
-			wardNames.first();
-			Wards = new String[numRows];
-			int i = 0;
-			do{
-				Wards[i] = wardNames.getString("wardName");
-				i++;
-			}while(wardNames.next());
+	public static Ward find(int id) {
+		try {
+			ResultSet wardResults = Database.getInstance().executeQuery("SELECT * FROM ward WHERE wardID = " + id);
+			wardResults.last();
+			if(wardResults.getRow() == 0) {
+				return null;
+			} else {
+				wardResults.first();
+			}
+			return new Ward(wardResults.getInt("wardID"), wardResults.getString("wardName"));
+		} catch (SQLException sqle) {
+			return null;
 		}
-		catch(SQLException e){} // Do nothing
-		return Wards;
-	}
-
-	public static Ward[] getWards(){
-		Ward[] wards = null;
-		try
-		{
-			ResultSet wardNames = Database.getInstance().executeQuery("SELECT * FROM ward");
-			if (wardNames == null) return null;
-			wardNames.last();
-			int numRows = wardNames.getRow();
-			wardNames.first();
-			wards = new Ward[numRows];
-			int i = 0;
-			do{
-				String name = wardNames.getString("wardName");
-				int number = Integer.parseInt(wardNames.getString("wardID"));
-				wards[i] = new Ward(number, name);
-				i++;
-			}while(wardNames.next());
-		}
-		catch(SQLException e){} // Do nothing
-		return wards;
 	}
 	
-	public String toString(){
+	public boolean equals(Object other) {
+		if (!(other instanceof Ward)) return false;
+		Ward otherWard = (Ward)other;
+		return this.id == otherWard.id;
+	}
+	
+	public String toString() {
 		return this.name;
 	}
-	
-	public static String getSingleWardName(int wardID)
-	{
-		String ward = null;
-		try
-		{
-			ResultSet wardName = Database.getInstance().executeQuery("SELECT wardName FROM ward WHERE wardID = " + wardID);
-			wardName.first();
-			ward = wardName.getString("wardName");
-		}
-		catch(SQLException e) {}
-		return ward;
-	}
-
 }

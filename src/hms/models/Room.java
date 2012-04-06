@@ -26,7 +26,7 @@ public class Room {
 		return this.ward;
 	}
 	
-	private Vector<Bed> getBeds() {
+	public Vector<Bed> getBeds() {
 		Vector<Bed> beds = new Vector<Bed>();
 		try {
 			ResultSet bedResults = Database.getInstance().executeQuery("SELECT * FROM bed WHERE room = " + this.number);
@@ -41,26 +41,28 @@ public class Room {
 		return beds;
 	}
 	
-	public static Integer[] getRoomNumbers(int ward_id)
-	{
-		Integer[] Rooms = null;
-		try
-		{
-			ResultSet roomNames = Database.getInstance().executeQuery("SELECT roomID FROM room WHERE ward = " + ward_id);
-			if (roomNames == null) return null;
-			roomNames.last();
-			int numRows = roomNames.getRow();
-			roomNames.first();
-			Rooms = new Integer[numRows];
-			int i = 0;
-			do{
-				Rooms[i] = roomNames.getInt("roomID");
-				i++;
-		
-			}while(roomNames.next());
+	public static Room find(int id) {
+		try {
+			ResultSet roomResults = Database.getInstance().executeQuery("SELECT * FROM room WHERE roomID = " + id);
+			roomResults.last();
+			if(roomResults.getRow() == 0) {
+				return null;
+			} else {
+				roomResults.first();
+			}
+			return new Room(roomResults.getInt("roomID"), Ward.find(roomResults.getInt("ward")));
+		} catch (SQLException sqle) {
+			return null;
 		}
-		catch(SQLException e){} // Do nothing
-		return Rooms;
 	}
-
+	
+	public boolean equals(Object other) {
+		if (!(other instanceof Room)) return false;
+		Room otherRoom = (Room)other;
+		return this.number == otherRoom.number;
+	}
+	
+	public String toString() {
+		return "" + this.number;
+	}
 }

@@ -34,25 +34,30 @@ public class Bed {
 		return this.size;
 	}
 	
-	public static Integer[] getBedNumbers(int room_id)
-	{
-		Integer[] Beds = null;
-		try
-		{
-			ResultSet bedNames = Database.getInstance().executeQuery("SELECT bedID FROM bed WHERE room = " + room_id + " AND occupied = 'N'");
-			if (bedNames == null) return null;
-			bedNames.last();
-			int numRows = bedNames.getRow();
-			bedNames.first();
-			Beds = new Integer[numRows];
-			int i = 0;
-			do{
-				Beds[i] = bedNames.getInt("bedID");
-				i++;
-			}while(bedNames.next());
+	public static Bed find(int id) {
+		try {
+			ResultSet bedResults = Database.getInstance().executeQuery("SELECT * FROM bed WHERE bedID = " + id);
+			bedResults.last();
+			if(bedResults.getRow() == 0) {
+				return null;
+			} else {
+				bedResults.first();
+			}
+			return new Bed(bedResults.getInt("bedID"), Room.find(bedResults.getInt("room")), 
+						   bedResults.getBoolean("occupied"), bedResults.getString("size"));
+		} catch (SQLException sqle) {
+			return null;
 		}
-		catch(SQLException e){} // Do nothing
-		return Beds;
+	}
+	
+	public boolean equals(Object other) {
+		if (!(other instanceof Bed)) return false;
+		Bed otherBed = (Bed)other;
+		return this.number == otherBed.number;
+	}
+	
+	public String toString() {
+		return "" + this.number;
 	}
 	
 	public static void changeBedAvailability(int bed_id)
