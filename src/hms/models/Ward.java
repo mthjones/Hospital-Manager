@@ -28,16 +28,25 @@ public class Ward {
 	
 	public Vector<Room> getRooms() {
 		Vector<Room> rooms = new Vector<Room>();
-		try
-		{
+		try {
 			ResultSet roomResults = Database.getInstance().executeQuery("SELECT * FROM room WHERE ward = " + this.id);
 			
 			while (roomResults.next()) {
-				rooms.add(new Room(roomResults.getInt("roomID"),
-								   this));
+				rooms.add(new Room(roomResults.getInt("roomID"), this));
 			}
 		} catch(SQLException e) {}
 		return rooms;
+	}
+	
+	public static Vector<Ward> getAllWards() {
+		Vector<Ward> wards = new Vector<Ward>();
+		try {
+			ResultSet wardResults = Database.getInstance().executeQuery("SELECT * FROM ward");
+			
+			while (wardResults.next()) {
+				wards.add(new Ward(wardResults.getInt("wardID"), wardResults.getString("wardName")));
+			}
+		} catch (SQLException sqle) {}
 	}
 	
 	public int getWardNumber(){

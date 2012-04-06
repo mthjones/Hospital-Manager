@@ -28,8 +28,7 @@ public class Room {
 	
 	private Vector<Bed> getBeds() {
 		Vector<Bed> beds = new Vector<Bed>();
-		try
-		{
+		try {
 			ResultSet bedResults = Database.getInstance().executeQuery("SELECT * FROM bed WHERE room = " + this.number);
 			
 			while (bedResults.next()) {
