@@ -204,7 +204,7 @@ public class Nurse implements AbstractModel {
 	}
 	
 	public int getID() {
-		return this.id;
+		return this.id_number;
 	}
 	
 	public String getGender() {
