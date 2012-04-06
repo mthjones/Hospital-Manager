@@ -170,7 +170,11 @@ public class PatientPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("search")) {
 			try {
-				searchFilter = RowFilter.regexFilter(searchField.getText());
+				try {
+					searchFilter = RowFilter.regexFilter("" + Integer.parseInt(searchField.getText()), 0);
+				} catch (NumberFormatException nfe) {
+					searchFilter = RowFilter.regexFilter(searchField.getText(), 1);
+				}
 				filters.add(searchFilter);
 				sorter.setRowFilter(RowFilter.andFilter(filters));
 			} catch (java.util.regex.PatternSyntaxException pse) { }
