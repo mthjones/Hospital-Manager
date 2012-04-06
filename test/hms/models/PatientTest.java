@@ -91,34 +91,34 @@ public class PatientTest {
 		patient.delete();
 	}
 	
-	@Test
-	public void test_serchForPatients_patientDoesntExist() throws SQLException{
-		assertNull(Patient.findByName(Patient.RESERVED_TEST_NAME));
-	}
+	// @Test
+	// public void test_serchForPatients_patientDoesntExist() throws SQLException{
+	// 	assertNull(Patient.findByName(Patient.RESERVED_TEST_NAME));
+	// }
 	
-	@Test
-	public void test_serchForPatients_oneValidPatientExists() throws SQLException{
-		Patient patient = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true,1,1,1, Priority.HIGH);
-		patient.create();
-		Patient [] results = Patient.findByName("John Q Public");
-		assertNotNull(results);
-		assertEquals(1, results.length);
-		assertTrue(results[0].getName().equals("John Q Public"));
-		patient.delete();
-	}
+	// @Test
+	// public void test_serchForPatients_oneValidPatientExists() throws SQLException{
+	// 	Patient patient = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true,1,1,1, Priority.HIGH);
+	// 	patient.create();
+	// 	Patient [] results = Patient.findByName("John Q Public");
+	// 	assertNotNull(results);
+	// 	assertEquals(1, results.length);
+	// 	assertTrue(results[0].getName().equals("John Q Public"));
+	// 	patient.delete();
+	// }
 	
-	@Test
-	public void test_serchForPatients_twoValidPatientsExist() throws SQLException{
-		Patient patient1 = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true,1,1,1, Priority.HIGH);
-		Patient patient2 = new Patient("987654321", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true,1,1,1, Priority.HIGH);
-		patient1.create();
-		patient2.create();
-		Patient [] results = Patient.findByName("John Q Public");
-		assertNotNull(results);
-		assertEquals(2, results.length);
-		assertTrue(results[0].getName().equals("John Q Public") && results[0].getHealthcareNumber().equals("123456789"));
-		assertTrue(results[1].getName().equals("John Q Public") && results[1].getHealthcareNumber().equals("987654321"));
-		patient1.delete();
-		patient2.delete();
-	}
+	// @Test
+	// public void test_serchForPatients_twoValidPatientsExist() throws SQLException{
+	// 	Patient patient1 = new Patient("123456789", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true,1,1,1, Priority.HIGH);
+	// 	Patient patient2 = new Patient("987654321", "John Q Public", "123456789", "john@example.org", "M", "Test Treatment", "123 Abc Street", new Date(), "", "", "", "", "", "", "", true,1,1,1, Priority.HIGH);
+	// 	patient1.create();
+	// 	patient2.create();
+	// 	Patient [] results = Patient.findByName("John Q Public");
+	// 	assertNotNull(results);
+	// 	assertEquals(2, results.length);
+	// 	assertTrue(results[0].getName().equals("John Q Public") && results[0].getHealthcareNumber().equals("123456789"));
+	// 	assertTrue(results[1].getName().equals("John Q Public") && results[1].getHealthcareNumber().equals("987654321"));
+	// 	patient1.delete();
+	// 	patient2.delete();
+	// }
 }
