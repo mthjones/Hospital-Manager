@@ -41,6 +41,21 @@ public class Room {
 		return beds;
 	}
 	
+	public Vector<Bed> getAvailableBeds() {
+		Vector<Bed> beds = new Vector<Bed>();
+		try {
+			ResultSet bedResults = Database.getInstance().executeQuery("SELECT * FROM bed WHERE room = " + this.number + " AND occupied = N");
+			
+			while (bedResults.next()) {
+				beds.add(new Bed(bedResults.getInt("bedID"),
+								 this,
+								 bedResults.getBoolean("occupied"),
+								 bedResults.getString("size")));
+			}
+		} catch(SQLException e) {}
+		return beds;
+	}
+	
 	public static Room find(int id) {
 		try {
 			ResultSet roomResults = Database.getInstance().executeQuery("SELECT * FROM room WHERE roomID = " + id);
