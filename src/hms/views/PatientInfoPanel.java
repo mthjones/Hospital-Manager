@@ -220,37 +220,32 @@ public class PatientInfoPanel extends AbstractInfoPanel {
 	public void loadInformation(Object objToLoad) {
 		Patient patient = (Patient)objToLoad;
 		final Patient finalPatient = patient;
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				nameField.setText(finalPatient.getName());
-				phoneField.setText(finalPatient.getPhoneNumber());
-				emailField.setText(finalPatient.getEmail());
-				healthcareNumberField.setText(finalPatient.getHealthcareNumber());
-				addressField.setText(finalPatient.getAddress());
-				birthdateField.setText(birthdateFormat.format(finalPatient.getBirthdate()));
-				emergencyNameField.setText(finalPatient.getEmergencyName());
-				emergencyPhoneField.setText(finalPatient.getEmergencyPhoneNumber());
-				emergencyEmailField.setText(finalPatient.getEmergencyEmail());
-				medicationsField.setText(finalPatient.getMedications());
-				specialCareField.setText(finalPatient.getSpecialCare());
-				historyField.setText(finalPatient.getHistory());
-				commentsField.setText(finalPatient.getComments());
-				if (finalPatient.getGender().equals("M")) {
-					maleButton.setSelected(true);
-					femaleButton.setSelected(false);
-				} else {
-					maleButton.setSelected(false);
-					femaleButton.setSelected(true);
-				}
-				wardDropdown.setSelectedItem(finalPatient.getWard());
-				roomDropdown.setSelectedItem(finalPatient.getRoom());
-				bedDropdown.addItem(finalPatient.getBed());
-				bedDropdown.setSelectedItem(finalPatient.getBed());
-				priorityDropdown.setSelectedItem(finalPatient.getPriority());
-				inHospitalCheckbox.setSelected(finalPatient.getInHospital());
-			}
-		});
+		nameField.setText(finalPatient.getName());
+		phoneField.setText(finalPatient.getPhoneNumber());
+		emailField.setText(finalPatient.getEmail());
+		healthcareNumberField.setText(finalPatient.getHealthcareNumber());
+		addressField.setText(finalPatient.getAddress());
+		birthdateField.setText(birthdateFormat.format(finalPatient.getBirthdate()));
+		emergencyNameField.setText(finalPatient.getEmergencyName());
+		emergencyPhoneField.setText(finalPatient.getEmergencyPhoneNumber());
+		emergencyEmailField.setText(finalPatient.getEmergencyEmail());
+		medicationsField.setText(finalPatient.getMedications());
+		specialCareField.setText(finalPatient.getSpecialCare());
+		historyField.setText(finalPatient.getHistory());
+		commentsField.setText(finalPatient.getComments());
+		if (finalPatient.getGender().equals("M")) {
+			maleButton.setSelected(true);
+			femaleButton.setSelected(false);
+		} else {
+			maleButton.setSelected(false);
+			femaleButton.setSelected(true);
+		}
+		wardDropdown.setSelectedItem(finalPatient.getWard());
+		roomDropdown.setSelectedItem(finalPatient.getRoom());
+		bedDropdown.addItem(finalPatient.getBed());
+		bedDropdown.setSelectedItem(finalPatient.getBed());
+		priorityDropdown.setSelectedItem(finalPatient.getPriority());
+		inHospitalCheckbox.setSelected(finalPatient.getInHospital());
 		// Editing the healthcare # causes saving and deleting issues
 		healthcareNumberField.setEditable(false);
 		healthcareNumberField.setEnabled(false);
