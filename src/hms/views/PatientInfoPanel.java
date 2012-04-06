@@ -195,25 +195,20 @@ public class PatientInfoPanel extends AbstractInfoPanel {
 	 * Clears all of the patient information from the panel.
 	 */
 	public void reset() {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				for (Component comp : getComponents()) {
-					if (comp instanceof JTextComponent) {
-						JTextComponent textComp = (JTextComponent)comp;
-						textComp.setText("");
-						editableComponents.add((JTextComponent)comp);
-					}
-				}
-				maleButton.setSelected(false);
-				femaleButton.setSelected(false);
-				wardDropdown.setSelectedItem("Hospital");
-				roomDropdown.removeAllItems();
-				bedDropdown.removeAllItems();
-				priorityDropdown.setSelectedItem(Priority.HIGH);
-				inHospitalCheckbox.setSelected(false);
+		for (Component comp : getComponents()) {
+			if (comp instanceof JTextComponent) {
+				JTextComponent textComp = (JTextComponent)comp;
+				textComp.setText("");
+				editableComponents.add((JTextComponent)comp);
 			}
-		});
+		}
+		maleButton.setSelected(false);
+		femaleButton.setSelected(false);
+		wardDropdown.setSelectedItem("Hospital");
+		roomDropdown.removeAllItems();
+		bedDropdown.removeAllItems();
+		priorityDropdown.setSelectedItem(Priority.HIGH);
+		inHospitalCheckbox.setSelected(false);
 	}
 	
 	/**
