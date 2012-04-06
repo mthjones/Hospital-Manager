@@ -12,11 +12,13 @@ import hms.controllers.LoginController;
 class HospitalManager implements Runnable
 {
 	public void run() {
-		final ApplicationFrame appFrame = new ApplicationFrame();
-		final LoginController loginController = new LoginController();
-		final LoginView loginView = new LoginView(appFrame, loginController);
-		loginView.show();
-		appFrame.setVisible(true);
+		try {
+			final ApplicationFrame appFrame = new ApplicationFrame();
+			final LoginController loginController = new LoginController();
+			final LoginView loginView = new LoginView(appFrame, loginController);
+			loginView.show();
+			appFrame.setVisible(true);
+		} catch (IndexOutOfBoundsException e) {}
 	}
 	
 	public static void main(String[] args) {
