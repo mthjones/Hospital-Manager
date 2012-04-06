@@ -219,8 +219,9 @@ public class PatientInfoPanel extends AbstractInfoPanel {
 	 * Loads the patient information into the form from the given patient.
 	 * @param patient The patient to take the information from.
 	 */
-	public void loadInformation(Object objToLoad) {
-		Patient patient = (Patient)objToLoad;
+	public void loadInformation(AbstractModel modelToLoad) {
+		Patient patient = (Patient)modelToLoad;
+		storedModel = patient;
 		final Patient finalPatient = patient;
 		nameField.setText(finalPatient.getName());
 		phoneField.setText(finalPatient.getPhoneNumber());

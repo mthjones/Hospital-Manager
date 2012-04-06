@@ -131,8 +131,9 @@ public class NurseInfoPanel extends AbstractInfoPanel {
 		return validated;
 	}
 	
-	public void loadInformation(Object objToLoad) {
-		Nurse nurse = (Nurse)objToLoad;
+	public void loadInformation(AbstractModel modelToLoad) {
+		Nurse nurse = (Nurse)modelToLoad;
+		storedModel = nurse;
 		nameField.setText(nurse.getName());
 		phoneField.setText(nurse.getPhoneNumber());
 		pagerField.setText(nurse.getPagerNumber());

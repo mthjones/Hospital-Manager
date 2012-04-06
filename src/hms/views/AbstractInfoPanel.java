@@ -12,6 +12,7 @@ public abstract class AbstractInfoPanel extends JPanel {
 	protected static String REQUIRED_SIGNIFIER = "* ";
 	protected ArrayList<JComponent> requiredComponents = new ArrayList<JComponent>();
 	protected ArrayList<JComponent> editableComponents = new ArrayList<JComponent>();
+	protected AbstractModel storedModel;
 	
 	/**
 	 * Should initialize the user interface components.
@@ -29,7 +30,7 @@ public abstract class AbstractInfoPanel extends JPanel {
 	 * that information can be loaded.
 	 * @param objToLoad The object to load information into the form from.
 	 */
-	abstract void loadInformation(Object objToLoad);
+	abstract void loadInformation(AbstractModel modelToLoad);
 	
 	/**
 	 * Must be overridden to validate all of the information on the form. Returns a boolean
@@ -40,6 +41,10 @@ public abstract class AbstractInfoPanel extends JPanel {
 	abstract boolean validateInformation();
 	
 	abstract AbstractModel modelFromInformation();
+	
+	public AbstractModel getStoredModel() {
+		return this.storedModel;
+	}
 	
 	/**
 	 * Sets all text component borders to the same style so we have a more unified look
