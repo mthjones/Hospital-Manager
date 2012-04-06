@@ -37,6 +37,18 @@ public class PatientTableModel extends AbstractTableModel {
 	}
 	
 	/**
+	 * Returns the class for the requested column of the table model.
+	 * @param col The column to get the class of.
+	 * @return The class of the column
+	 */
+	public Class getColumnClass(int col) {
+		switch (col) {
+			case 5: return Priority.class;
+			default: return Object.class;
+		}
+	}
+	
+	/**
 	 * Returns the number of rows in the table.
 	 * @return The number of rows in the table.
 	 */
