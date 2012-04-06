@@ -94,28 +94,6 @@ public class PatientPanel extends JPanel implements ActionListener {
 		clearButton.setActionCommand("clear");
 		clearButton.addActionListener(this);
 		
-		// searchButton.addActionListener(new ActionListener() {
-		// 	@Override
-		// 	public void actionPerformed(ActionEvent e) {
-		// 		RowFilter<PatientTableModel, Object> rf = null;
-		// 		try {
-		// 			filters.add(RowFilter.regexFilter(searchField.getText()));
-		// 			sorter.setRowFilter(RowFilter.andFilter(filters));
-		// 		} catch (java.util.regex.PatternSyntaxException pse) { }
-		// 	}
-		// });
-		
-		// clearButton.addActionListener(new ActionListener() {
-		// 	@Override
-		// 	public void actionPerformed(ActionEvent e) {
-		// 		filters.remove(RowFilter.regexFilter(searchField.getText()));
-		// 		searchField.setText("");
-		// 		sorter.setRowFilter(RowFilter.andFilter(filters));
-		// 	}
-		// });
-		
-		final RowFilter<Object,Object> viewAllFilter = RowFilter.regexFilter("false", 4);
-		
 		viewAllCheckbox.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
