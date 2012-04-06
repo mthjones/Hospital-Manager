@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -19,13 +20,18 @@ public class PatientPanel extends JPanel implements ActionListener {
 	final private PatientInfoPanel patientInfoPanel = new PatientInfoPanel();
 	final private JScrollPane patientInfoScrollPane = new JScrollPane(patientInfoPanel);
 	
-	final private JTextField searchField = new JTextField(25);
+	final private JTextField searchField = new JTextField(20);
 	final private JButton searchButton = new JButton("Search");
 	final private JButton clearButton = new JButton("Clear");
 	final private JButton createButton = new JButton("Create");
 	final private JButton editButton = new JButton("Edit");
 	final private JButton deleteButton = new JButton("Delete");
 	final private JButton refreshButton = new JButton("Refresh");
+	final private JCheckBox viewAllCheckbox = new JCheckBox("View All");
+	
+	final private TableRowSorter<PatientTableModel> sorter = new TableRowSorter<PatientTableModel>(patientsTableModel);
+	final private ArrayList<RowFilter<Object, Object>> filters = new ArrayList<RowFilter<Object, Object>>();
+	private RowFilter<Object,Object> searchFilter;
 	
 	public PatientPanel() {
 		initUI();
@@ -67,25 +73,58 @@ public class PatientPanel extends JPanel implements ActionListener {
 			}
 		});
 		
-		final TableRowSorter<PatientTableModel> sorter = new TableRowSorter<PatientTableModel>(patientsTableModel);
-		patientsTable.setRowSorter(sorter);
-		
-		searchButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				RowFilter<PatientTableModel, Object> rf = null;
-				try {
-					rf = RowFilter.regexFilter(searchField.getText());
-					sorter.setRowFilter(rf);
-				} catch (java.util.regex.PatternSyntaxException pse) { }
+		final RowFilter<Object,Object> showOnlyInHospital = new RowFilter<Object,Object>() {
+			public boolean include(Entry<? extends Object, ? extends Object> entry) {
+				for (int i = entry.getValueCount() - 1; i >= 0; i--) {
+					if (entry.getValue(i).equals(true)) {
+						return true;
+					}
+				}
+				return false;
 			}
-		});
+		};
 		
-		clearButton.addActionListener(new ActionListener() {
+		patientsTable.setRowSorter(sorter);
+		filters.add(showOnlyInHospital);
+		sorter.setRowFilter(RowFilter.andFilter(filters));
+		
+		searchButton.setActionCommand("search");
+		searchButton.addActionListener(this);
+		
+		clearButton.setActionCommand("clear");
+		clearButton.addActionListener(this);
+		
+		// searchButton.addActionListener(new ActionListener() {
+		// 	@Override
+		// 	public void actionPerformed(ActionEvent e) {
+		// 		RowFilter<PatientTableModel, Object> rf = null;
+		// 		try {
+		// 			filters.add(RowFilter.regexFilter(searchField.getText()));
+		// 			sorter.setRowFilter(RowFilter.andFilter(filters));
+		// 		} catch (java.util.regex.PatternSyntaxException pse) { }
+		// 	}
+		// });
+		
+		// clearButton.addActionListener(new ActionListener() {
+		// 	@Override
+		// 	public void actionPerformed(ActionEvent e) {
+		// 		filters.remove(RowFilter.regexFilter(searchField.getText()));
+		// 		searchField.setText("");
+		// 		sorter.setRowFilter(RowFilter.andFilter(filters));
+		// 	}
+		// });
+		
+		final RowFilter<Object,Object> viewAllFilter = RowFilter.regexFilter("false", 4);
+		
+		viewAllCheckbox.addItemListener(new ItemListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				sorter.setRowFilter(null);
-				searchField.setText("");
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					filters.remove(showOnlyInHospital);
+				} else {
+					filters.add(showOnlyInHospital);
+				}
+				sorter.setRowFilter(RowFilter.andFilter(filters));
 			}
 		});
 		
@@ -126,6 +165,7 @@ public class PatientPanel extends JPanel implements ActionListener {
 		buttonPanel.add(searchField);
 		buttonPanel.add(searchButton, "sg");
 		buttonPanel.add(clearButton, "sg");
+		buttonPanel.add(viewAllCheckbox, "sg");
 		buttonPanel.add(createButton, "sg, gap push");
 		buttonPanel.add(editButton, "sg");
 		buttonPanel.add(deleteButton, "sg");
@@ -151,7 +191,16 @@ public class PatientPanel extends JPanel implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("search")) {
-			// NYI
+			try {
+				searchFilter = RowFilter.regexFilter(searchField.getText());
+				filters.add(searchFilter);
+				sorter.setRowFilter(RowFilter.andFilter(filters));
+			} catch (java.util.regex.PatternSyntaxException pse) { }
+		} else if (e.getActionCommand().equals("clear")) {
+			filters.remove(searchFilter);
+			searchFilter = null;
+			searchField.setText("");
+			sorter.setRowFilter(RowFilter.andFilter(filters));
 		} else if (e.getActionCommand().equals("create")) {
 			new InfoDialog(SwingUtilities.windowForComponent(this), "Create Patient", new PatientInfoPanel());
 			this.patientsTableModel.fireTableDataChanged();
