@@ -253,33 +253,40 @@ public class PatientInfoPanel extends AbstractInfoPanel {
 				inHospitalCheckbox.setSelected(finalPatient.getInHospital());
 			}
 		});
+		// Editing the healthcare # causes saving and deleting issues
+		healthcareNumberField.setEditable(false);
+		healthcareNumberField.setEnabled(false);
 	}
 	
 	/**
 	 * Creates a new Patient object from the information present on the panel.
 	 * @return A Patient object corresponding to the information on the panel.
 	 */
-	public Patient patientFromInformation() throws ParseException {
-		return new Patient(healthcareNumberField.getText(),
-						   nameField.getText(),
-						   phoneField.getText(),
-						   emailField.getText(),
-						   maleButton.isSelected() ? "M" : "F",
-						   "",
-						   addressField.getText(),
-						   birthdateFormat.parse(birthdateField.getText()),
-						   medicationsField.getText(),
-						   specialCareField.getText(),
-						   historyField.getText(),
-						   commentsField.getText(),
-						   emergencyNameField.getText(),
-						   emergencyPhoneField.getText(),
-						   emergencyEmailField.getText(),
-						   inHospitalCheckbox.isSelected(),
-						   wardDropdown.getSelectedIndex(),
-						   (Integer)roomDropdown.getSelectedItem(),
-						   (Integer)bedDropdown.getSelectedItem(),
-						   (Priority)priorityDropdown.getSelectedItem());
+	public AbstractModel modelFromInformation() {
+		try {
+			return new Patient(healthcareNumberField.getText(),
+							   nameField.getText(),
+							   phoneField.getText(),
+							   emailField.getText(),
+							   maleButton.isSelected() ? "M" : "F",
+							   "",
+							   addressField.getText(),
+							   birthdateFormat.parse(birthdateField.getText()),
+							   medicationsField.getText(),
+							   specialCareField.getText(),
+							   historyField.getText(),
+							   commentsField.getText(),
+							   emergencyNameField.getText(),
+							   emergencyPhoneField.getText(),
+							   emergencyEmailField.getText(),
+							   inHospitalCheckbox.isSelected(),
+							   wardDropdown.getSelectedIndex(),
+							   (Integer)roomDropdown.getSelectedItem(),
+							   (Integer)bedDropdown.getSelectedItem(),
+							   (Priority)priorityDropdown.getSelectedItem());
+		} catch (ParseException pe) {
+			return null;
+		}
 	}
 	
 	/**

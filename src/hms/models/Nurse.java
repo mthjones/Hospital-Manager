@@ -7,7 +7,7 @@ import java.util.Vector;
 
 import hms.util.*;
 
-public class Nurse {
+public class Nurse implements AbstractModel {
 
 	private String name;
 	private String phone_number;

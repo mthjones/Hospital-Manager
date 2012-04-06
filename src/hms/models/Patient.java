@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 
 import hms.util.*;
 
-public class Patient {
+public class Patient implements AbstractModel {
 	private String healthcare_number;
 	private String name;
 	private String phone_number;

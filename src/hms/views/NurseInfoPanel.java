@@ -2,6 +2,7 @@ package hms.views;
 
 import javax.swing.*;
 
+import hms.models.AbstractModel;
 import hms.models.Nurse;
 
 public class NurseInfoPanel extends AbstractInfoPanel {
@@ -23,5 +24,9 @@ public class NurseInfoPanel extends AbstractInfoPanel {
 	
 	public boolean validateInformation() {
 		return true;
+	}
+	
+	public AbstractModel modelFromInformation() {
+		return null;
 	}
 }

@@ -6,6 +6,8 @@ import javax.swing.text.*;
 
 import java.util.ArrayList;
 
+import hms.models.AbstractModel;
+
 public abstract class AbstractInfoPanel extends JPanel {
 	protected static String REQUIRED_SIGNIFIER = "* ";
 	protected ArrayList<JComponent> requiredComponents = new ArrayList<JComponent>();
@@ -36,6 +38,8 @@ public abstract class AbstractInfoPanel extends JPanel {
 	 * @return true if the fields are all valid; false otherwise
 	 */
 	abstract boolean validateInformation();
+	
+	abstract AbstractModel modelFromInformation();
 	
 	/**
 	 * Sets all text component borders to the same style so we have a more unified look
