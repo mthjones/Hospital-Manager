@@ -178,4 +178,48 @@ public class Nurse implements AbstractModel {
 		}
 		return false;
 	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public String getPhoneNumber() {
+		return this.phone_number;
+	}
+	
+	public String getPagerNumber() {
+		return this.pager_number;
+	}
+	
+	public String getEmail() {
+		return this.email_address;
+	}
+	
+	public String getAddress() {
+		return this.address;
+	}
+	
+	public String getSIN() {
+		return this.sin;
+	}
+	
+	public int getID() {
+		return this.id;
+	}
+	
+	public String getGender() {
+		return this.gender;
+	}
+	
+	public int getSalary() {
+		return this.salary;
+	}
+	
+	public Ward getWard() {
+		return Ward.find(this.wardNumber);
+	}
+	
+	public String getPassword() {
+		return this.password;
+	}
 }
