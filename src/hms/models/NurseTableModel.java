@@ -116,15 +116,15 @@ public class NurseTableModel extends AbstractTableModel{
 				} else if (columnClasses[i].equals(Integer.class.getName())) {
 					//This if statement is pretty shoddy...update if time allows
 					//i = 9 is first ward, i = 19 is second ward, basically i + 10 from then on
-					if((i % 9) == 0 || (i % 9) == 1)
-					{
-						//Assigns ward names instead of numbers for wards
-						cellValue = Ward.getSingleWardName(nurses.getInt(columnNames[i]));
-					}
-					else
-					{
+					// if((i % 9) == 0 || (i % 9) == 1)
+					// {
+					// 	//Assigns ward names instead of numbers for wards
+					// 	cellValue = Ward.getSingleWardName(nurses.getInt(columnNames[i]));
+					// }
+					// else
+					// {
 						cellValue = new Integer(nurses.getInt(columnNames[i]));
-					}
+					// }
 				} else if (columnClasses[i].equals(Double.class.getName())) {
 					cellValue = new Double(nurses.getDouble(columnNames[i]));
 				} else if (columnClasses[i].equals(Date.class.getName())) {
