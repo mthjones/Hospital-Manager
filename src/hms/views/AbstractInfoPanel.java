@@ -60,7 +60,12 @@ public abstract class AbstractInfoPanel extends JPanel {
 	 */
 	public void setEditable(boolean editable) {
 		for (JComponent comp : editableComponents) {
-			comp.setEnabled(editable);
+			if (comp instanceof JTextComponent) {
+				JTextComponent textComp = (JTextComponent)comp;
+				textComp.setEditable(editable);
+			} else {
+				comp.setEnabled(editable);
+			}
 		}
 	}
 	
