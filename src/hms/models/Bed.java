@@ -59,25 +59,4 @@ public class Bed {
 	public String toString() {
 		return "" + this.number;
 	}
-	
-	public static void changeBedAvailability(int bed_id)
-	{
-		try
-		{
-			String availability;
-			ResultSet bedNames = Database.getInstance().executeQuery("SELECT * FROM bed WHERE bedID = " + bed_id);
-			
-			bedNames.first();
-			availability = bedNames.getString("occupied");
-			if(availability.equals("N"))
-				availability = "Y";
-			else if(availability.equals("Y"))
-				availability = "N";
-			
-			Database.getInstance().executeUpdate("UPDATE bed SET occupied = '" + availability + "' WHERE bedID = " + bed_id);
-			
-		}
-		catch(SQLException e){} // Do nothing
-	}
-
 }
