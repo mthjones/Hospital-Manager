@@ -108,45 +108,6 @@ public class Patient implements AbstractModel {
 				Priority.fromInteger(patient.getInt(20)));
 	}
 
-	public static Patient[] findByName(String name) throws SQLException {
-		ResultSet patientSet = Database.getInstance().executeQuery("SELECT * FROM patient WHERE name = '" + Encryptor.encode(name) + "'");
-		patientSet.last();
-		int numPatients = 0;
-		if(patientSet.getRow() == 0) {
-			return null;
-		} else {
-			numPatients = patientSet.getRow();
-			patientSet.first();
-		}
-		Patient [] patients = new Patient[numPatients];
-
-		for(int i = 0; i < numPatients; i++) {
-			patients[i] = new Patient(
-					Encryptor.decode(patientSet.getString(1)), 
-					Encryptor.decode(patientSet.getString(2)), 
-					Encryptor.decode(patientSet.getString(3)),
-					Encryptor.decode(patientSet.getString(4)), 
-					Encryptor.decode(patientSet.getString(5)), 
-					Encryptor.decode(patientSet.getString(6)), 
-					Encryptor.decode(patientSet.getString(7)),
-					patientSet.getDate(8), 
-					Encryptor.decode(patientSet.getString(9)), 
-					Encryptor.decode(patientSet.getString(10)), 
-					Encryptor.decode(patientSet.getString(11)),
-					Encryptor.decode(patientSet.getString(12)), 
-					Encryptor.decode(patientSet.getString(13)), 
-					Encryptor.decode(patientSet.getString(14)), 
-					Encryptor.decode(patientSet.getString(15)),
-					patientSet.getBoolean(16), 
-					patientSet.getInt(17), 
-					patientSet.getInt(18), 
-					patientSet.getInt(19), 
-					Priority.fromInteger(patientSet.getInt(20)));
-			patientSet.next();
-		}
-		return patients;
-	}
-
 	/**
 	 * Tries to save the patient to the database. Returns true on a successful save or false
 	 * if the save fails for any reason.
