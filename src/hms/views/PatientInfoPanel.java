@@ -208,7 +208,7 @@ public class PatientInfoPanel extends AbstractInfoPanel {
 		}
 		maleButton.setSelected(false);
 		femaleButton.setSelected(false);
-		wardDropdown.setSelectedItem("Hospital");
+		wardDropdown.setSelectedIndex(0);
 		roomDropdown.removeAllItems();
 		bedDropdown.removeAllItems();
 		priorityDropdown.setSelectedItem(Priority.HIGH);
