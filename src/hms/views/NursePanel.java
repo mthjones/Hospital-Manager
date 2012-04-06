@@ -89,10 +89,15 @@ public class NursePanel extends JPanel implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("create")) {
-			NurseView nView = new NurseView(nursesTableModel);
-			nView.frame.setVisible(true);
+			new InfoDialog(SwingUtilities.windowForComponent(this), "Create Nurse", new NurseInfoPanel());
+			this.nursesTableModel.fireTableDataChanged();
 		} else if (e.getActionCommand().equals("edit")) {
-			// Broken
+			try {
+				NurseInfoPanel editPanel = new NurseInfoPanel();
+				editPanel.loadInformation(getSelectedNurse());
+				new InfoDialog(SwingUtilities.windowForComponent(this), "Edit Nurse", editPanel);
+			} catch (SQLException sqle) {}
+			this.nursesTableModel.fireTableDataChanged();
 		} else if (e.getActionCommand().equals("delete")) {
 			if (JOptionPane.showConfirmDialog(this, "Delete selected nurse?", "Delete nurse", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION) {
 				try {
