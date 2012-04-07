@@ -92,6 +92,7 @@ public class PatientPanel extends JPanel implements ActionListener {
 		
 		searchButton.setActionCommand("search");
 		searchButton.addActionListener(this);
+		
 		searchField.addFocusListener(new FocusListener () {
 
 			@Override
