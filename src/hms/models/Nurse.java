@@ -55,25 +55,6 @@ public class Nurse implements AbstractModel {
 	}
 
 	/**
-	 * Finds all nurses and returns them as in nurse objects. If
-	 * no nurses exist, null is returned
-	 * @return Nurse if found, or null if there arent any
-	 */
-	public static Vector<Nurse> findAllNurses() throws SQLException{
-		ResultSet nurse = Database.getInstance().executeQuery("SELECT * FROM nurse");
-		if (nurse == null) return null;
-		nurse.first();
-		Vector<Nurse> nurses = new Vector<Nurse>();
-		while(!nurse.isLast()){
-			nurses.add(new Nurse(nurse.getString(1), nurse.getString(2), nurse.getString(3), nurse.getString(4), 
-					nurse.getString(5), nurse.getString(6), Integer.parseInt(nurse.getString(7)), nurse.getString(8), 
-					Integer.parseInt(nurse.getString(9)), Integer.parseInt(nurse.getString(10)), Encryptor.decode(nurse.getString(11)) ));
-			if(!nurse.next()) return null;
-		}
-		return nurses;
-	}
-
-	/**
 	 * Tries to save the nurse to the database. Returns true on a successful save or false
 	 * if the save fails for any reason.
 	 * @return true if the save is successful; false otherwise
@@ -99,24 +80,6 @@ public class Nurse implements AbstractModel {
 	public boolean delete() throws SQLException {
 		try {
 			int nurse = Database.getInstance().executeUpdate("DELETE FROM nurse WHERE id_number = '" + this.id_number + "'");
-			if (nurse == 0) {
-				return false;
-			}
-			return true;
-		} catch (SQLException sqle) {
-			return false;
-		}
-	}
-
-	/**
-	 * Tries to delete the nurse specified from idNumber from the database. Returns true on a 
-	 * successful delete or false if the delete fails.
-	 * @param idNumber
-	 * @return true if successful, false otherwise.
-	 */
-	public static boolean deleteFromInteger(int idNumber) {
-		try {
-			int nurse = Database.getInstance().executeUpdate("DELETE FROM nurse WHERE id_number = '" + idNumber + "'");
 			if (nurse == 0) {
 				return false;
 			}
