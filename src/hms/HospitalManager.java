@@ -1,23 +1,16 @@
 package hms;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 import java.sql.SQLException;
 
 import hms.util.Database;
-import hms.views.*;
-import hms.controllers.LoginController;
+import hms.views.ApplicationFrame;
 
 class HospitalManager implements Runnable
 {
 	public void run() {
 		try {
 			final ApplicationFrame appFrame = new ApplicationFrame();
-			final LoginController loginController = new LoginController();
-			final LoginView loginView = new LoginView(appFrame, loginController);
-			loginView.show();
-			appFrame.setVisible(true);
 		} catch (IndexOutOfBoundsException e) {}
 	}
 	

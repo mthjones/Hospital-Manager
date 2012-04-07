@@ -3,6 +3,8 @@ package hms.views;
 import javax.swing.*;
 import java.awt.*;
 
+import hms.controllers.LoginController;
+
 public class ApplicationFrame extends JFrame {
 	private static final String TITLE = "Hospital Manager";
 	private static final Image ICON = new ImageIcon("/icon.png").getImage();
@@ -11,6 +13,10 @@ public class ApplicationFrame extends JFrame {
 		super(TITLE);
 		initUI();
 		configureWindow();
+		final LoginController loginController = new LoginController();
+		final LoginView loginView = new LoginView(this, loginController);
+		loginView.show();
+		this.setVisible(true);
 	}
 	
 	/**
