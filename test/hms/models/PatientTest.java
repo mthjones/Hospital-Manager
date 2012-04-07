@@ -1,4 +1,4 @@
-package hms.models;
+/*package hms.models;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -121,4 +121,4 @@ public class PatientTest {
 	// 	patient1.delete();
 	// 	patient2.delete();
 	// }
-}
+}*/
