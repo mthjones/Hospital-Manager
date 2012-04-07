@@ -8,14 +8,16 @@ import hms.controllers.LoginController;
 public class ApplicationFrame extends JFrame {
 	private static final String TITLE = "Hospital Manager";
 	private static final Image ICON = new ImageIcon("/icon.png").getImage();
+	private boolean adminAuthLevel;
 	
 	public ApplicationFrame() {
 		super(TITLE);
-		initUI();
-		configureWindow();
 		final LoginController loginController = new LoginController();
 		final LoginView loginView = new LoginView(this, loginController);
 		loginView.show();
+		adminAuthLevel = loginController.getIsAdminAuthorized();
+		initUI();
+		configureWindow();
 		this.setVisible(true);
 	}
 	
@@ -25,7 +27,9 @@ public class ApplicationFrame extends JFrame {
 	private void initUI() {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.addTab("Patients", new PatientPanel());
-		tabbedPane.addTab("Nurses", new NursePanel());
+		if (adminAuthLevel) {
+			tabbedPane.addTab("Nurses", new NursePanel());
+		}
 		getContentPane().add(tabbedPane);
 	}
 	
