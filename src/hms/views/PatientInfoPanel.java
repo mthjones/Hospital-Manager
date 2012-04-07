@@ -264,8 +264,6 @@ public class PatientInfoPanel extends AbstractInfoPanel {
 	 */
 	public AbstractModel modelFromInformation() {
 		try {
-			Room selectedRoom = (Room)roomDropdown.getSelectedItem();
-			Bed selectedBed = (Bed)bedDropdown.getSelectedItem();
 			return new Patient(healthcareNumberField.getText(),
 							   nameField.getText(),
 							   phoneField.getText(),
@@ -282,9 +280,9 @@ public class PatientInfoPanel extends AbstractInfoPanel {
 							   emergencyPhoneField.getText(),
 							   emergencyEmailField.getText(),
 							   inHospitalCheckbox.isSelected(),
-							   wardDropdown.getSelectedIndex(),
-							   selectedRoom.getNumber(),
-							   selectedBed.getNumber(),
+							   (Ward)wardDropdown.getSelectedItem(),
+							   (Room)roomDropdown.getSelectedItem(),
+							   (Bed)bedDropdown.getSelectedItem(),
 							   (Priority)priorityDropdown.getSelectedItem());
 		} catch (ParseException pe) {
 			return null;

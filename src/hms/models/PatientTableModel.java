@@ -119,9 +119,9 @@ public class PatientTableModel extends AbstractTableModel {
 									  Encryptor.decode(patientsResult.getString(14)), 
 									  Encryptor.decode(patientsResult.getString(15)),
 									  patientsResult.getBoolean(16), 
-									  patientsResult.getInt(17), 
-									  patientsResult.getInt(18), 
-									  patientsResult.getInt(19), 
+									  Ward.find(patientsResult.getInt(17)), 
+									  Room.find(patientsResult.getInt(18)), 
+									  Bed.find(patientsResult.getInt(19)), 
 									  Priority.fromInteger(patientsResult.getInt(20))));
 		}
 		

@@ -23,9 +23,9 @@ public class Patient implements AbstractModel {
 	private String emerg_phone_number;
 	private String emerg_email;
 	private boolean in_hospital;
-	private int ward_id;
-	private int room_id;
-	private int bed_id;
+	private Ward ward;
+	private Room room;
+	private Bed bed;
 	private Priority priority;
 	static final String RESERVED_TEST_NAME = "Forbidden Name";
 
@@ -45,9 +45,9 @@ public class Patient implements AbstractModel {
 			String emerg_phone_number, 
 			String emerg_email,
 			boolean in_hospital,
-			int ward,
-			int room,
-			int bed,
+			Ward ward,
+			Room room,
+			Bed bed,
 			Priority priority) {
 		this.name = name;
 		this.phone_number = phone_number;
@@ -65,9 +65,9 @@ public class Patient implements AbstractModel {
 		this.emerg_phone_number = emerg_phone_number;
 		this.emerg_email = emerg_email;
 		this.in_hospital = in_hospital;
-		this.ward_id = ward;
-		this.room_id = room;
-		this.bed_id = bed;
+		this.ward = ward;
+		this.room = room;
+		this.bed = bed;
 		this.priority = priority;
 	}
 
@@ -102,9 +102,9 @@ public class Patient implements AbstractModel {
 				Encryptor.decode(patient.getString(14)), 
 				Encryptor.decode(patient.getString(15)),
 				patient.getBoolean(16), 
-				patient.getInt(17), 
-				patient.getInt(18), 
-				patient.getInt(19), 
+				Ward.find(patient.getInt(17)), 
+				Room.find(patient.getInt(18)), 
+				Bed.find(patient.getInt(19)), 
 				Priority.fromInteger(patient.getInt(20)));
 	}
 
@@ -135,9 +135,9 @@ public class Patient implements AbstractModel {
 				Encryptor.encode(this.emerg_phone_number) + "','" + 
 				Encryptor.encode(this.emerg_email) + "','"+
 				this.in_hospital + "','" + 
-				this.ward_id + "','" + 
-				this.room_id + "','" + 
-				this.bed_id + "','" +
+				this.ward.getID() + "','" + 
+				this.room.getNumber() + "','" + 
+				this.bed.getNumber() + "','" +
 				this.priority.toInteger() + "')");
 		this.getBed().setOccupied(true);
 		return true;
@@ -230,14 +230,14 @@ public class Patient implements AbstractModel {
 	}
 	
 	public Ward getWard() {
-		return Ward.find(this.ward_id);
+		return this.ward;
 	}
 	
 	public Room getRoom() {
-		return Room.find(room_id);
+		return this.room;
 	}
 	
 	public Bed getBed() {
-		return Bed.find(bed_id);
+		return this.bed;
 	}
 }
