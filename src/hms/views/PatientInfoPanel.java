@@ -220,38 +220,42 @@ public class PatientInfoPanel extends AbstractInfoPanel {
 	 * @param patient The patient to take the information from.
 	 */
 	public void loadInformation(AbstractModel modelToLoad) {
-		Patient patient = (Patient)modelToLoad;
+		final Patient patient = (Patient)modelToLoad;
 		storedModel = patient;
-		final Patient finalPatient = patient;
-		nameField.setText(finalPatient.getName());
-		phoneField.setText(finalPatient.getPhoneNumber());
-		emailField.setText(finalPatient.getEmail());
-		healthcareNumberField.setText(finalPatient.getHealthcareNumber());
-		addressField.setText(finalPatient.getAddress());
-		birthdateField.setText(birthdateFormat.format(finalPatient.getBirthdate()));
-		emergencyNameField.setText(finalPatient.getEmergencyName());
-		emergencyPhoneField.setText(finalPatient.getEmergencyPhoneNumber());
-		emergencyEmailField.setText(finalPatient.getEmergencyEmail());
-		medicationsField.setText(finalPatient.getMedications());
-		specialCareField.setText(finalPatient.getSpecialCare());
-		historyField.setText(finalPatient.getHistory());
-		commentsField.setText(finalPatient.getComments());
-		if (finalPatient.getGender().equals("M")) {
-			maleButton.setSelected(true);
-			femaleButton.setSelected(false);
-		} else {
-			maleButton.setSelected(false);
-			femaleButton.setSelected(true);
-		}
-		wardDropdown.setSelectedItem(finalPatient.getWard());
-		roomDropdown.setSelectedItem(finalPatient.getRoom());
-		bedDropdown.addItem(finalPatient.getBed());
-		bedDropdown.setSelectedItem(finalPatient.getBed());
-		priorityDropdown.setSelectedItem(finalPatient.getPriority());
-		inHospitalCheckbox.setSelected(finalPatient.getInHospital());
-		// Editing the healthcare # causes saving and deleting issues
-		healthcareNumberField.setEditable(false);
-		healthcareNumberField.setEnabled(false);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				nameField.setText(patient.getName());
+				phoneField.setText(patient.getPhoneNumber());
+				emailField.setText(patient.getEmail());
+				healthcareNumberField.setText(patient.getHealthcareNumber());
+				addressField.setText(patient.getAddress());
+				birthdateField.setText(birthdateFormat.format(patient.getBirthdate()));
+				emergencyNameField.setText(patient.getEmergencyName());
+				emergencyPhoneField.setText(patient.getEmergencyPhoneNumber());
+				emergencyEmailField.setText(patient.getEmergencyEmail());
+				medicationsField.setText(patient.getMedications());
+				specialCareField.setText(patient.getSpecialCare());
+				historyField.setText(patient.getHistory());
+				commentsField.setText(patient.getComments());
+				if (patient.getGender().equals("M")) {
+					maleButton.setSelected(true);
+					femaleButton.setSelected(false);
+				} else {
+					maleButton.setSelected(false);
+					femaleButton.setSelected(true);
+				}
+				wardDropdown.setSelectedItem(patient.getWard());
+				roomDropdown.setSelectedItem(patient.getRoom());
+				bedDropdown.addItem(patient.getBed());
+				bedDropdown.setSelectedItem(patient.getBed());
+				priorityDropdown.setSelectedItem(patient.getPriority());
+				inHospitalCheckbox.setSelected(patient.getInHospital());
+				// Editing the healthcare # causes saving and deleting issues
+				healthcareNumberField.setEditable(false);
+				healthcareNumberField.setEnabled(false);
+			}
+		});
 	}
 	
 	/**
