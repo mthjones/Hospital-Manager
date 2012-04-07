@@ -31,8 +31,8 @@ public class InfoDialog {
 		initUI();
 		
 		this.dialog.setMinimumSize(new Dimension(400, 0));
-		this.dialog.setResizable(false);
 		this.dialog.pack();
+		this.dialog.setSize(new Dimension(400, parent.getSize().height));
 		this.dialog.setLocationRelativeTo(parent);
 		this.dialog.setVisible(true);
 	}
@@ -69,7 +69,8 @@ public class InfoDialog {
 		});
 		
 		contentPane.setLayout(new MigLayout("", "[grow,fill]"));
-		contentPane.add(this.panel, "wrap, growx");
+		JScrollPane scrollPane = new JScrollPane(panel);
+		contentPane.add(scrollPane, "wrap, growx");
 		contentPane.add(createButtonPanel());
 	}
 
