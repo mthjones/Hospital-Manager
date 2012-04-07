@@ -57,7 +57,10 @@ public class InfoDialog {
 			public void actionPerformed(ActionEvent e) {
 				if (panel.validateInformation()) {
 					try {
-						panel.getStoredModel().delete();
+						AbstractModel storedModel = panel.getStoredModel();
+						if (storedModel != null) {
+							storedModel.delete();
+						}
 						panel.modelFromInformation().create();
 					} catch (SQLException sqle) {}
 					close();
