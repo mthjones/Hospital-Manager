@@ -1,6 +1,3 @@
-/**
- * Code adapted from http://www.pioverpi.net/2009/07/02/jtables-jdbc-pt-4-putting-it-all-together/
- */
 package hms.models;
 
 import javax.swing.table.AbstractTableModel;
