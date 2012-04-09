@@ -66,8 +66,8 @@ public class NurseTableModelTest {
 		try {
 			ResultSet nurseResults = Database.getInstance().executeQuery("SELECT COUNT(*) FROM nurse");
 			nurseResults.next();
-			int patientCount = nurseResults.getInt(1);
-			assertEquals(this.ntm.getRowCount(), patientCount);
+			int nurseCount = nurseResults.getInt(1);
+			assertEquals(this.ntm.getRowCount(), nurseCount);
 		} catch (SQLException sqle) {
 			
 		}
