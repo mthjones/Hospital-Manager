@@ -1,4 +1,4 @@
-package hms.integrationIteration1;
+package hms.integration;
 
 import static org.junit.Assert.*;
 import hms.*;
@@ -8,7 +8,7 @@ import hms.views.*;
 
 import org.junit.Test;
 
-public class IntegrationTest {
+public class Iteration1IntegrationTest {
 	
 	//tests for login system.  These tests were performed manually
     
