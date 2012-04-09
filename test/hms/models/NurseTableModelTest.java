@@ -64,10 +64,11 @@ public class NurseTableModelTest {
 	@Test
 	public void rowCount() {
 		try {
+			int tmCount = this.ntm.getRowCount();
 			ResultSet nurseResults = Database.getInstance().executeQuery("SELECT COUNT(*) FROM nurse");
 			nurseResults.next();
-			int nurseCount = nurseResults.getInt(1);
-			assertEquals(this.ntm.getRowCount(), nurseCount);
+			int dbCount = nurseResults.getInt(1);
+			assertEquals(tmCount, dbCount);
 		} catch (SQLException sqle) {
 			
 		}
