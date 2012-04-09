@@ -94,7 +94,7 @@ public class Nurse implements AbstractModel {
 	 * 
 	 * @return String IDNumber
 	 */
-	public static int generateIDNumber(){
+	public synchronized static int generateIDNumber(){
 		int id = 1;
 
 		try {
