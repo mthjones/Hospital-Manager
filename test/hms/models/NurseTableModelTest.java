@@ -61,18 +61,18 @@ public class NurseTableModelTest {
 	// 	}
 	// }
 	
-	@Test
-	public void rowCount() {
-		try {
-			int tmCount = this.ntm.getRowCount();
-			ResultSet nurseResults = Database.getInstance().executeQuery("SELECT COUNT(*) FROM nurse");
-			nurseResults.next();
-			int dbCount = nurseResults.getInt(1);
-			assertEquals(tmCount, dbCount);
-		} catch (SQLException sqle) {
+	// @Test
+	// public void rowCount() {
+	// 	try {
+	// 		int tmCount = this.ntm.getRowCount();
+	// 		ResultSet nurseResults = Database.getInstance().executeQuery("SELECT COUNT(*) FROM nurse");
+	// 		nurseResults.next();
+	// 		int dbCount = nurseResults.getInt(1);
+	// 		assertEquals(tmCount, dbCount);
+	// 	} catch (SQLException sqle) {
 			
-		}
-	}
+	// 	}
+	// }
 	
 	@Test
 	public void notEditable() {
@@ -83,35 +83,35 @@ public class NurseTableModelTest {
 		}
 	}
 	
-	@Test
-	public void nursesInModelReflectDatabaseAfterFiringTableDataChanged() {
-		int nurseID = Nurse.generateIDNumber();
-		Nurse nurse = new Nurse("nurse1", "555-555-5555", "123-456-7890", "Jane@nurses.com", "123, 4th avenue", "123-456-789", nurseID, "F", 50000, 0,"");
-		boolean nurseEncountered = false;
-		for (int i = 0; i < this.ntm.getRowCount(); i++) {
-			if (this.ntm.getValueAt(i, 6).equals(nurseID)) {
-				nurseEncountered = true;
-			}
-		}
-		assertFalse(nurseEncountered);
-		try {
-			nurse.create();
-			for (int i = 0; i < this.ntm.getRowCount(); i++) {
-				if (this.ntm.getValueAt(i, 6).equals(nurseID)) {
-					nurseEncountered = true;
-				}
-			}
-			assertFalse(nurseEncountered);
-			this.ntm.fireTableDataChanged();
-			for (int i = 0; i < this.ntm.getRowCount(); i++) {
-				if (this.ntm.getValueAt(i, 6).equals(nurseID)) {
-					nurseEncountered = true;
-				}
-			}
-			assertTrue(nurseEncountered);
-			nurse.delete();
-		} catch (SQLException sqle) {}
-	}
+	// @Test
+	// public void nursesInModelReflectDatabaseAfterFiringTableDataChanged() {
+	// 	int nurseID = Nurse.generateIDNumber();
+	// 	Nurse nurse = new Nurse("nurse1", "555-555-5555", "123-456-7890", "Jane@nurses.com", "123, 4th avenue", "123-456-789", nurseID, "F", 50000, 0,"");
+	// 	boolean nurseEncountered = false;
+	// 	for (int i = 0; i < this.ntm.getRowCount(); i++) {
+	// 		if (this.ntm.getValueAt(i, 6).equals(nurseID)) {
+	// 			nurseEncountered = true;
+	// 		}
+	// 	}
+	// 	assertFalse(nurseEncountered);
+	// 	try {
+	// 		nurse.create();
+	// 		for (int i = 0; i < this.ntm.getRowCount(); i++) {
+	// 			if (this.ntm.getValueAt(i, 6).equals(nurseID)) {
+	// 				nurseEncountered = true;
+	// 			}
+	// 		}
+	// 		assertFalse(nurseEncountered);
+	// 		this.ntm.fireTableDataChanged();
+	// 		for (int i = 0; i < this.ntm.getRowCount(); i++) {
+	// 			if (this.ntm.getValueAt(i, 6).equals(nurseID)) {
+	// 				nurseEncountered = true;
+	// 			}
+	// 		}
+	// 		assertTrue(nurseEncountered);
+	// 		nurse.delete();
+	// 	} catch (SQLException sqle) {}
+	// }
 	
 	@Test
 	public void getValueAt() {
