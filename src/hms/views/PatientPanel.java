@@ -52,6 +52,8 @@ public class PatientPanel extends JPanel implements ActionListener {
 		refreshButton.setActionCommand("refresh");
 		refreshButton.addActionListener(this);
 		
+		
+		
 		patientsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
@@ -91,6 +93,21 @@ public class PatientPanel extends JPanel implements ActionListener {
 		searchButton.setActionCommand("search");
 		searchButton.addActionListener(this);
 		
+		searchField.addFocusListener(new FocusListener () {
+
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				searchButton.getRootPane().setDefaultButton(searchButton);
+			}
+
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				searchButton.getRootPane().setDefaultButton(null);
+				
+			}
+
+		});
+		
 		clearButton.setActionCommand("clear");
 		clearButton.addActionListener(this);
 		
@@ -119,6 +136,9 @@ public class PatientPanel extends JPanel implements ActionListener {
 		
 		this.add(createSplitPane(), "push, grow, wrap");
 		this.add(createButtonPanel(), "growx");
+
+		
+		
 	}
 	
 	/**
