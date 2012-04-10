@@ -32,7 +32,7 @@ public class InfoDialog {
 		
 		this.dialog.setMinimumSize(new Dimension(400, 0));
 		this.dialog.pack();
-		this.dialog.setSize(new Dimension(400, parent.getSize().height));
+		this.dialog.setSize(new Dimension(400, Math.min(parent.getSize().height, this.dialog.getSize().height)));
 		this.dialog.setLocationRelativeTo(parent);
 		this.dialog.setVisible(true);
 	}
