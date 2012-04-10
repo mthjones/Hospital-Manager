@@ -6,10 +6,9 @@ import static org.junit.Assert.*;
 import javax.swing.*;
 import java.sql.SQLException;
 
-import hms.controllers.LoginController;
-import hms.views.LoginView;
-import hms.util.Database;
-import hms.models.User;
+import hms.views.*;
+import hms.util.*;
+import hms.models.*;
 
 public class LoginControllerTest {
 	@Test
@@ -20,18 +19,6 @@ public class LoginControllerTest {
 		loginController.login("Invalid user", "Invalid pass");
 		assertEquals(loginView.getErrorMessage(), "Invalid login");
 	}
-	
-	// @Test
-	// public void test_databaseErrorSetsDatabaseErrorErrorMessage() {
-	// 	LoginController loginController = new LoginController();
-	// 	LoginView loginView = new LoginView(loginController);
-	// 	loginController.setView(loginView);
-		
-	// 	// Simulate database connection error?
-		
-	// 	loginController.login("Hello", "World");
-	// 	assertEquals(loginView.getErrorMessage(), "Database error");
-	// }
 	
 	@Test
 	public void test_dialogClosedOnSuccessfulLogin() throws SQLException {
@@ -54,5 +41,47 @@ public class LoginControllerTest {
 		
 		loginController.login("Invalid user", "Invalid pass");
 		assertTrue(loginView.getDialog().isDisplayable());
+	}
+		
+	@Test
+	public void test_canLoginWithNurse() throws SQLException {
+		Nurse nurse = new Nurse("","","","","","",Nurse.generateIDNumber(),"",0,0,"password");
+		nurse.create();
+		
+		LoginController loginController = new LoginController();
+		LoginView loginView = new LoginView(null, loginController);
+		
+		loginController.login(Integer.toString(nurse.getID()), nurse.getPassword());
+		assertFalse(loginView.getDialog().isDisplayable());
+		
+		nurse.delete();
+	}
+	
+	@Test
+	public void test_nurseLoginIsNotAdminAuthorized() throws SQLException {
+		Nurse nurse = new Nurse("","","","","","",Nurse.generateIDNumber(),"",0,0,"password");
+		nurse.create();
+		
+		LoginController loginController = new LoginController();
+		LoginView loginView = new LoginView(null, loginController);
+		
+		loginController.login(Integer.toString(nurse.getID()), nurse.getPassword());
+		assertFalse(loginController.getIsAdminAuthorized());
+		
+		nurse.delete();
+	}
+	
+	@Test
+	public void test_userLoginIsAdminAuthorized() throws SQLException {
+		User test_user = new User("test", "testpass");
+		test_user.create();
+		
+		LoginController loginController = new LoginController();
+		LoginView loginView = new LoginView(null, loginController);
+		
+		loginController.login("test", "testpass");
+		assertTrue(loginController.getIsAdminAuthorized());
+		
+		test_user.delete();
 	}
 }
