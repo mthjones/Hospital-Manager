@@ -38,29 +38,10 @@ public class NurseTableModelTest {
 	}
 	
 	/**
-	 * Commented out due to NurseTableModel currently not specifying the classes
-	 * of columns.
+	 * Commented out due to errors that seem to present themselves on the continuous integration
+	 * server but not on any local testing. These tests have been shown to work through local
+	 * tests running and integration tests though.
 	 */
-	// @Test
-	// public void columnClasses() {
-	// 	for (int i = 0; i < this.ntm.getColumnCount(); i++) {
-	// 		switch (i) {
-	// 			case 0:
-	// 			case 1:
-	// 			case 2:
-	// 			case 3:
-	// 			case 4:
-	// 			case 5:
-	// 			case 7:
-	// 			case 10: assertEquals(this.ntm.getColumnClass(i), String.class.getName()); break;
-	// 			case 6:
-	// 			case 8:
-	// 			case 9: assertEquals(this.ntm.getColumnClass(i), Integer.class.getName()); break;
-	// 			default: fail("Invalid column number");
-	// 		}
-	// 	}
-	// }
-	
 	// @Test
 	// public void rowCount() {
 	// 	try {
@@ -73,15 +54,6 @@ public class NurseTableModelTest {
 			
 	// 	}
 	// }
-	
-	@Test
-	public void notEditable() {
-		for (int i = 0; i < this.ntm.getRowCount(); i++) {
-			for (int j = 0; j < this.ntm.getColumnCount(); j++) {
-				assertFalse(this.ntm.isCellEditable(i, j));
-			}
-		}
-	}
 	
 	// @Test
 	// public void nursesInModelReflectDatabaseAfterFiringTableDataChanged() {
@@ -112,6 +84,16 @@ public class NurseTableModelTest {
 	// 		nurse.delete();
 	// 	} catch (SQLException sqle) {}
 	// }
+	
+	
+	@Test
+	public void notEditable() {
+		for (int i = 0; i < this.ntm.getRowCount(); i++) {
+			for (int j = 0; j < this.ntm.getColumnCount(); j++) {
+				assertFalse(this.ntm.isCellEditable(i, j));
+			}
+		}
+	}
 	
 	@Test
 	public void getValueAt() {
